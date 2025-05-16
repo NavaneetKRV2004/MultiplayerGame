@@ -1,0 +1,143 @@
+[gd_scene load_steps=9 format=3 uid="uid://dkvia6jjy6cv4"]
+
+[ext_resource type="Script" uid="uid://b7i8a84scp0xq" path="res://Main logic/titlescreen.gd" id="1_3wotu"]
+[ext_resource type="Texture2D" uid="uid://bwd61mwex4gj8" path="res://UI/buttons (1).png" id="2_2bjoa"]
+[ext_resource type="StyleBox" uid="uid://cyap5lsbo81cr" path="res://UI/panel.tres" id="2_8pdex"]
+[ext_resource type="PackedScene" uid="uid://c8t0iaaiqq0t" path="res://Main logic/options2.tscn" id="2_vsoxy"]
+
+[sub_resource type="Theme" id="Theme_8pdex"]
+
+[sub_resource type="Theme" id="Theme_hxypl"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8pdex"]
+atlas = ExtResource("2_2bjoa")
+region = Rect2(25, 115, 350, 79)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hxypl"]
+atlas = ExtResource("2_2bjoa")
+region = Rect2(22, 17, 356, 85)
+
+[node name="Node2D" type="Control"]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(10, 10)
+script = ExtResource("1_3wotu")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+theme = SubResource("Theme_8pdex")
+
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/Control"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -225.0
+offset_top = -313.0
+offset_right = 225.0
+offset_bottom = 293.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_hxypl")
+theme_override_styles/panel = ExtResource("2_8pdex")
+
+[node name="VSeparator" type="VBoxContainer" parent="CanvasLayer/Control/PanelContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/separation = 13
+
+[node name="Button" type="TextureButton" parent="CanvasLayer/Control/PanelContainer/VSeparator"]
+custom_minimum_size = Vector2(250, 50)
+layout_mode = 2
+texture_normal = SubResource("AtlasTexture_8pdex")
+texture_hover = SubResource("AtlasTexture_hxypl")
+
+[node name="Label" type="Label" parent="CanvasLayer/Control/PanelContainer/VSeparator/Button"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Play"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button2" type="TextureButton" parent="CanvasLayer/Control/PanelContainer/VSeparator"]
+custom_minimum_size = Vector2(250, 50)
+layout_mode = 2
+texture_normal = SubResource("AtlasTexture_8pdex")
+texture_hover = SubResource("AtlasTexture_hxypl")
+
+[node name="Label" type="Label" parent="CanvasLayer/Control/PanelContainer/VSeparator/Button2"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Server"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button4" type="TextureButton" parent="CanvasLayer/Control/PanelContainer/VSeparator"]
+custom_minimum_size = Vector2(250, 50)
+layout_mode = 2
+texture_normal = SubResource("AtlasTexture_8pdex")
+texture_hover = SubResource("AtlasTexture_hxypl")
+
+[node name="Label2" type="Label" parent="CanvasLayer/Control/PanelContainer/VSeparator/Button4"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Glossary"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button5" type="TextureButton" parent="CanvasLayer/Control/PanelContainer/VSeparator"]
+custom_minimum_size = Vector2(250, 50)
+layout_mode = 2
+texture_normal = SubResource("AtlasTexture_8pdex")
+texture_hover = SubResource("AtlasTexture_hxypl")
+
+[node name="Label3" type="Label" parent="CanvasLayer/Control/PanelContainer/VSeparator/Button5"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Settings"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Control2" parent="CanvasLayer" instance=ExtResource("2_vsoxy")]
+visible = false
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 0.0
+offset_bottom = 0.0
+scale = Vector2(1.66, 1.66)
+
+[connection signal="button_down" from="CanvasLayer/Control/PanelContainer/VSeparator/Button" to="." method="client"]
+[connection signal="button_down" from="CanvasLayer/Control/PanelContainer/VSeparator/Button2" to="." method="server"]

@@ -1,0 +1,278 @@
+[gd_scene load_steps=12 format=3 uid="uid://wb7vesffp3ca"]
+
+[ext_resource type="Script" path="res://world.gd" id="1_dlbds"]
+[ext_resource type="PackedScene" uid="uid://glyqs4h5x4v1" path="res://chat.tscn" id="2_bscmi"]
+[ext_resource type="PackedScene" uid="uid://dbe5b64d4tcvn" path="res://items/shield.tscn" id="4_tkfp1"]
+[ext_resource type="PackedScene" uid="uid://dv7g2vp8vgx6m" path="res://items/spawner.tscn" id="10_sc2jn"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ahkoa"]
+sky_top_color = Color(0.101961, 0.180392, 0.309804, 1)
+sky_horizon_color = Color(0.0117647, 0.737255, 0.827451, 1)
+sky_curve = 0.0609192
+ground_bottom_color = Color(0.207843, 0.423529, 0.247059, 1)
+ground_horizon_color = Color(0.376471, 0.721569, 0.709804, 1)
+ground_curve = 0.113137
+
+[sub_resource type="Sky" id="Sky_1gwru"]
+sky_material = SubResource("ProceduralSkyMaterial_ahkoa")
+
+[sub_resource type="Environment" id="Environment_yynv8"]
+background_mode = 2
+background_color = Color(0.419608, 0.647059, 0.972549, 1)
+sky = SubResource("Sky_1gwru")
+ssao_enabled = true
+glow_enabled = true
+
+[sub_resource type="Gradient" id="Gradient_ye2wn"]
+colors = PackedColorArray(0.32549, 0.564706, 0.980392, 1, 0.0470588, 0.254902, 0.607843, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_vjlfk"]
+gradient = SubResource("Gradient_ye2wn")
+width = 512
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_uybb1"]
+albedo_color = Color(1, 1, 0, 1)
+metallic_specular = 0.0
+roughness = 0.0
+emission_enabled = true
+emission = Color(1, 0.866667, 0.396078, 1)
+emission_energy_multiplier = 6.16
+
+[sub_resource type="SphereMesh" id="SphereMesh_dmxec"]
+height = 0.001
+radial_segments = 20
+rings = 1
+is_hemisphere = true
+
+[node name="Node3D" type="Node3D"]
+script = ExtResource("1_dlbds")
+iplabel = null
+ren = null
+timeperiod = null
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_yynv8")
+
+[node name="TextureRect" type="TextureRect" parent="WorldEnvironment"]
+visible = false
+offset_right = 40.0
+offset_bottom = 40.0
+texture = SubResource("GradientTexture1D_vjlfk")
+
+[node name="DebugDetails" type="RichTextLabel" parent="."]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -390.0
+offset_right = 471.0
+offset_bottom = -4.0
+grow_vertical = 0
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -37.1519, 22.442, 11.8897)
+light_energy = 12.797
+shadow_enabled = true
+omni_range = 218.634
+
+[node name="sun" type="Node3D" parent="."]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="sun"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -0.26181, 352.314, 0)
+sky_mode = 1
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="sun/DirectionalLight3D"]
+transform = Transform3D(100, 4.65556e-07, -7.70342e-09, -4.45652e-09, -5.60284e-06, -100, -4.88103e-07, 100, -4.64916e-06, -0.848907, -0.0248837, -1.78549)
+material_override = SubResource("StandardMaterial3D_uybb1")
+cast_shadow = 0
+mesh = SubResource("SphereMesh_dmxec")
+
+[node name="Control" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TabBar" type="TabContainer" parent="Control/Control"]
+layout_mode = 2
+anchor_left = 0.0355903
+anchor_top = 0.0540123
+anchor_right = 0.491319
+anchor_bottom = 0.554012
+metadata/_edit_use_anchors_ = true
+
+[node name="Online Server" type="Panel" parent="Control/Control/TabBar"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Control/Control/TabBar/Online Server"]
+layout_mode = 0
+offset_left = 34.0
+offset_top = 16.0
+offset_right = 170.0
+offset_bottom = 39.0
+text = "No servers online"
+
+[node name="button" type="CheckButton" parent="Control/Control/TabBar/Online Server"]
+layout_mode = 0
+offset_left = 37.0
+offset_top = 63.0
+offset_right = 210.0
+offset_bottom = 94.0
+text = "hbuhbjhbbjhbhj"
+
+[node name="Direct" type="Panel" parent="Control/Control/TabBar"]
+visible = false
+layout_mode = 2
+
+[node name="Direct" type="VBoxContainer" parent="Control/Control/TabBar/Direct"]
+layout_mode = 1
+offset_left = 52.0
+offset_top = 68.0
+offset_right = 456.0
+offset_bottom = 118.0
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="Control/Control/TabBar/Direct/Direct"]
+layout_mode = 2
+alignment = 1
+
+[node name="join" type="Button" parent="Control/Control/TabBar/Direct/Direct/HBoxContainer2"]
+custom_minimum_size = Vector2(100, 50)
+layout_mode = 2
+text = "CHECK"
+
+[node name="TextEdit" type="TextEdit" parent="Control/Control/TabBar/Direct/Direct/HBoxContainer2"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 15
+placeholder_text = "Enter Host Address
+"
+
+[node name="server details" type="Panel" parent="Control/Control"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.0355903
+anchor_top = 0.589506
+anchor_right = 0.491319
+anchor_bottom = 0.938272
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 8
+size_flags_vertical = 4
+metadata/_edit_use_anchors_ = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/Control/server details"]
+layout_mode = 2
+offset_left = 58.0
+offset_top = 24.0
+offset_right = 464.0
+offset_bottom = 199.0
+size_flags_horizontal = 4
+theme_override_constants/separation = 14
+
+[node name="world name" type="HBoxContainer" parent="Control/Control/server details/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Control/Control/server details/VBoxContainer/world name"]
+layout_mode = 2
+text = "World Name:"
+
+[node name="TextEdit2" type="TextEdit" parent="Control/Control/server details/VBoxContainer/world name"]
+clip_contents = true
+custom_minimum_size = Vector2(300, 40)
+layout_mode = 2
+theme_override_font_sizes/font_size = 17
+editable = false
+
+[node name="players online" type="HBoxContainer" parent="Control/Control/server details/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Control/Control/server details/VBoxContainer/players online"]
+layout_mode = 2
+text = "Players Online:"
+
+[node name="TextEdit" type="TextEdit" parent="Control/Control/server details/VBoxContainer/players online"]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+editable = false
+scroll_fit_content_height = true
+
+[node name="ping" type="HBoxContainer" parent="Control/Control/server details/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Control/Control/server details/VBoxContainer/ping"]
+layout_mode = 2
+text = "Ping:"
+
+[node name="TextEdit" type="TextEdit" parent="Control/Control/server details/VBoxContainer/ping"]
+custom_minimum_size = Vector2(50, 30)
+layout_mode = 2
+text = "789"
+editable = false
+scroll_fit_content_height = true
+
+[node name="join" type="Button" parent="Control/Control/server details/VBoxContainer"]
+layout_mode = 2
+text = "JOIN
+"
+
+[node name="Character customisation" type="Panel" parent="Control/Control"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.517361
+anchor_top = 0.0540123
+anchor_right = 0.960938
+anchor_bottom = 0.938272
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="HBoxContainer5" type="HBoxContainer" parent="Control/Control/Character customisation"]
+layout_mode = 2
+offset_left = 1.0
+offset_top = 31.0
+offset_right = 407.0
+offset_bottom = 71.0
+
+[node name="Label" type="Label" parent="Control/Control/Character customisation/HBoxContainer5"]
+layout_mode = 2
+text = "Player Name:"
+
+[node name="TextEdit2" type="TextEdit" parent="Control/Control/Character customisation/HBoxContainer5"]
+clip_contents = true
+custom_minimum_size = Vector2(250, 40)
+layout_mode = 2
+theme_override_font_sizes/font_size = 17
+placeholder_text = "Enter Player name"
+wrap_mode = 1
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="Control/Control/Character customisation"]
+
+[node name="Label" type="Label" parent="Control/Control/Character customisation/HBoxContainer3"]
+layout_mode = 2
+text = "Player vs Player"
+
+[node name="CheckButton" type="CheckButton" parent="Control/Control/Character customisation/HBoxContainer3"]
+layout_mode = 2
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("res://main character.tscn", "res://basic_enemy.tscn")
+spawn_path = NodePath("..")
+
+[node name="chat" parent="." instance=ExtResource("2_bscmi")]
+offset_left = 838.0
+offset_top = -246.0
+offset_right = 1153.0
+offset_bottom = -30.0
+
+[node name="items" parent="." instance=ExtResource("10_sc2jn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.48792, 43.9935, 63.061)
+
+[node name="shield" parent="." instance=ExtResource("4_tkfp1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 103.292, 0)
+
+[connection signal="button_down" from="Control/Control/TabBar/Direct/Direct/HBoxContainer2/join" to="." method="_on_direct_join_button_down"]
+[connection signal="button_down" from="Control/Control/server details/VBoxContainer/join" to="." method="join_world"]

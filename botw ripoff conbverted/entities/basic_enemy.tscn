@@ -1,0 +1,107 @@
+[gd_scene load_steps=13 format=3 uid="uid://5a3ord0kx8ab"]
+
+[ext_resource type="Script" uid="uid://c1evdqn4npkhb" path="res://enemies.gd" id="1_q0dtv"]
+[ext_resource type="PackedScene" uid="uid://b5jum0m25eq1l" path="res://healthbar.tscn" id="2_26acj"]
+[ext_resource type="Texture2D" uid="uid://caf1xun7r26m1" path="res://IMG_20230418_161824.jpg" id="2_hyba3"]
+[ext_resource type="Texture2D" uid="uid://doy784ms3xxwn" path="res://IMG_20230418_161826.jpg" id="3_h2uwv"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_5qf5y"]
+height = 3.00434
+
+[sub_resource type="BoxMesh" id="BoxMesh_wrf4d"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6i52k"]
+uv1_scale = Vector3(2.073, 2.073, 2.073)
+uv1_offset = Vector3(0.404, 0, 0)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_wtps5"]
+animations = [{
+"frames": [],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_hyba3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_h2uwv")
+}],
+"loop": true,
+"name": &"new_animation",
+"speed": 5.0
+}]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_7xjyu"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_7e5p1"]
+emission_shape = 2
+emission_sphere_radius = 0.5
+direction = Vector3(0, 1, 0)
+spread = 30.0
+initial_velocity_min = 10.0
+initial_velocity_max = 10.0
+color = Color(1, 0, 0, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hniir"]
+albedo_color = Color(1, 0, 0, 1)
+metallic = 0.74
+
+[sub_resource type="SphereMesh" id="SphereMesh_ucjgy"]
+material = SubResource("StandardMaterial3D_hniir")
+radius = 0.1
+height = 0.2
+radial_segments = 7
+rings = 7
+
+[node name="Enemy" type="CharacterBody3D"]
+script = ExtResource("1_q0dtv")
+healthbar = NodePath("Node3D")
+MAX_HEALTH = 50.0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_5qf5y")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(-3.4323e-08, 0, 1, 0, 2.39145, 0, -0.785219, 0, -4.37114e-08, -0.000634337, 0, 0.000672307)
+mesh = SubResource("BoxMesh_wrf4d")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 0.800487, 0, -1, 0, -4.37114e-08, -0.000634337, 1.82993, 0.000672307)
+mesh = SubResource("BoxMesh_wrf4d")
+surface_material_override/0 = SubResource("StandardMaterial3D_6i52k")
+
+[node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="MeshInstance3D2"]
+transform = Transform3D(-2.96034e-09, 0, 0.0699999, 0, 0.0562705, 0, -0.0677246, 0, -3.05979e-09, 0.517019, 0.0149899, 0)
+flip_h = true
+sprite_frames = SubResource("SpriteFrames_wtps5")
+animation = &"new_animation"
+frame = 1
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="."]
+transform = Transform3D(-2.41186e-08, 0, 0.495419, 0, 1.58603, 0, -0.551769, 0, -2.16554e-08, 0.860209, 0.340691, -0.0494008)
+mesh = SubResource("BoxMesh_wrf4d")
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="."]
+transform = Transform3D(-2.41186e-08, 0, 0.495419, 0, 1.58603, 0, -0.551769, 0, -2.16554e-08, -0.858306, 0.340691, 0.0505609)
+mesh = SubResource("BoxMesh_wrf4d")
+
+[node name="Node3D" parent="." instance=ExtResource("2_26acj")]
+transform = Transform3D(-1.71527e-07, 0, 1, 0, 0.673712, 0, -3.92407, 0, -4.37114e-08, -0.000634337, 2.57274, 0.000672307)
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_7xjyu")
+
+[node name="blood" type="GPUParticles3D" parent="."]
+emitting = false
+amount = 30
+lifetime = 0.2
+one_shot = true
+explosiveness = 0.18
+visibility_aabb = AABB(-3.00993, -4, -3.51707, 6.01986, 8, 7.03414)
+process_material = SubResource("ParticleProcessMaterial_7e5p1")
+draw_pass_1 = SubResource("SphereMesh_ucjgy")

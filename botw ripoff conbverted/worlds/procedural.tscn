@@ -1,0 +1,52 @@
+[gd_scene load_steps=12 format=3 uid="uid://b46o1qanlhtdw"]
+
+[ext_resource type="Script" uid="uid://x25fgf5udpy2" path="res://worlds/preceduralland.gd" id="1_1euhn"]
+[ext_resource type="Shader" uid="uid://bnamfjrkywaku" path="res://worlds/procedural.gdshader" id="2_i138i"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_nl8gy"]
+noise_type = 4
+fractal_type = 0
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_6ft2j"]
+noise_type = 0
+seed = 9
+fractal_type = 0
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_in8nj"]
+
+[sub_resource type="Gradient" id="Gradient_tegv8"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(0, 0.894118, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_l3u2s"]
+gradient = SubResource("Gradient_tegv8")
+
+[sub_resource type="Gradient" id="Gradient_8nk4t"]
+colors = PackedColorArray(0.254902, 0.705882, 0.235294, 0.996078, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_seqh1"]
+gradient = SubResource("Gradient_8nk4t")
+width = 2
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jye20"]
+render_priority = 0
+shader = ExtResource("2_i138i")
+shader_parameter/ft = SubResource("GradientTexture1D_l3u2s")
+shader_parameter/gy = SubResource("GradientTexture1D_seqh1")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_2m2o7"]
+
+[node name="Node3D" type="StaticBody3D"]
+collision_layer = 3
+collision_mask = 3
+script = ExtResource("1_1euhn")
+noise = SubResource("FastNoiseLite_nl8gy")
+mountains = SubResource("FastNoiseLite_6ft2j")
+
+[node name="CollisionShape" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_in8nj")
+
+[node name="MeshInstance" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.999999, 0, 0, 0, 1, 0, 0, 0)
+material_override = SubResource("ShaderMaterial_jye20")
+mesh = SubResource("PlaneMesh_2m2o7")

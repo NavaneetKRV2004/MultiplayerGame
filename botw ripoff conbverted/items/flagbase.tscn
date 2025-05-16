@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=3 uid="uid://dxpd4td0jmyik"]
+
+[ext_resource type="Script" uid="uid://cjgl7tndejdor" path="res://flagbase.gd" id="1_qjook"]
+[ext_resource type="PackedScene" uid="uid://de6lp5nkn8o1l" path="res://flag.tscn" id="2_t6v6x"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_es12w"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_wi7kn"]
+size = Vector3(1.9777, 4.07757, 1.97414)
+
+[node name="flagbase" type="Node3D"]
+script = ExtResource("1_qjook")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1.71768, 0, 0, 0, 0.273024, 0, 0, 0, 1.79904, 0, 0, 0)
+mesh = SubResource("BoxMesh_es12w")
+
+[node name="area" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="area"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.34271, 0)
+shape = SubResource("BoxShape3D_wi7kn")
+
+[node name="flag" parent="." instance=ExtResource("2_t6v6x")]
+
+[connection signal="area_entered" from="area" to="." method="_on_area_area_entered"]

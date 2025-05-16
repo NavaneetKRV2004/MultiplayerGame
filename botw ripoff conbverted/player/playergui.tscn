@@ -1,0 +1,195 @@
+[gd_scene load_steps=7 format=3 uid="uid://dg3jx6uy8pufy"]
+
+[ext_resource type="Script" uid="uid://ct64xrlcl3ro7" path="res://player/playerui.gd" id="1_lftyd"]
+[ext_resource type="Texture2D" uid="uid://gssp04lgsps7" path="res://UI/hotbaricon.png" id="4_sk3ik"]
+[ext_resource type="Texture2D" uid="uid://cf6wkjm1oltcq" path="res://UI/hotbaricon (1).png" id="5_lphdg"]
+
+[sub_resource type="Animation" id="Animation_j7jtd"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:alpha")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:flickering")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_hq1kj"]
+resource_name = "flicker"
+length = 0.65
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:alpha")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [1.0, 0.0, 1.0, 0.0, 1.0, 0.0, 1.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:flickering")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.65),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_r6tbc"]
+_data = {
+&"RESET": SubResource("Animation_j7jtd"),
+&"flicker": SubResource("Animation_hq1kj")
+}
+
+[node name="Node2D" type="Node2D"]
+texture_filter = 2
+scale = Vector2(2.5, 2.5)
+script = ExtResource("1_lftyd")
+flickering = true
+
+[node name="screen" type="CanvasLayer" parent="."]
+
+[node name="topright" type="Control" parent="screen"]
+layout_mode = 3
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -339.0
+offset_bottom = 146.0
+grow_horizontal = 0
+
+[node name="center" type="Control" parent="screen"]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -400.5
+offset_top = -223.0
+offset_right = 400.5
+offset_bottom = 223.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+
+[node name="Control4" type="Control" parent="screen"]
+layout_mode = 3
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -29.0
+offset_top = -43.0
+offset_right = 29.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="Panel" type="Panel" parent="screen/Control4"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -291.0
+offset_top = -87.0
+offset_right = -11.601
+offset_bottom = -47.0
+grow_horizontal = 2
+grow_vertical = 0
+scale = Vector2(2.089, 2.089)
+
+[node name="HSplitContainer" type="HBoxContainer" parent="screen/Control4/Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -134.0
+offset_top = -16.5
+offset_right = 134.0
+offset_bottom = 16.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureButton" type="TextureButton" parent="screen/Control4/Panel/HSplitContainer"]
+layout_mode = 2
+texture_normal = ExtResource("4_sk3ik")
+texture_disabled = ExtResource("5_lphdg")
+
+[node name="TextureButton2" type="TextureButton" parent="screen/Control4/Panel/HSplitContainer"]
+layout_mode = 2
+texture_normal = ExtResource("4_sk3ik")
+texture_disabled = ExtResource("5_lphdg")
+
+[node name="TextureButton3" type="TextureButton" parent="screen/Control4/Panel/HSplitContainer"]
+layout_mode = 2
+texture_normal = ExtResource("4_sk3ik")
+texture_disabled = ExtResource("5_lphdg")
+
+[node name="TextureButton4" type="TextureButton" parent="screen/Control4/Panel/HSplitContainer"]
+layout_mode = 2
+texture_normal = ExtResource("4_sk3ik")
+texture_disabled = ExtResource("5_lphdg")
+
+[node name="TextureButton5" type="TextureButton" parent="screen/Control4/Panel/HSplitContainer"]
+layout_mode = 2
+texture_normal = ExtResource("4_sk3ik")
+texture_disabled = ExtResource("5_lphdg")
+
+[node name="TextureButton6" type="TextureButton" parent="screen/Control4/Panel/HSplitContainer"]
+layout_mode = 2
+texture_normal = ExtResource("4_sk3ik")
+texture_disabled = ExtResource("5_lphdg")
+
+[node name="TextureButton7" type="TextureButton" parent="screen/Control4/Panel/HSplitContainer"]
+layout_mode = 2
+texture_normal = ExtResource("4_sk3ik")
+texture_disabled = ExtResource("5_lphdg")
+
+[node name="TextureButton8" type="TextureButton" parent="screen/Control4/Panel/HSplitContainer"]
+layout_mode = 2
+texture_normal = ExtResource("4_sk3ik")
+texture_disabled = ExtResource("5_lphdg")
+
+[node name="topleft" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 278.0
+offset_bottom = 39.0
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_r6tbc")
+}

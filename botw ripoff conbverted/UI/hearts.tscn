@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://mb6dias3642t"]
+
+[ext_resource type="Texture2D" uid="uid://ds05rilmyvobj" path="res://hearts.png" id="1_ossff"]
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_ossff")
+centered = false
+hframes = 2
+vframes = 3

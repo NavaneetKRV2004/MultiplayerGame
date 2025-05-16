@@ -1,0 +1,25 @@
+[gd_scene load_steps=6 format=3 uid="uid://dp7iu07ha62v4"]
+
+[ext_resource type="Script" uid="uid://d3xmqo1ltw0ol" path="res://cube.gd" id="1_jbd7x"]
+[ext_resource type="Texture2D" uid="uid://bw6j8kcjyg3wj" path="res://icon.svg" id="2_wd2d1"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wd2d1"]
+albedo_texture = ExtResource("2_wd2d1")
+uv1_scale = Vector3(3, 2.025, 3)
+
+[sub_resource type="BoxMesh" id="BoxMesh_xc3wn"]
+lightmap_size_hint = Vector2i(14, 21)
+material = SubResource("StandardMaterial3D_wd2d1")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_jbd7x"]
+
+[node name="cube" type="RigidBody3D"]
+script = ExtResource("1_jbd7x")
+inventory_texture = ExtResource("2_wd2d1")
+stackable = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_xc3wn")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_jbd7x")

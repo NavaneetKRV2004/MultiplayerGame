@@ -1,0 +1,1 @@
+{"Joystick Sensitivity":5,"Limit Fps":60,"Mouse Sensitivity":150}

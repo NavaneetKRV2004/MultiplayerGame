@@ -1,0 +1,325 @@
+[gd_scene load_steps=14 format=3 uid="uid://wb7vesffp3ca"]
+
+[ext_resource type="Script" uid="uid://dp4obh6mf73et" path="res://worlds/world_client.gd" id="1_8w78s"]
+[ext_resource type="StyleBox" uid="uid://cyap5lsbo81cr" path="res://UI/panel.tres" id="2_h3vma"]
+[ext_resource type="PackedScene" uid="uid://glyqs4h5x4v1" path="res://UI/chat.tscn" id="3_cadv0"]
+[ext_resource type="PackedScene" uid="uid://dbe5b64d4tcvn" path="res://items/shield.tscn" id="4_jlq55"]
+[ext_resource type="Script" uid="uid://ki08hmotyq03" path="res://Main logic/http.gd" id="5_dajfp"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ahkoa"]
+sky_top_color = Color(0.0363737, 0.00140555, 0.207638, 1)
+sky_horizon_color = Color(0.0281854, 0.832876, 0.933737, 1)
+sky_curve = 1.02838
+ground_bottom_color = Color(0.207843, 0.423529, 0.247059, 1)
+ground_horizon_color = Color(0.376471, 0.721569, 0.709804, 1)
+ground_curve = 0.113137
+
+[sub_resource type="Sky" id="Sky_1gwru"]
+sky_material = SubResource("ProceduralSkyMaterial_ahkoa")
+
+[sub_resource type="Environment" id="Environment_yynv8"]
+background_mode = 2
+background_color = Color(0.419608, 0.647059, 0.972549, 1)
+sky = SubResource("Sky_1gwru")
+ssao_enabled = true
+glow_enabled = true
+
+[sub_resource type="Gradient" id="Gradient_ye2wn"]
+colors = PackedColorArray(0.32549, 0.564706, 0.980392, 1, 0.0470588, 0.254902, 0.607843, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_vjlfk"]
+gradient = SubResource("Gradient_ye2wn")
+width = 512
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_uybb1"]
+albedo_color = Color(1, 1, 0, 1)
+metallic_specular = 0.0
+roughness = 0.0
+emission_enabled = true
+emission = Color(1, 0.866667, 0.396078, 1)
+emission_energy_multiplier = 6.16
+
+[sub_resource type="SphereMesh" id="SphereMesh_dmxec"]
+height = 0.001
+radial_segments = 20
+rings = 1
+is_hemisphere = true
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_036b0"]
+
+[node name="Node3D" type="Node3D" node_paths=PackedStringArray("label_server_name", "label_ping", "label_players_count", "iptextbox", "check", "chat")]
+script = ExtResource("1_8w78s")
+label_server_name = NodePath("Control/Control/HBoxContainer/VBoxContainer/server details/VBoxContainer/GridContainer/TextEdit2")
+label_ping = NodePath("Control/Control/HBoxContainer/VBoxContainer/server details/VBoxContainer/GridContainer/TextEdit")
+label_players_count = NodePath("Control/Control/HBoxContainer/VBoxContainer/server details/VBoxContainer/GridContainer/TextEdit3")
+iptextbox = NodePath("Control/Control/HBoxContainer/VBoxContainer/TabBar/Direct/Direct/HBoxContainer2/TextEdit")
+check = NodePath("Control/Control/HBoxContainer/VBoxContainer/TabBar/Direct/Direct/HBoxContainer2/check")
+chat = NodePath("chat")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_yynv8")
+
+[node name="TextureRect" type="TextureRect" parent="WorldEnvironment"]
+visible = false
+offset_right = 40.0
+offset_bottom = 40.0
+texture = SubResource("GradientTexture1D_vjlfk")
+
+[node name="DebugDetails" type="RichTextLabel" parent="."]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -390.0
+offset_right = 471.0
+offset_bottom = -4.0
+grow_vertical = 0
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -37.1519, 22.442, 11.8897)
+light_energy = 12.797
+shadow_enabled = true
+omni_range = 218.634
+
+[node name="sun" type="Node3D" parent="."]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="sun"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -0.26181, 352.314, 0)
+sky_mode = 1
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="sun/DirectionalLight3D"]
+transform = Transform3D(100, 4.65556e-07, -7.70342e-09, -4.45652e-09, -5.60284e-06, -100, -4.88103e-07, 100, -4.64916e-06, -0.848907, -0.0248837, -1.78549)
+visible = false
+material_override = SubResource("StandardMaterial3D_uybb1")
+cast_shadow = 0
+mesh = SubResource("SphereMesh_dmxec")
+
+[node name="Control" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 174.0
+offset_top = 131.0
+offset_right = -126.0
+offset_bottom = -161.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/Control/HBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="TabBar" type="TabContainer" parent="Control/Control/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/side_margin = 0
+theme_override_styles/panel = SubResource("StyleBoxEmpty_036b0")
+current_tab = 0
+metadata/_edit_use_anchors_ = true
+
+[node name="Direct" type="PanelContainer" parent="Control/Control/HBoxContainer/VBoxContainer/TabBar"]
+layout_mode = 2
+theme_override_styles/panel = ExtResource("2_h3vma")
+metadata/_tab_index = 0
+
+[node name="Direct" type="VBoxContainer" parent="Control/Control/HBoxContainer/VBoxContainer/TabBar/Direct"]
+layout_mode = 2
+alignment = 1
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="Control/Control/HBoxContainer/VBoxContainer/TabBar/Direct/Direct"]
+layout_mode = 2
+alignment = 1
+
+[node name="check" type="Button" parent="Control/Control/HBoxContainer/VBoxContainer/TabBar/Direct/Direct/HBoxContainer2"]
+custom_minimum_size = Vector2(100, 50)
+layout_mode = 2
+text = "CHECK"
+
+[node name="TextEdit" type="TextEdit" parent="Control/Control/HBoxContainer/VBoxContainer/TabBar/Direct/Direct/HBoxContainer2"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 15
+placeholder_text = "  Enter Host Address
+"
+emoji_menu_enabled = false
+
+[node name="Online Server" type="PanelContainer" parent="Control/Control/HBoxContainer/VBoxContainer/TabBar"]
+visible = false
+layout_mode = 2
+theme_override_styles/panel = ExtResource("2_h3vma")
+metadata/_tab_index = 1
+
+[node name="Label" type="Label" parent="Control/Control/HBoxContainer/VBoxContainer/TabBar/Online Server"]
+layout_mode = 2
+text = "No servers online"
+
+[node name="server details" type="PanelContainer" parent="Control/Control/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = ExtResource("2_h3vma")
+metadata/_edit_use_anchors_ = true
+metadata/_edit_group_ = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/Control/HBoxContainer/VBoxContainer/server details"]
+layout_mode = 2
+
+[node name="GridContainer" type="GridContainer" parent="Control/Control/HBoxContainer/VBoxContainer/server details/VBoxContainer"]
+layout_mode = 2
+columns = 2
+
+[node name="Label" type="RichTextLabel" parent="Control/Control/HBoxContainer/VBoxContainer/server details/VBoxContainer/GridContainer"]
+layout_direction = 2
+layout_mode = 2
+bbcode_enabled = true
+text = "World Name:"
+fit_content = true
+
+[node name="TextEdit2" type="RichTextLabel" parent="Control/Control/HBoxContainer/VBoxContainer/server details/VBoxContainer/GridContainer"]
+custom_minimum_size = Vector2(300, 40)
+layout_mode = 2
+bbcode_enabled = true
+text = "-"
+fit_content = true
+autowrap_mode = 0
+text_direction = 1
+
+[node name="TextEdit4" type="RichTextLabel" parent="Control/Control/HBoxContainer/VBoxContainer/server details/VBoxContainer/GridContainer"]
+custom_minimum_size = Vector2(300, 40)
+layout_mode = 2
+bbcode_enabled = true
+text = "Players Online:"
+fit_content = true
+autowrap_mode = 0
+text_direction = 1
+
+[node name="TextEdit3" type="RichTextLabel" parent="Control/Control/HBoxContainer/VBoxContainer/server details/VBoxContainer/GridContainer"]
+custom_minimum_size = Vector2(300, 40)
+layout_mode = 2
+bbcode_enabled = true
+text = "-"
+
+[node name="Label3" type="RichTextLabel" parent="Control/Control/HBoxContainer/VBoxContainer/server details/VBoxContainer/GridContainer"]
+layout_mode = 2
+text = "Ping:"
+
+[node name="TextEdit" type="RichTextLabel" parent="Control/Control/HBoxContainer/VBoxContainer/server details/VBoxContainer/GridContainer"]
+custom_minimum_size = Vector2(50, 30)
+layout_mode = 2
+text = "-"
+scroll_active = false
+
+[node name="join" type="Button" parent="Control/Control/HBoxContainer/VBoxContainer/server details/VBoxContainer"]
+layout_mode = 2
+text = "JOIN
+"
+
+[node name="Character customisation" type="PanelContainer" parent="Control/Control/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = ExtResource("2_h3vma")
+metadata/_edit_use_anchors_ = true
+metadata/_edit_group_ = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/Control/HBoxContainer/Character customisation"]
+layout_mode = 2
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="Control/Control/HBoxContainer/Character customisation/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 3
+
+[node name="SubViewport" type="SubViewport" parent="Control/Control/HBoxContainer/Character customisation/VBoxContainer/SubViewportContainer"]
+handle_input_locally = false
+size = Vector2i(200, 300)
+render_target_update_mode = 4
+
+[node name="GridContainer" type="GridContainer" parent="Control/Control/HBoxContainer/Character customisation/VBoxContainer"]
+layout_direction = 2
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+columns = 2
+
+[node name="Label" type="Label" parent="Control/Control/HBoxContainer/Character customisation/VBoxContainer/GridContainer"]
+layout_mode = 2
+text = "Player Name:"
+
+[node name="TextEdit2" type="TextEdit" parent="Control/Control/HBoxContainer/Character customisation/VBoxContainer/GridContainer"]
+custom_minimum_size = Vector2(250, 40)
+layout_mode = 2
+theme_override_font_sizes/font_size = 17
+placeholder_text = "Enter Player name"
+wrap_mode = 1
+
+[node name="Label6" type="Label" parent="Control/Control/HBoxContainer/Character customisation/VBoxContainer/GridContainer"]
+layout_mode = 2
+text = "Hair:"
+
+[node name="ColorPickerButton3" type="ColorPickerButton" parent="Control/Control/HBoxContainer/Character customisation/VBoxContainer/GridContainer"]
+layout_mode = 2
+edit_alpha = false
+
+[node name="Label2" type="Label" parent="Control/Control/HBoxContainer/Character customisation/VBoxContainer/GridContainer"]
+layout_mode = 2
+text = "Skin:"
+
+[node name="ColorPickerButton" type="ColorPickerButton" parent="Control/Control/HBoxContainer/Character customisation/VBoxContainer/GridContainer"]
+layout_mode = 2
+text = "drhxtxdfh"
+color = Color(1, 1, 1, 1)
+edit_alpha = false
+
+[node name="Label3" type="Label" parent="Control/Control/HBoxContainer/Character customisation/VBoxContainer/GridContainer"]
+layout_mode = 2
+text = "Pants"
+
+[node name="ColorPickerButton2" type="ColorPickerButton" parent="Control/Control/HBoxContainer/Character customisation/VBoxContainer/GridContainer"]
+layout_mode = 2
+text = "drhxtxdfh"
+color = Color(1, 1, 1, 1)
+edit_alpha = false
+
+[node name="Label4" type="Label" parent="Control/Control/HBoxContainer/Character customisation/VBoxContainer/GridContainer"]
+layout_mode = 2
+text = "Face:"
+
+[node name="OptionButton" type="OptionButton" parent="Control/Control/HBoxContainer/Character customisation/VBoxContainer/GridContainer"]
+layout_mode = 2
+
+[node name="Label5" type="Label" parent="Control/Control/HBoxContainer/Character customisation/VBoxContainer/GridContainer"]
+layout_mode = 2
+text = "Shirt:"
+
+[node name="OptionButton2" type="OptionButton" parent="Control/Control/HBoxContainer/Character customisation/VBoxContainer/GridContainer"]
+layout_mode = 2
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("uid://8xvqvm52qjs3", "uid://5a3ord0kx8ab")
+spawn_path = NodePath("..")
+
+[node name="chat" parent="." instance=ExtResource("3_cadv0")]
+offset_left = 4.0
+offset_top = -189.0
+offset_right = 319.0
+offset_bottom = 27.0
+
+[node name="shield" parent="." instance=ExtResource("4_jlq55")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 103.292, 0)
+
+[node name="HTTPRequest" type="HTTPRequest" parent="."]
+script = ExtResource("5_dajfp")
+
+[connection signal="button_down" from="Control/Control/HBoxContainer/VBoxContainer/TabBar/Direct/Direct/HBoxContainer2/check" to="." method="ping_server"]
+[connection signal="button_down" from="Control/Control/HBoxContainer/VBoxContainer/server details/VBoxContainer/join" to="." method="join_world"]

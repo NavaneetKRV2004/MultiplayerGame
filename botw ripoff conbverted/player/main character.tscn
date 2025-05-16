@@ -1,0 +1,578 @@
+[gd_scene load_steps=27 format=3 uid="uid://8xvqvm52qjs3"]
+
+[ext_resource type="Script" uid="uid://d3lr651m53nfc" path="res://player/main character.gd" id="1_ss7nu"]
+[ext_resource type="Texture2D" uid="uid://d1l3tv3pkg3y2" path="res://UI/New Piskel (1).png" id="2_3yvrl"]
+[ext_resource type="Material" uid="uid://ddxeiqueh33ll" path="res://player/main charactershader.tres" id="2_obcun"]
+[ext_resource type="PackedScene" uid="uid://dg3jx6uy8pufy" path="res://player/playergui.tscn" id="3_de4cc"]
+[ext_resource type="Script" uid="uid://bpcr132m223x5" path="res://player/Camera3D.gd" id="3_xnocw"]
+[ext_resource type="PackedScene" uid="uid://dnea7ljedyc3d" path="res://items/iron_sword.tscn" id="5_g6won"]
+[ext_resource type="PackedScene" uid="uid://d3e72dvup5m0n" path="res://items/trident.tscn" id="6_2woax"]
+[ext_resource type="PackedScene" uid="uid://dbe5b64d4tcvn" path="res://items/shield.tscn" id="6_e64tl"]
+[ext_resource type="PackedScene" uid="uid://blydrmeon16yf" path="res://items/bow.tscn" id="7_6b548"]
+[ext_resource type="AudioStream" uid="uid://dy364o0kpjoco" path="res://audio/clean-fast-swooshaiff-14784.mp3" id="8_rr61b"]
+[ext_resource type="PackedScene" uid="uid://b5jum0m25eq1l" path="res://entities/healthbar.tscn" id="9_w5jlg"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_6sp1s"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_4dinu"]
+
+[sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_d88ye"]
+dof_blur_far_distance = 200.0
+dof_blur_near_enabled = true
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_r5yjw"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_w0835"]
+
+[sub_resource type="Animation" id="Animation_6nn4w"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("armjoint2:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.271518, 0.0320353, -0.286503)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("armjoint2/hand:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.844854, -1.49012e-07, 3.57628e-07)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("armjoint2/hand:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-0.265541, 1.36806, -0.0522532)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("armjoint:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, -0.0183259)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("armjoint/hand:rotation")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("armjoint/hand:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.844854, -5.96046e-08, 1.78814e-07)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("bow placement:position")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-0.595927, 0.332829, 0)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("bow placement:rotation")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-2.18557e-08, -1.5708, -0.523599)]
+}
+tracks/8/type = "method"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("armjoint/hand")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"show"
+}]
+}
+tracks/9/type = "method"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath(".")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"attack"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_67cxi"]
+resource_name = "attack_h"
+length = 0.65
+tracks/0/type = "rotation_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("armjoint")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 0, 0, -0.00916286, 0.999958, 0.2, 1, -0.702966, 0.0764162, 0.0764162, 0.702965, 0.3, 1, -0.543322, -0.45255, -0.45255, 0.543322, 0.5, 1, 0, 0, 0, 1)
+tracks/1/type = "rotation_3d"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("armjoint/hand")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = PackedFloat32Array(0, 1, 0, 0, 0, 1, 0.2, 1, 0, 0, 0, 1, 0.3, 1, 2.57653e-15, 2.21727e-08, -0.507253, 0.861797, 0.5, 1, 0, 0, 0, 1)
+tracks/2/type = "rotation_3d"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("armjoint2")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = PackedFloat32Array(0, 1, 0.131673, 0.0350265, -0.143576, 0.980215, 0.3, 1, 0.0564268, 0.456444, -0.186461, 0.868163, 0.5, 1, 0.131673, 0.0350265, -0.143576, 0.980215)
+tracks/3/type = "rotation_3d"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("armjoint2/hand")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = PackedFloat32Array(0, 1, -0.118927, 0.623466, 0.0635572, 0.770134, 0.4, 1, -0.118927, 0.623466, 0.0635572, 0.770134)
+tracks/4/type = "method"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath(".")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.0329172, 0.64),
+"transitions": PackedFloat32Array(1, 1, 1),
+"values": [{
+"args": [true],
+"method": &"attack"
+}, {
+"args": [],
+"method": &"attacksound"
+}, {
+"args": [false],
+"method": &"attack"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_7ux1u"]
+resource_name = "attack"
+length = 0.81
+tracks/0/type = "rotation_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("armjoint")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 0, 0, -0.00916286, 0.999958, 0.0637329, 1, 0, 0, 0.432786, 0.901497, 0.3, 1, 0, 0, -0.578776, 0.815487, 0.7, 1, 0, 0, -0.578776, 0.815487, 0.8, 1, 0, 0, 0, 1)
+tracks/1/type = "rotation_3d"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("armjoint/hand")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = PackedFloat32Array(0, 1, 0, 0, 0, 1, 0.8, 1, 0, 0, 0, 1)
+tracks/2/type = "rotation_3d"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("armjoint2/hand")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = PackedFloat32Array(0, 1, -0.118927, 0.623466, 0.0635572, 0.770134, 0.8, 1, -0.118927, 0.623466, 0.0635572, 0.770134)
+tracks/3/type = "rotation_3d"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("armjoint2")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = PackedFloat32Array(0, 1, 0.131673, 0.0350265, -0.143576, 0.980215, 0.8, 1, 0.131673, 0.0350265, -0.143576, 0.980215)
+tracks/4/type = "method"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath(".")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.8),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": [true, 2.0],
+"method": &"attack"
+}, {
+"args": [false],
+"method": &"attack"
+}]
+}
+tracks/5/type = "method"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("AudioStreamPlayer3D")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0.1),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [0.0],
+"method": &"play"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_llaro"]
+resource_name = "bow"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("bow placement:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(-0.595927, 0.332829, 0), Vector3(1.2733, 1.22666, 0.49606)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("bow placement:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.4, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(-2.18557e-08, -1.5708, -0.523599), Vector3(-0.0270081, -2.35838, 0.0922139), Vector3(-0.0270081, -2.72315, 0.0922139)]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("armjoint/hand")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(),
+"transitions": PackedFloat32Array(),
+"values": []
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("armjoint2/hand:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0.844854, -1.49012e-07, 3.57628e-07), Vector3(-0.730691, -0.0405767, 0.613346)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("armjoint2/hand:rotation")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(-0.265541, 1.36806, -0.0522532), Vector3(0.325649, 3.03106, -0.313956)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("armjoint/hand:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0.844854, -5.96046e-08, 1.78814e-07), Vector3(-0.29154, 0.374121, 0.0299581), Vector3(-0.746644, 1.28732, 0.0998597)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("armjoint/hand:rotation")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(-0.0374489, -0.710633, 0.635082), Vector3(0.019548, -1.56932, 2.43326)]
+}
+tracks/7/type = "method"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath(".")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": [false],
+"method": &"disable_col"
+}, {
+"args": [true],
+"method": &"disable_col"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_ice4r"]
+resource_name = "shield"
+length = 0.2
+tracks/0/type = "rotation_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("armjoint2")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 0.131673, 0.0350265, -0.143576, 0.980215, 0.2, 1, 0, -0.179987, 0, 0.983669)
+tracks/1/type = "rotation_3d"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("armjoint2/hand")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = PackedFloat32Array(0, 1, -0.118927, 0.623467, 0.0635571, 0.770134, 0.2, 1, 0, 0.158158, 0, 0.987414)
+tracks/2/type = "rotation_3d"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("armjoint")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = PackedFloat32Array(0, 1, 0, 0, -0.00916286, 0.999958, 0.2, 1, 0, 0, -0.329699, 0.944086)
+tracks/3/type = "rotation_3d"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("armjoint/hand")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = PackedFloat32Array(0, 1, 0, 0, 0, 1, 0.2, 1, 0, 0, 0.274547, 0.961574)
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_85etg"]
+_data = {
+&"RESET": SubResource("Animation_6nn4w"),
+&"attack_h": SubResource("Animation_67cxi"),
+&"attack_v": SubResource("Animation_7ux1u"),
+&"bow": SubResource("Animation_llaro"),
+&"shield": SubResource("Animation_ice4r")
+}
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_87i4w"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = false
+properties/0/replication_mode = 0
+properties/1/path = NodePath(".:rotation")
+properties/1/spawn = true
+properties/1/replication_mode = 2
+properties/2/path = NodePath("armjoint2:rotation")
+properties/2/spawn = false
+properties/2/replication_mode = 0
+properties/3/path = NodePath("armjoint:rotation")
+properties/3/spawn = false
+properties/3/replication_mode = 0
+properties/4/path = NodePath("armjoint/hand:rotation")
+properties/4/spawn = false
+properties/4/replication_mode = 0
+properties/5/path = NodePath("armjoint2/hand:rotation")
+properties/5/spawn = false
+properties/5/replication_mode = 0
+properties/6/path = NodePath("armjoint/hand:position")
+properties/6/spawn = false
+properties/6/replication_mode = 0
+properties/7/path = NodePath("armjoint2/hand:position")
+properties/7/spawn = false
+properties/7/replication_mode = 0
+properties/8/path = NodePath("body/head:rotation")
+properties/8/spawn = true
+properties/8/replication_mode = 2
+properties/9/path = NodePath(".:position2")
+properties/9/spawn = true
+properties/9/replication_mode = 2
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_7ydae"]
+emission_shape = 2
+emission_sphere_radius = 0.5
+direction = Vector3(0, 1, 0)
+spread = 30.0
+initial_velocity_min = 10.0
+initial_velocity_max = 10.0
+color = Color(1, 0, 0, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hniir"]
+albedo_color = Color(1, 0, 0, 1)
+metallic = 0.74
+
+[sub_resource type="SphereMesh" id="SphereMesh_irev2"]
+material = SubResource("StandardMaterial3D_hniir")
+radius = 0.1
+height = 0.2
+radial_segments = 7
+rings = 7
+
+[node name="player" type="CharacterBody3D" groups=["player"]]
+floor_stop_on_slope = false
+script = ExtResource("1_ss7nu")
+handpos = Vector3(0, 0.077, -0.66)
+
+[node name="body" type="MeshInstance3D" parent="."]
+mesh = SubResource("CapsuleMesh_6sp1s")
+surface_material_override/0 = ExtResource("2_obcun")
+
+[node name="head" type="MeshInstance3D" parent="body"]
+transform = Transform3D(1.31134e-07, 0.416457, -2.83452e-08, 3.82137e-15, 1.82039e-08, 0.648463, 1, -5.46118e-08, 1.23901e-15, 0, 1.23596, 0)
+mesh = SubResource("CylinderMesh_4dinu")
+skeleton = NodePath("../..")
+surface_material_override/0 = ExtResource("2_obcun")
+
+[node name="Camera3D" type="Camera3D" parent="body/head"]
+transform = Transform3D(1, 6.17944e-16, -2.98428e-13, 0, -7.45057e-08, -2.40121, -9.52968e-16, 1.54211, -4.78492e-08, 3.67893e-07, -20.2096, 4.64567)
+attributes = SubResource("CameraAttributesPractical_d88ye")
+script = ExtResource("3_xnocw")
+
+[node name="Arrowpoint" type="Node3D" parent="body/head"]
+transform = Transform3D(1, -6.75016e-14, 9.82942e-16, 8.52651e-14, 1, -1.11759e-08, -5.39385e-15, 1.77636e-14, 1, 0, 3, 0)
+
+[node name="ray" type="RayCast3D" parent="body/head"]
+transform = Transform3D(1, 2.28524e-15, 3.55271e-15, 0, -4.37114e-08, -1, -2.28524e-15, 1, -4.37114e-08, 0, 0, 0)
+target_position = Vector3(0, 0, -15)
+debug_shape_thickness = 5
+
+[node name="player" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_r5yjw")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="crosshair" type="Sprite2D" parent="Control"]
+texture_filter = 1
+texture = ExtResource("2_3yvrl")
+
+[node name="ui" parent="." instance=ExtResource("3_de4cc")]
+position = Vector2(-1.78814e-07, -4.76837e-07)
+
+[node name="armjoint" type="Node3D" parent="."]
+transform = Transform3D(0.999832, 0.0183249, 0, -0.0183249, 0.999832, 0, 0, 0, 1, 0.0494238, 0.4016, 0.665721)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="armjoint"]
+transform = Transform3D(-1.37087e-08, -1, 0, 0.313619, -4.37114e-08, 0, 0, 0, 0.289988, 0.451214, 0, 0)
+mesh = SubResource("BoxMesh_w0835")
+skeleton = NodePath("../../body")
+surface_material_override/0 = ExtResource("2_obcun")
+
+[node name="hand" type="Node3D" parent="armjoint"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.844854, -5.96046e-08, 1.78814e-07)
+
+[node name="iron sword" parent="armjoint/hand" instance=ExtResource("5_g6won")]
+
+[node name="Node3D" parent="armjoint/hand" instance=ExtResource("6_2woax")]
+visible = false
+
+[node name="armjoint2" type="Node3D" parent="."]
+transform = Transform3D(0.956319, 0.290694, 0.0308564, -0.272247, 0.924096, -0.268194, -0.106477, 0.248078, 0.962871, 0.049, 0.402, -0.655)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="armjoint2"]
+transform = Transform3D(-1.37087e-08, -1, 0, 0.313619, -4.37114e-08, 0, 0, 0, 0.289988, 0.451214, 0, 0)
+mesh = SubResource("BoxMesh_w0835")
+skeleton = NodePath("../../body")
+surface_material_override/0 = ExtResource("2_obcun")
+
+[node name="hand" type="Node3D" parent="armjoint2"]
+transform = Transform3D(0.214502, -0.24619, 0.945187, -0.0503988, 0.963635, 0.262431, -0.975423, -0.103928, 0.194293, 0.844854, -1.49012e-07, 3.57628e-07)
+
+[node name="shield" parent="armjoint2/hand" instance=ExtResource("6_e64tl")]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_85etg")
+}
+
+[node name="bow placement" type="Node3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(-3.14593e-06, -1.79107e-06, -1, -0.5, 0.866025, 2.18557e-08, 0.866025, 0.5, -3.61999e-06, -0.595927, 0.332829, 0)
+
+[node name="Node3D" parent="bow placement" instance=ExtResource("7_6b548")]
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("8_rr61b")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_interval = 0.02
+replication_config = SubResource("SceneReplicationConfig_87i4w")
+
+[node name="DebugData" type="Label" parent="."]
+offset_right = 648.0
+offset_bottom = 456.0
+text = "wefwefwfef"
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="."]
+emitting = false
+amount = 30
+lifetime = 0.2
+one_shot = true
+explosiveness = 0.18
+visibility_aabb = AABB(-3.00993, -4, -3.51707, 6.01986, 8, 7.03414)
+process_material = SubResource("ParticleProcessMaterial_7ydae")
+draw_pass_1 = SubResource("SphereMesh_irev2")
+
+[node name="healthbara" parent="." instance=ExtResource("9_w5jlg")]
+transform = Transform3D(3.92407, 0, 0, 0, 0.673712, 0, 0, 0, 1, 0, 2.26202, 0)

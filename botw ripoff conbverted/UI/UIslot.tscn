@@ -1,0 +1,39 @@
+[gd_scene load_steps=4 format=3 uid="uid://ds485qmwg6wg5"]
+
+[ext_resource type="Texture2D" uid="uid://wi2ymfmvaamj" path="res://button_1.png" id="1_5cyn6"]
+[ext_resource type="Texture2D" uid="uid://bxy2m4rdk4n1l" path="res://button_0.png" id="2_c7dot"]
+[ext_resource type="Script" uid="uid://nplvisikyk40" path="res://u_islot.gd" id="3_qitje"]
+
+[node name="slot" type="TextureButton"]
+focus_mode = 0
+texture_normal = ExtResource("1_5cyn6")
+texture_hover = ExtResource("2_c7dot")
+script = ExtResource("3_qitje")
+
+[node name="icon" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -65.0
+offset_top = -65.0
+offset_right = 63.0
+offset_bottom = 63.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.355, 0.355)
+pivot_offset = Vector2(64, 64)
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 77.0
+offset_top = 104.0
+offset_right = 123.0
+offset_bottom = 130.0
+text = "nil
+"
+horizontal_alignment = 2
+
+[connection signal="button_down" from="." to="." method="_on_button_down"]

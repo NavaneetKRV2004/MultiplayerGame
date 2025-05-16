@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=3 uid="uid://b4oaolptg2mti"]
+
+[ext_resource type="Texture2D" uid="uid://c0lsnx86a47sf" path="res://GRASS.jpg" id="1_fc4ov"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_1pm7v"]
+size = Vector3(199.501, 1, 200.611)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rmdmf"]
+diffuse_mode = 3
+albedo_texture = ExtResource("1_fc4ov")
+metallic = 1.0
+uv1_scale = Vector3(3, 3, 3)
+texture_filter = 1
+
+[sub_resource type="BoxMesh" id="BoxMesh_2sufc"]
+
+[node name="Node3D" type="StaticBody3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_1pm7v")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(200, 0, 0, 0, 0.984, 0, 0, 0, 200, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_rmdmf")
+cast_shadow = 0
+mesh = SubResource("BoxMesh_2sufc")
