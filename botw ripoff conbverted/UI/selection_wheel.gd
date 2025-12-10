@@ -1,7 +1,8 @@
-@tool
+
 extends Control
 class_name selection_wheel
-signal selected(index)
+signal selected(index:int)
+@export var inventory:Inventory=null
 @export var trigger_action:String="ui_select"
 @export var items_count:int=1
 @export_range(0.0, 1.0,0.1) var offset_percentage:float
@@ -14,44 +15,44 @@ signal selected(index)
 @export_range(0.0, 1.0,0.1) var transparency:float
 @export var AA:bool=true
 @export var image_scale:float=1
-@export var items:Array[Node]
 @export var select_color:Color
+var pictures:Array=[]
 var step_angle:float
-var t=preload("res://icon.svg")
+
 var angles=[]
 var temp
 var select:int=0
 func _ready() -> void:
-	hide()
+	
+	visibility_changed.connect(visibilty_changed_reaction)
 	step_angle=2*PI/items_count
+	
 	for j in range(items_count):
 		var icon=TextureRect.new()
+		var lab=Label.new()
 		icon.position=(0.5+offset_percentage/2.0)*radius*Vector2(sin(step_angle*(j+0.5)),-cos(step_angle*(j+0.5)))
 		add_child(icon)
-		icon.name="icon"+str(items_count)
-		icon.texture=t
-		icon.pivot_offset=icon.size/2.0
-		icon.scale=Vector2(image_scale,image_scale)/10.0
+		icon.add_child(lab)
+		lab.position=Vector2(100,100)
+		lab.scale=Vector2(3,3)
+		pictures.append(icon)
+		icon.pivot_offset=Vector2(-64,-64)
+		icon.scale=Vector2(image_scale,image_scale)/2.0
+	assign_pictures()
 		
 		
+	
+	
+func visibilty_changed_reaction():
+	if visible:
+		assign_pictures()
+	else:
+		emit_signal("selected",select)
 	
 func _process(delta: float) -> void:
-	queue_redraw()
-	if Input.is_action_just_pressed(trigger_action):
-		show()
-		
-		
-		pass
-	if Input.is_action_just_released(trigger_action):
-		emit_signal("selected",select)
-		hide()
-		
-		
-		
-	
-	
+	if visible:
+		queue_redraw()
 func _draw() -> void:
-
 	step_angle=2*PI/items_count
 	
 	
@@ -73,3 +74,14 @@ func _draw() -> void:
 
 func angle_to_mouse() -> float:
 	return PI+Vector2(0,1).angle_to(get_local_mouse_position())
+func assign_pictures():
+	if not inventory:
+		return
+	for i in range(len(pictures)):
+		if inventory.getItemAt(i):
+			pictures[i].texture=inventory.getItemAt(i).inventory_texture
+			pictures[i].get_child(0).text=str(inventory.inventory[i].count)
+		else:
+			pictures[i].texture=null
+			pictures[i].get_child(0).text=""
+				

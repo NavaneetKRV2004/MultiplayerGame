@@ -12,4 +12,4 @@ func got_info(result, response_code, headers, body):
 	json.parse(body.get_string_from_utf8())
 	var data = json.get_data()
 # Will print the user agent string used by the HTTPRequest node (as recognized by httpbin.org).
-	print(data)
+	g.p(data,self,g.DEBUG_MESSAGES_TYPE.LOGIN)

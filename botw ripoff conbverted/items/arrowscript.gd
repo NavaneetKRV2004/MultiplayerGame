@@ -1,44 +1,35 @@
 extends items
+class_name Arrow
 
 @export var Damage = 15.0
-
 var arro_owner:String=""
 
-func _ready():
+
+
+func _physics_process(_delta):
 	
-	gravity_scale = 1
-	linear_damp=0
 	
-func _die():
-	
-	$CollisionShape3D.disabled=true
-	queue_free()
-	
-func _physics_process(delta):
-	_checkdespawn(3)
-	if linear_velocity.abs().length()>5 and not freeze:
+	if linear_velocity.length()>20 and not held:
+		
 		$GPUParticles3D.emitting=true
 	else:
-		$GPUParticles3D.emitting=true
-	var col = get_colliding_bodies()
+		$GPUParticles3D.emitting=false
 	
-	if col != []:
-		for i in col:
-			if i is shield:
-				$bruh.reparent(i,true)
-				queue_free()
-				return
-		
-			elif i is StaticBody3D:
-				freeze=true
-				return
+	for i in get_colliding_bodies():
+		if i is shield:
+			$bruh.reparent(i,true)
+			queue_free()
+			return
+	
+		elif i is StaticBody3D:
+			freeze=true
+			return
 
-			elif i is enemies or (i is player and i.name != arro_owner):
-				i.damage(Damage)
-				if "kb" in i:
-					i.kb.dir=(i.position-position).normalized()
-					i.kb.mag=10
-				$bruh.reparent(i,true)
-				queue_free()
-				return
-				
+		elif i is enemies or (i is player and i.name != arro_owner):
+			if is_multiplayer_authority():
+				g.p(i.name+" was shot by"+arro_owner+ " and did damage:"+str(Damage*linear_velocity.length()/10.0),self,g.DEBUG_MESSAGES_TYPE.COMBAT)
+				i.damage.rpc(floor(Damage*linear_velocity.length()/10.0),100,global_position)
+			$bruh.reparent(i,true)
+			queue_free()
+			return
+			

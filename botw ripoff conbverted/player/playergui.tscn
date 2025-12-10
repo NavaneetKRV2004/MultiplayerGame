@@ -1,7 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://dg3jx6uy8pufy"]
+[gd_scene load_steps=9 format=3 uid="uid://dg3jx6uy8pufy"]
 
 [ext_resource type="Script" uid="uid://ct64xrlcl3ro7" path="res://player/playerui.gd" id="1_lftyd"]
+[ext_resource type="Texture2D" uid="uid://d1l3tv3pkg3y2" path="res://UI/New Piskel (1).png" id="2_1f8a1"]
 [ext_resource type="Texture2D" uid="uid://gssp04lgsps7" path="res://UI/hotbaricon.png" id="4_sk3ik"]
+[ext_resource type="Texture2D" uid="uid://ds05rilmyvobj" path="res://UI/hearts.png" id="5_5bsw7"]
 [ext_resource type="Texture2D" uid="uid://cf6wkjm1oltcq" path="res://UI/hotbaricon (1).png" id="5_lphdg"]
 
 [sub_resource type="Animation" id="Animation_j7jtd"]
@@ -68,8 +70,9 @@ _data = {
 
 [node name="Node2D" type="Node2D"]
 texture_filter = 2
-scale = Vector2(2.5, 2.5)
 script = ExtResource("1_lftyd")
+vspacing = 50
+hspacing = 50
 flickering = true
 
 [node name="screen" type="CanvasLayer" parent="."]
@@ -79,25 +82,9 @@ layout_mode = 3
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -339.0
-offset_bottom = 146.0
+offset_left = -62.0
+offset_bottom = 71.0
 grow_horizontal = 0
-
-[node name="center" type="Control" parent="screen"]
-layout_mode = 3
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -400.5
-offset_top = -223.0
-offset_right = 400.5
-offset_bottom = 223.0
-grow_horizontal = 2
-grow_vertical = 2
-size_flags_horizontal = 8
-size_flags_vertical = 0
 
 [node name="Control4" type="Control" parent="screen"]
 layout_mode = 3
@@ -121,13 +108,12 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -291.0
-offset_top = -87.0
-offset_right = -11.601
-offset_bottom = -47.0
+offset_left = -70.0
+offset_top = -40.0
+offset_right = 70.0
 grow_horizontal = 2
 grow_vertical = 0
-scale = Vector2(2.089, 2.089)
+pivot_offset = Vector2(70, 40)
 
 [node name="HSplitContainer" type="HBoxContainer" parent="screen/Control4/Panel"]
 layout_mode = 1
@@ -136,10 +122,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -134.0
-offset_top = -16.5
-offset_right = 134.0
-offset_bottom = 16.5
+offset_left = -66.0
+offset_top = -15.0
+offset_right = 66.0
+offset_bottom = 15.0
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -163,31 +149,42 @@ layout_mode = 2
 texture_normal = ExtResource("4_sk3ik")
 texture_disabled = ExtResource("5_lphdg")
 
-[node name="TextureButton5" type="TextureButton" parent="screen/Control4/Panel/HSplitContainer"]
-layout_mode = 2
-texture_normal = ExtResource("4_sk3ik")
-texture_disabled = ExtResource("5_lphdg")
+[node name="CenterContainer" type="CenterContainer" parent="screen"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -5.0
+offset_top = -5.0
+offset_right = 5.0
+offset_bottom = 5.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
 
-[node name="TextureButton6" type="TextureButton" parent="screen/Control4/Panel/HSplitContainer"]
+[node name="crosshair" type="TextureRect" parent="screen/CenterContainer"]
 layout_mode = 2
-texture_normal = ExtResource("4_sk3ik")
-texture_disabled = ExtResource("5_lphdg")
+texture = ExtResource("2_1f8a1")
+stretch_mode = 3
 
-[node name="TextureButton7" type="TextureButton" parent="screen/Control4/Panel/HSplitContainer"]
-layout_mode = 2
-texture_normal = ExtResource("4_sk3ik")
-texture_disabled = ExtResource("5_lphdg")
-
-[node name="TextureButton8" type="TextureButton" parent="screen/Control4/Panel/HSplitContainer"]
-layout_mode = 2
-texture_normal = ExtResource("4_sk3ik")
-texture_disabled = ExtResource("5_lphdg")
-
-[node name="topleft" type="Control" parent="."]
+[node name="topleft" type="Control" parent="screen"]
 layout_mode = 3
-anchors_preset = 0
-offset_right = 278.0
-offset_bottom = 39.0
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 20.0
+offset_top = -90.0
+offset_right = 20.0
+offset_bottom = -7.0
+grow_vertical = 0
+
+[node name="0" type="Sprite2D" parent="screen/topleft"]
+position = Vector2(17, 7)
+scale = Vector2(4, 4)
+texture = ExtResource("5_5bsw7")
+hframes = 2
+vframes = 3
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

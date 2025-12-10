@@ -1,7 +1,8 @@
-[gd_scene load_steps=7 format=4 uid="uid://dnea7ljedyc3d"]
+[gd_scene load_steps=9 format=4 uid="uid://dnea7ljedyc3d"]
 
 [ext_resource type="Script" uid="uid://bnapacri5vag2" path="res://items/basic_sword.gd" id="1_dk62y"]
 [ext_resource type="Texture2D" uid="uid://cqnwsxx3ll48y" path="res://items/iron_sword_swordtexture.png" id="1_s0j8f"]
+[ext_resource type="Texture2D" uid="uid://bb5yfjfog4n8b" path="res://items/iron_sword_slot.png" id="2_hu1nw"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_w48u2"]
 resource_name = "swordmaterial.001"
@@ -45,11 +46,23 @@ shadow_mesh = SubResource("ArrayMesh_axbum")
 [sub_resource type="BoxShape3D" id="BoxShape3D_xhqdm"]
 size = Vector3(0.38702, 3.35229, 0.631478)
 
-[node name="iron sword" type="CharacterBody3D"]
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_hu1nw"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 2
+properties/1/path = NodePath(".:rotation")
+properties/1/spawn = true
+properties/1/replication_mode = 2
+
+[node name="iron sword" type="RigidBody3D" node_paths=PackedStringArray("col")]
+freeze_mode = 1
 script = ExtResource("1_dk62y")
-col = NodePath("CollisionShape3D")
 Damage = 10.0
 kb = 20.0
+item_name = "iron sword"
+col = NodePath("CollisionShape3D")
+destroyable = true
+inventory_texture = ExtResource("2_hu1nw")
 
 [node name="Cube001" type="MeshInstance3D" parent="."]
 transform = Transform3D(-8.74228e-09, 0, -0.2, 0, 0.2, 0, 0.2, 0, -8.74228e-09, 0, 0.685802, 0)
@@ -66,5 +79,8 @@ transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0.6
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="Area3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.28493, 0)
 shape = SubResource("BoxShape3D_xhqdm")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_hu1nw")
 
 [connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]

@@ -29,7 +29,7 @@ func _on_area_3d_body_entered(body):
 		return
 	if  not body in enemies_damaged and ((body is enemies ) or (body is player and body.name != weapon_owner)):
 		body.rpc("damage",damage*attack_multiplier)
-		print("Damage dealt: "+str(damage))
+		g.p("Damage dealt: "+str(damage),self,g.DEBUG_MESSAGES_TYPE.COMBAT)
 		
 		if "kb" in body:
 			body.kb.dir=(body.position-get_parent().get_parent().get_parent().position).normalized()

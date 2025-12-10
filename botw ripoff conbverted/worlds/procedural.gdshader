@@ -1,10 +1,11 @@
 shader_type spatial;
 
 // Varyings
-varying flat float normal_y;
-varying flat float vertex_y;
-uniform sampler2D ft:filter_nearest;
-uniform sampler2D gy:filter_nearest;
+varying smooth float normal_y;
+varying smooth float vertex_y;
+uniform float height;
+uniform float offset;
+uniform sampler2D gradient;
 
 
 
@@ -17,14 +18,6 @@ vertex_y=VERTEX.y;
 
 void fragment()
 {
-	if (normal_y>0.95){
-		ALBEDO=texture(ft,UV*10.0).xyz;
-		}
-	else{
-		ALBEDO=vec3(112,72,60)/256.0;
+
+		ALBEDO=texture(gradient,vec2(vertex_y/height+offset,0.0)).xyz;
 }
-	}
-	
-
-	
-

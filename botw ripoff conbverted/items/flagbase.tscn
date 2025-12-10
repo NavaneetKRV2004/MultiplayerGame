@@ -1,15 +1,31 @@
-[gd_scene load_steps=5 format=3 uid="uid://dxpd4td0jmyik"]
+[gd_scene load_steps=7 format=3 uid="uid://dxpd4td0jmyik"]
 
-[ext_resource type="Script" uid="uid://cjgl7tndejdor" path="res://flagbase.gd" id="1_qjook"]
-[ext_resource type="PackedScene" uid="uid://de6lp5nkn8o1l" path="res://flag.tscn" id="2_t6v6x"]
+[ext_resource type="Script" uid="uid://cjgl7tndejdor" path="res://items/flagbase.gd" id="1_qjook"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_uuk4k"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_es12w"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_wi7kn"]
 size = Vector3(1.9777, 4.07757, 1.97414)
 
-[node name="flagbase" type="Node3D"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_xmnf6"]
+size = Vector3(1.71411, 0.272522, 1.78223)
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_xmnf6"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 2
+properties/1/path = NodePath(".:rotation")
+properties/1/spawn = true
+properties/1/replication_mode = 2
+
+[node name="flagbase" type="RigidBody3D" node_paths=PackedStringArray("col")]
 script = ExtResource("1_qjook")
+item_name = "flag base"
+col = NodePath("CollisionShape3D")
+inventory_texture = SubResource("PlaceholderTexture2D_uuk4k")
+metadata/_custom_type_script = "uid://d3e0orbnxtd21"
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1.71768, 0, 0, 0, 0.273024, 0, 0, 0, 1.79904, 0, 0, 0)
@@ -21,6 +37,11 @@ mesh = SubResource("BoxMesh_es12w")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.34271, 0)
 shape = SubResource("BoxShape3D_wi7kn")
 
-[node name="flag" parent="." instance=ExtResource("2_t6v6x")]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00378418, -0.00918579, -0.00146484)
+shape = SubResource("BoxShape3D_xmnf6")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_xmnf6")
 
 [connection signal="area_entered" from="area" to="." method="_on_area_area_entered"]

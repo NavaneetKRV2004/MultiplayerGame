@@ -1,13 +1,32 @@
-[gd_scene load_steps=9 format=3 uid="uid://dkvia6jjy6cv4"]
+[gd_scene load_steps=15 format=3 uid="uid://dkvia6jjy6cv4"]
 
 [ext_resource type="Script" uid="uid://b7i8a84scp0xq" path="res://Main logic/titlescreen.gd" id="1_3wotu"]
 [ext_resource type="Texture2D" uid="uid://bwd61mwex4gj8" path="res://UI/buttons (1).png" id="2_2bjoa"]
-[ext_resource type="StyleBox" uid="uid://cyap5lsbo81cr" path="res://UI/panel.tres" id="2_8pdex"]
-[ext_resource type="PackedScene" uid="uid://c8t0iaaiqq0t" path="res://Main logic/options2.tscn" id="2_vsoxy"]
+[ext_resource type="AudioStream" uid="uid://cbreud5rkjpyv" path="res://kenney_interface-sounds/Audio/pluck_001.ogg" id="3_7jrig"]
+[ext_resource type="PackedScene" uid="uid://c8t0iaaiqq0t" path="res://Main logic/option_editor.tscn" id="3_xuf5l"]
+[ext_resource type="PackedScene" uid="uid://cvmdtyuh3sgaf" path="res://worlds/sea.tscn" id="5_7jrig"]
+[ext_resource type="PackedScene" uid="uid://dnea7ljedyc3d" path="res://items/iron_sword.tscn" id="5_xuf5l"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_2kwte"]
+sky_top_color = Color(0.675151, 0.798644, 0.998553, 1)
+sky_horizon_color = Color(1, 1, 1, 1)
+sky_curve = 0.000828638
+ground_bottom_color = Color(0.150844, 0.227914, 1, 1)
+ground_curve = 0.0303145
+
+[sub_resource type="Sky" id="Sky_xuf5l"]
+sky_material = SubResource("ProceduralSkyMaterial_2kwte")
+
+[sub_resource type="Environment" id="Environment_2kwte"]
+background_mode = 2
+sky = SubResource("Sky_xuf5l")
 
 [sub_resource type="Theme" id="Theme_8pdex"]
 
 [sub_resource type="Theme" id="Theme_hxypl"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2kwte"]
+bg_color = Color(0.172833, 0.172833, 0.172833, 1)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_8pdex"]
 atlas = ExtResource("2_2bjoa")
@@ -17,25 +36,21 @@ region = Rect2(25, 115, 350, 79)
 atlas = ExtResource("2_2bjoa")
 region = Rect2(22, 17, 356, 85)
 
-[node name="Node2D" type="Control"]
-layout_mode = 3
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-grow_horizontal = 2
-grow_vertical = 2
-scale = Vector2(10, 10)
+[node name="Node2D" type="Node3D" node_paths=PackedStringArray("options")]
 script = ExtResource("1_3wotu")
+options = NodePath("CanvasLayer/Control2")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_2kwte")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="Control" type="Control" parent="CanvasLayer"]
 layout_mode = 3
-anchors_preset = 15
 anchor_right = 1.0
-anchor_bottom = 1.0
+anchor_bottom = 1.127
+offset_left = 696.0
+offset_bottom = -82.2961
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
@@ -43,19 +58,18 @@ theme = SubResource("Theme_8pdex")
 
 [node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/Control"]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -225.0
-offset_top = -313.0
-offset_right = 225.0
-offset_bottom = 293.0
+anchors_preset = -1
+anchor_left = 0.995
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -450.24
+offset_top = -51.0
+offset_right = 3.0
+offset_bottom = 64.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = SubResource("Theme_hxypl")
-theme_override_styles/panel = ExtResource("2_8pdex")
+theme_override_styles/panel = SubResource("StyleBoxFlat_2kwte")
 
 [node name="VSeparator" type="VBoxContainer" parent="CanvasLayer/Control/PanelContainer"]
 layout_mode = 2
@@ -131,13 +145,55 @@ text = "Settings"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Control2" parent="CanvasLayer" instance=ExtResource("2_vsoxy")]
+[node name="Button6" type="TextureButton" parent="CanvasLayer/Control/PanelContainer/VSeparator"]
+custom_minimum_size = Vector2(250, 50)
+layout_mode = 2
+texture_normal = SubResource("AtlasTexture_8pdex")
+texture_hover = SubResource("AtlasTexture_hxypl")
+
+[node name="Label3" type="Label" parent="CanvasLayer/Control/PanelContainer/VSeparator/Button6"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Quit"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="CanvasLayer/Control"]
+stream = ExtResource("3_7jrig")
+
+[node name="Control2" parent="CanvasLayer" instance=ExtResource("3_xuf5l")]
 visible = false
-offset_left = 0.0
-offset_top = 0.0
-offset_right = 0.0
-offset_bottom = 0.0
-scale = Vector2(1.66, 1.66)
+offset_left = -241.0
+offset_top = -132.0
+offset_right = 242.0
+offset_bottom = 130.0
+
+[node name="iron sword" parent="." instance=ExtResource("5_xuf5l")]
+process_mode = 4
+transform = Transform3D(0.946317, 0.32324, 0, -0.32324, 0.946317, 0, 0, 0, 1, -0.385674, 0, 0.6532)
+despawnable = false
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.37533, 5.36147)
+current = true
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.83209, 9.25327)
+
+[node name="Node3D2" parent="." instance=ExtResource("5_7jrig")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -320, 0)
 
 [connection signal="button_down" from="CanvasLayer/Control/PanelContainer/VSeparator/Button" to="." method="client"]
+[connection signal="mouse_entered" from="CanvasLayer/Control/PanelContainer/VSeparator/Button" to="." method="play_ui_sound"]
 [connection signal="button_down" from="CanvasLayer/Control/PanelContainer/VSeparator/Button2" to="." method="server"]
+[connection signal="mouse_entered" from="CanvasLayer/Control/PanelContainer/VSeparator/Button2" to="." method="play_ui_sound"]
+[connection signal="button_up" from="CanvasLayer/Control/PanelContainer/VSeparator/Button4" to="." method="glossary"]
+[connection signal="mouse_entered" from="CanvasLayer/Control/PanelContainer/VSeparator/Button4" to="." method="play_ui_sound"]
+[connection signal="button_down" from="CanvasLayer/Control/PanelContainer/VSeparator/Button5" to="." method="toggle_settings"]
+[connection signal="mouse_entered" from="CanvasLayer/Control/PanelContainer/VSeparator/Button5" to="." method="play_ui_sound"]
+[connection signal="button_down" from="CanvasLayer/Control/PanelContainer/VSeparator/Button6" to="." method="quit"]
+[connection signal="mouse_entered" from="CanvasLayer/Control/PanelContainer/VSeparator/Button6" to="." method="play_ui_sound"]

@@ -1,0 +1,96 @@
+[gd_scene load_steps=5 format=3 uid="uid://il2bb46ue5y8"]
+
+[ext_resource type="Script" uid="uid://dqrak5nxaq3lg" path="res://Main logic/disconnected.gd" id="1_0fltx"]
+[ext_resource type="StyleBox" uid="uid://cyap5lsbo81cr" path="res://UI/panel.tres" id="1_27vi7"]
+[ext_resource type="Texture2D" uid="uid://c708vkrl0jqs0" path="res://UI/download.jpg" id="2_27vi7"]
+[ext_resource type="FontFile" uid="uid://cnwocf1kr7ruh" path="res://ascii.png" id="3_bbgs3"]
+
+[node name="Node3D" type="CanvasLayer"]
+script = ExtResource("1_0fltx")
+
+[node name="Panel" type="Panel" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = ExtResource("1_27vi7")
+
+[node name="TextureRect" type="TextureRect" parent="Panel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.154
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 3.0
+offset_top = 2.20799
+offset_right = -4.0
+offset_bottom = -97.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_27vi7")
+expand_mode = 2
+stretch_mode = 5
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+clip_contents = false
+custom_minimum_size = Vector2(200, 30)
+anchors_preset = -1
+anchor_left = 0.5
+anchor_right = 0.501
+offset_left = -446.5
+offset_top = 31.84
+offset_right = -83.652
+offset_bottom = 64.84
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(2.115, 2.115)
+pivot_offset = Vector2(100, 16)
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_fonts/normal_font = ExtResource("3_bbgs3")
+text = "Server Di"
+fit_content = true
+horizontal_alignment = 1
+vertical_alignment = 1
+threaded = true
+text_direction = 1
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="."]
+clip_contents = false
+custom_minimum_size = Vector2(200, 30)
+anchors_preset = -1
+anchor_left = 0.5
+anchor_right = 0.501
+offset_left = -92.5
+offset_top = 31.53
+offset_right = 270.348
+offset_bottom = 64.53
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(2.115, 2.115)
+pivot_offset = Vector2(100, 16)
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_fonts/normal_font = ExtResource("3_bbgs3")
+text = "sconnected :("
+fit_content = true
+horizontal_alignment = 1
+vertical_alignment = 1
+threaded = true
+text_direction = 1
+
+[node name="Button" type="Button" parent="."]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 40.0
+offset_top = -77.0
+offset_right = 156.0
+offset_bottom = -38.0
+grow_vertical = 2
+scale = Vector2(1.4, 1.4)
+theme_override_fonts/font = ExtResource("3_bbgs3")
+text = "BACK"
+
+[connection signal="button_up" from="Button" to="." method="client"]

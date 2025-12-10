@@ -1,8 +1,8 @@
 [gd_scene load_steps=4 format=3 uid="uid://ds485qmwg6wg5"]
 
-[ext_resource type="Texture2D" uid="uid://wi2ymfmvaamj" path="res://button_1.png" id="1_5cyn6"]
-[ext_resource type="Texture2D" uid="uid://bxy2m4rdk4n1l" path="res://button_0.png" id="2_c7dot"]
-[ext_resource type="Script" uid="uid://nplvisikyk40" path="res://u_islot.gd" id="3_qitje"]
+[ext_resource type="Texture2D" uid="uid://vtbwwwdpl24k" path="res://UI/button_1.png" id="1_5cyn6"]
+[ext_resource type="Texture2D" uid="uid://c4cyr153vgni3" path="res://UI/button_0.png" id="2_c7dot"]
+[ext_resource type="Script" uid="uid://1ph8f8qx38rg" path="res://UI/u_islot.gd" id="3_qitje"]
 
 [node name="slot" type="TextureButton"]
 focus_mode = 0

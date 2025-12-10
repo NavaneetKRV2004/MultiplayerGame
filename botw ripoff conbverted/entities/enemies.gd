@@ -15,7 +15,7 @@ func _ready():
 		
 @rpc("call_local")
 func death():
-	print("P")
+	g.p("died",self,g.DEBUG_MESSAGES_TYPE.COMBAT)
 	queue_free()
 	
 func find_target():

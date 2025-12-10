@@ -1,6 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://dv7g2vp8vgx6m"]
+[gd_scene load_steps=7 format=3 uid="uid://dv7g2vp8vgx6m"]
 
 [ext_resource type="Script" uid="uid://bemk24duur3ad" path="res://items/spawner.gd" id="1_852he"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_2ut8w"]
 
 [sub_resource type="TorusMesh" id="TorusMesh_ay4f2"]
 
@@ -14,11 +16,19 @@ size = Vector3(1.8196, 0.814856, 1.56381)
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_nrvwv"]
 properties/0/path = NodePath(".:position")
 properties/0/spawn = true
-properties/0/replication_mode = 1
+properties/0/replication_mode = 2
+properties/1/path = NodePath(".:rotation")
+properties/1/spawn = true
+properties/1/replication_mode = 2
 
-[node name="items" type="RigidBody3D"]
+[node name="items" type="RigidBody3D" node_paths=PackedStringArray("col")]
 script = ExtResource("1_852he")
 spawn_time = 2.0
+item_name = "spawner"
+col = NodePath("CollisionShape3D")
+destroyable = true
+stackable = true
+inventory_texture = SubResource("PlaceholderTexture2D_2ut8w")
 
 [node name="skinn" type="MeshInstance3D" parent="."]
 mesh = SubResource("TorusMesh_ay4f2")

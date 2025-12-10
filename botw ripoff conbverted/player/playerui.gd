@@ -1,59 +1,60 @@
+@tool
 extends Node2D
-var heart_node = preload("res://UI/hearts.tscn")
+
+@onready var heart_node = $"screen/topleft/0"
 var max_hearts=20
 var current_hearts=20
+@export var vspacing=20
+@export var hspacing=20
 @export var alpha=1.0
 @export var flickering=false
 @onready var refs=[]
+var parent:Node=null
+var prevHealth:int=0
 
 
-func health(life1:float):
-	var life=int(roundi(life1))
-	$AnimationPlayer.play("flicker")
-	
+func _health():
+	var life:int=0
+	if get_parent() is player:
+		life=ceili(80.0*parent.health/parent.maxHealth)
+	else:
+		life = 80
 	if life>80:
-		life=80
-	elif life<0:
-		life=0
-		
-	var l =life
+		push_error("Player maxHealth lesser than Health")
+	
+	if prevHealth!=0 and life < prevHealth:
+		$AnimationPlayer.play("flicker")
+		prevHealth=life
 	
 	for i in refs:
-		
-		if l>=4:
+		if life>=4:
 			i.frame=0
-			l=l-4
-		elif l<4 and l in [3,2,1,0]:
-			i.frame=4-l
-			l=0
+			life-=4
+		elif 0<=life and life<4:
+			i.frame=4-life
+			life=0
 			
 				
 		
 func _ready():
-	var start_pos=Vector2(5,5+randi_range(1,10))
-	var pos =Vector2(start_pos)
+	parent=get_parent()
+	var start_pos=heart_node.position
 	var nodevar
-	var spacing=20
+	refs.append(heart_node)
 	
-	for i in range(0,current_hearts):
-		nodevar=heart_node.instantiate()
+	for i in range(current_hearts-1):
+		nodevar=heart_node.duplicate()
 		refs.append(nodevar)
-		nodevar.position=pos
-		if i==9:
-			pos=(start_pos+Vector2(0,15))
-		else:
-			pos=pos+Vector2(spacing,0)
-		$topleft.add_child(nodevar)
+		$screen/topleft.add_child(nodevar)
+	for i in range(len(refs)):
+		refs[i].position=start_pos+Vector2((i%10)*hspacing,i/10*vspacing)
+		
 
 	
 	
-func _physics_process(delta):
+func _physics_process(_delta):
+	_health()
 	if flickering:
 		for i in refs:
 			if i.frame==4:
 				i.modulate.a=alpha
-func hotbar_select(n):
-	var b=$screen/Control4/Panel/HSplitContainer
-	for i in b.get_children():
-		i.disabled=false
-	b.get_child(n-1).disabled=true

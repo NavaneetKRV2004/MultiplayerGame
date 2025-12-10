@@ -1,0 +1,69 @@
+[gd_scene load_steps=9 format=4 uid="uid://bgo8ymnv1qokd"]
+
+[ext_resource type="Script" uid="uid://d3e0orbnxtd21" path="res://items/construction.gd" id="1_i6xpd"]
+[ext_resource type="Texture2D" uid="uid://dbxlhcljasty" path="res://items/wood.png" id="2_v06n8"]
+[ext_resource type="Material" uid="uid://djjhb11vc511s" path="res://items/wood.tres" id="3_v06n8"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_iewqy"]
+size = Vector3(0.4, 4, 4)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bcsi3"]
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_7tnsx"]
+_surfaces = [{
+"aabb": AABB(-0.2, -2, -2, 0.4, 4, 4),
+"format": 34896613377,
+"index_count": 36,
+"index_data": PackedByteArray("AAABAAIAAAADAAEABAACAAEAAwAEAAEABQAAAAIAAwAAAAUABAAGAAIABQACAAYAAwAHAAQAAwAFAAcABwAGAAQABwAFAAYA"),
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 8,
+"vertex_data": PackedByteArray("AAAAAP//AAAAAP//AAAAAAAA/////wAAAAAAAAAAAAD/////AAAAAP//AAD//wAA////////AAD//wAAAAAAAA==")
+}]
+blend_shape_mode = 0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_343mk"]
+resource_name = "wall_Cube_001"
+_surfaces = [{
+"aabb": AABB(-0.2, -2, -2, 0.4, 4, 4),
+"attribute_data": PackedByteArray("+P/4/wYABgD4/wYABgD4/z0z+v+lGQQAPTMEAKUZ+v8GAAYA+P/4/wYA+P/4/wYABAAEAJwZ+v8EAPr/nBkEAKUZ+v89MwQAPTP6/6UZBAAEAPr/nBkEAJwZ+v8EAAQA"),
+"format": 34896613399,
+"index_count": 36,
+"index_data": PackedByteArray("AAABAAIAAAADAAEABAAFAAYABAAHAAUACAAJAAoACAALAAkADAANAA4ADAAPAA0AEAARABIAEAATABEAFAAVABYAFAAXABUA"),
+"material": SubResource("StandardMaterial3D_bcsi3"),
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 24,
+"vertex_data": PackedByteArray("AAAAAP///78AAP//AAD/vwAA//////+/AAAAAAAA/78AAAAAAAD///////8AAP//AAD//wAA/////wAAAAD/////AAAAAP//////////////////AAD/////AAD///////8AAP////8AAP//////////////////AAAAAP////8AAAAAAAD/v///AAD///+///8AAAAA/78AAAAA////v/////8AAP//AAD///////8AAP//AAD//////////////3////9/////f/7//3////9/////f/7//3/+//9/////v/9//7//f/+//3//v/9//3//f/9//3//f/9//3//fwAA/38AAP9/AAD/fwAA/3//f/+//3//v/9//7//f/+/")
+}]
+blend_shape_mode = 0
+shadow_mesh = SubResource("ArrayMesh_7tnsx")
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_v06n8"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 2
+properties/1/path = NodePath(".:rotation")
+properties/1/spawn = true
+properties/1/replication_mode = 2
+
+[node name="wood wall" type="RigidBody3D" node_paths=PackedStringArray("col")]
+script = ExtResource("1_i6xpd")
+item_name = "wood_wall"
+col = NodePath("CollisionShape3D")
+collectable = false
+destroyable = true
+stackable = true
+inventory_texture = ExtResource("2_v06n8")
+metadata/_custom_type_script = "uid://d3e0orbnxtd21"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_iewqy")
+
+[node name="Cube" type="MeshInstance3D" parent="."]
+material_override = ExtResource("3_v06n8")
+mesh = SubResource("ArrayMesh_343mk")
+skeleton = NodePath("")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_v06n8")

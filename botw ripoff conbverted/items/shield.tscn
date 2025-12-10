@@ -1,7 +1,8 @@
-[gd_scene load_steps=7 format=4 uid="uid://dbe5b64d4tcvn"]
+[gd_scene load_steps=9 format=4 uid="uid://dbe5b64d4tcvn"]
 
 [ext_resource type="Script" uid="uid://b0hfxvifgcqp0" path="res://items/shield.gd" id="1_5kcvk"]
 [ext_resource type="Texture2D" uid="uid://c8pwgmgw2byey" path="res://items/SHIELD_SHIELD_TEXTURE.png" id="1_tntvf"]
+[ext_resource type="Texture2D" uid="uid://bk7ct12awfyi0" path="res://items/shieldslot.png" id="2_ovhra"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5inlj"]
 resource_name = "SHIELD MATERIAL"
@@ -45,11 +46,20 @@ shadow_mesh = SubResource("ArrayMesh_m3i8y")
 [sub_resource type="BoxShape3D" id="BoxShape3D_d780a"]
 size = Vector3(1.46402, 1.81322, 0.294699)
 
-[node name="shield" type="CharacterBody3D"]
-collision_layer = 2
-collision_mask = 2
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_ovhra"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 2
+properties/1/path = NodePath(".:rotation")
+properties/1/spawn = true
+properties/1/replication_mode = 2
+
+[node name="shield" type="RigidBody3D" node_paths=PackedStringArray("col")]
 script = ExtResource("1_5kcvk")
+item_name = "shield"
 col = NodePath("CollisionShape3D")
+destroyable = true
+inventory_texture = ExtResource("2_ovhra")
 
 [node name="Cube001" type="MeshInstance3D" parent="."]
 transform = Transform3D(-3.49691e-08, 0, -0.8, 0, 0.8, 0, 0.8, 0, -3.49691e-08, 0, 0, 0)
@@ -59,3 +69,6 @@ skeleton = NodePath("")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0.235057, 0, 0.0202201)
 shape = SubResource("BoxShape3D_d780a")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_ovhra")

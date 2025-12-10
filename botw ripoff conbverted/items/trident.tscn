@@ -1,28 +1,46 @@
-[gd_scene load_steps=4 format=3 uid="uid://d3e72dvup5m0n"]
+[gd_scene load_steps=7 format=3 uid="uid://d3e72dvup5m0n"]
 
-[ext_resource type="Script" uid="uid://c4k6xhj006hey" path="res://items/basic_sword.gd" id="1_88pho"]
-[ext_resource type="PackedScene" uid="uid://swl2w1nqyj37" path="res://items/trident.glb" id="2_6mq7n"]
+[ext_resource type="Script" uid="uid://bnapacri5vag2" path="res://items/basic_sword.gd" id="1_88pho"]
+[ext_resource type="PackedScene" uid="uid://cqfvduy8c7jly" path="res://items/trident.glb" id="2_6mq7n"]
+[ext_resource type="Texture2D" uid="uid://c8jg4efllpdrx" path="res://items/trident.png" id="2_yk60c"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_yk60c"]
+size = Vector3(0.650478, 2.72438, 1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_la825"]
-size = Vector3(1, 5, 1)
+size = Vector3(0.212357, 4.65729, 1)
 
-[node name="TRIDENT" type="CharacterBody3D"]
-collision_layer = 2
-collision_mask = 2
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_yk60c"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 2
+properties/1/path = NodePath(".:rotation")
+properties/1/spawn = true
+properties/1/replication_mode = 2
+
+[node name="TRIDENT" type="RigidBody3D" node_paths=PackedStringArray("col")]
+freeze_mode = 1
 script = ExtResource("1_88pho")
-col = NodePath("CollisionShape3D2")
 Damage = 20.0
+item_name = "trident"
+col = NodePath("col")
+replication_interval = 0.1
+destroyable = true
+inventory_texture = ExtResource("2_yk60c")
 
 [node name="trident" parent="." instance=ExtResource("2_6mq7n")]
 
 [node name="Area3D" type="Area3D" parent="."]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0249301, 2.96645, 0)
+shape = SubResource("BoxShape3D_yk60c")
+
+[node name="col" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00269318, 1.98203, 0)
 shape = SubResource("BoxShape3D_la825")
 
-[node name="CollisionShape3D2" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
-shape = SubResource("BoxShape3D_la825")
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_yk60c")
 
 [connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]

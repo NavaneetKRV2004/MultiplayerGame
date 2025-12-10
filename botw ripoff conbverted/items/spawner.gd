@@ -6,6 +6,7 @@ extends items
 @onready var spawn_thing=load(spawn_object)
 
 func _ready():
+	super._ready()
 	$Timer.wait_time=spawn_time
 	
 	$Timer.start()

@@ -6,16 +6,16 @@ extends TextureButton
 
 func _ready() -> void:
 	
-	fit_image()
+	_fit_image()
 
 
 func fill(image:Texture2D=null,count:int=0):
 	
 		$icon.texture=image
 		$Label.text=str(count) if count>1 else ""
-		fit_image()
+		_fit_image()
 		
-func fit_image():
+func _fit_image():
 	$icon.pivot_offset=$icon.size/2
 	$icon.scale=Vector2(1,1)*image_percentage
 
@@ -24,4 +24,5 @@ func fit_image():
 func _on_button_down() -> void:
 	
 	manager.slot_clicked(index)
+	
 	

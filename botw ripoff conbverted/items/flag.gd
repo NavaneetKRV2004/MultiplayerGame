@@ -1,11 +1,13 @@
-extends Node3D
+extends items
 
 
- #teams={"r","b","y","g"}
+
 @export var team:String=''
 @export var spawnpoint:Node
 
 func _ready():
+	super._ready()
+	return
 	spawnpoint=get_parent()
 	team=spawnpoint.team
 	$Cube.mesh.surface_set_material(0,$Cube.mesh.surface_get_material(0).duplicate() )

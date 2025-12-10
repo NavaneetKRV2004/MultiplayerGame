@@ -1,12 +1,11 @@
-extends RigidBody3D
+extends items
+@export var lit:bool = false
 @onready var material = $Sphere.material_overlay
-var explosion_time=2.0
-var time=0.0
-var explforce=100.0
+@export var explosion_time=2.0
+@export var time=0.0
+@export var explforce=100.0
 
-func _ready():
-	pass 
-	
+
 func _die():
 	if $Area3D.has_overlapping_bodies:
 		for i in $Area3D.get_overlapping_bodies():
@@ -24,14 +23,21 @@ func _die():
 
 
 func _physics_process(delta):
-	time+=delta
-	if time>explosion_time:
-		_die()
+	_setHeld()
 	
-	material.set_shader_parameter("freq", pow(time/explosion_time,2)*5)
-	#print(pow(time/explosion_time,2))
+	if not held and lit:
+		time+=delta
+		if time>explosion_time:
+			_die()
+		
+		material.set_shader_parameter("freq", pow(time/explosion_time,2)*5)
+	#g.p(pow(time/explosion_time,2))
 	
 	
 	
-	
+
+func interactJustPressedRMB(a,b):
+	position=position+Vector3(0,3,0)
+	linear_velocity=Vector3(10*cos(deg_to_rad(-get_rotation_degrees().y)),2,10*sin(deg_to_rad(-get_rotation_degrees().y)))
+
 	

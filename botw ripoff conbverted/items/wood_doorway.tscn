@@ -1,0 +1,74 @@
+[gd_scene load_steps=8 format=4 uid="uid://d3rgqggucjgg"]
+
+[ext_resource type="Script" uid="uid://d3e0orbnxtd21" path="res://items/construction.gd" id="1_tdt7e"]
+[ext_resource type="Material" uid="uid://djjhb11vc511s" path="res://items/wood.tres" id="2_0n7d4"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_m1xio"]
+resource_name = "Material.001"
+cull_mode = 2
+roughness = 0.5
+texture_filter = 2
+texture_repeat = false
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_vt3ai"]
+_surfaces = [{
+"aabb": AABB(-2, -2, -0.2, 4, 4, 0.4),
+"format": 34896613377,
+"index_count": 132,
+"index_data": PackedByteArray("EAAMAAMAEQADAAwAEAASAAwAEgARAAwACgAQAAMAEQATAAMACgADABMAFAATABEAEgAJABEACQAUABEAEAAPABIAEgAPAA4AEgAOAAkAEAALAA8ACgALABAADwANAA4ADwALAA0ACgANAAsACQAOAA0ACQANAAoACQAKAAQABAAKABMACQAIABQACQAEAAgAFAAVABMABAATABUAAAAVABQACAAAABQAAAACABUACAAWAAAAFgACAAAAFwAVAAIAFgAXAAIAFwAEABUACAAFABYAFwAHAAQABAAGAAgACAAGAAUABAAHAAYAFgAFAAEAFgABABcABgABAAUAFwABAAcABgAHAAEA"),
+"lods": [0.000578865, PackedByteArray("AAABAAIAAAACAAMAAQAEAAIABAADAAIAAAAFAAEABgABAAUABgAHAAEAAQAHAAQABAAHAAYACAAGAAUABAAGAAgACAAFAAAACQAEAAgACQAIAAAABAAKAAMACQAKAAQACgALAAMACQAAAAwAAAADAAwACQANAAoACgANAAsADAAOAAkACQAOAA0AAwAPAAwAAwALAA8ADAAPAA4ADwALAA0ADwANAA4A")],
+"name": "Material.001",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 24,
+"vertex_data": PackedByteArray("/////wAAAAD//wAA//8AAP///////wAAAAD/////AAD/v/+///8AAP//AAAAAAAA/78AAAAAAAD/vwAA//8AAP+//78AAAAA/z//vwAAAAD/P/+///8AAAAAAAD//wAAAAD//wAAAAD/PwAA//8AAP8/AAAAAAAAAAAAAAAAAAAAAP+///8AAP8///8AAAAAAAD/vwAAAAD/P/////8AAP+///8AAAAA/7//////AAD///+/AAAAAP///7///wAA")
+}]
+blend_shape_mode = 0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_o0hi2"]
+resource_name = "doorway_Cube_003"
+_surfaces = [{
+"aabb": AABB(-2, -2, -0.2, 4, 4, 0.4),
+"attribute_data": PackedByteArray("mRkAAAAA//8AAAAAmRn//yHC/z//n////5//PyHC/v//P/9fx8ezPsfHs17/P/8//7//PwAAAAD+/wAA/7/+/////v//P/8/AAD///8//v////7//7//P/7/AAD/v/7/AAAAAP8//z8AAP///z/+//9P/3//X/8//1//f/9P/z//H/9//y//P/8v/3//H/8/IWL/P/8/////P/8/IWL+/wAA//+ZGQAAmRn//wAAAAAAAP8X//8AAP///xcAAAAAAAD/v5kZ/7//PwAAAAD/P/+/AAD+//8/mRn/PwAA/z//PwAAAAD/P/+/AAD+//8//7//F/+/AAD/P/8X/z8AAA=="),
+"format": 34896613399,
+"index_count": 132,
+"index_data": PackedByteArray("MAAqACgAMAAxACoAMAApADEAMAArACkAEQANADIAEQAzAA0AEQASADMAEQATABIADAARADIADAAyADQANQAMADQANQA0AA4ANQAPAAwANQAQAA8ANgACAAAANgA3AAIANgABADcANgADAAEAGQAYADgAGQA5ABgAGQAaADkAGQAbABoAFQAZADgAFQA4ADoAOwAVADoAOwA6ABYAOwAXABUAOwAUABcABAAFAAYABAAHAAUAPAAtAC4APAA9AC0APgA9ADwAPgA/AD0ALAA/AD4ALAAvAD8ACAAJAAoACAALAAkAHAAdAB4AHAAfAB0AIAAhACIAIAAjACEAJAAlACYAJAAnACUA"),
+"lods": [0.000578865, PackedByteArray("AAABAAIAAAADAAEABAAFAAYABAAHAAUACAAJAAoACAALAAkADAANAA4ADgAPAAwADgAQAA8ADAARAA0AEQASAA0AEQATABIAFAAVABYAFAAXABUAFQAYABYAFQAZABgAGQAaABgAGQAbABoAHAAdAB4AHAAfAB0AIAAhACIAIAAjACEAJAAlACYAJAAnACUAKAApACoAKAArACkALAAtAC4ALAAvAC0A")],
+"material": SubResource("StandardMaterial3D_m1xio"),
+"name": "Material.001",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 64,
+"vertex_data": PackedByteArray("/////wAA/7///wAA////v/////////+///8AAAAA/7//P/+/AAD/v/8/AAD///+//z//v////7//PwAAAAD/v/8//78AAP+//7//v////7//v/+/AAD/v/8//7////+//z//vwAA////////AAD//wAA//8AAP///z8AAAAA//8AAAAAAAD///+//78AAP////8AAAAA////vwAAAAD/////AAD//wCA/7//v///AID///////8AgP+/AAD//wCAAAD/////AID/P/+///8AgAAAAAD//wCA/z8AAP//AID/vwAAAAD/v///AAD///+///8AAAAA/7//vwAA////vwAAAAAAAP+//z8AAP///7//PwAAAAD/vwAAAAD///+//7//v////7//vwAAAAD/v/+//78AAP+//78AAP///78AAP///////wAAAAAAAP//AAD//wAA//8AAAAA//////////8AAP//AAD///////8AAP//AAD/////////////AAD/v/////8AAP+/AAD///+///8AAP//////vwAA////P///AAD//wAA/78AAP//////vwAA/7////+/////v/8//////wCAAAD/v///AID/v/////8AgP///7///wCA/z///wAA////P/////////+///8AAP///7//////////fwAA/38AAP9/AAD/fwAA/38AAP9/AAD/fwAA/38AAAcBe38HAXt/BwF7fwcBe3//f////3////9//v//f////3////9/////f/7//3/+//9/////f////3////9/////f////3////9/////f///AAD/fwAA/38AAP9/AAD/fwAA/38AAP9/AAD/fwAA/3//f////3/+//9/////f/7//z//f/8//3//P/9//z//f/9//7//f/+//3//v/9//7//P/9//z//f/9/////f////3/+//9/////fwAA/38AAP9/////f////3////9/////f/+//3//v/9//7//f/+/")
+}]
+blend_shape_mode = 0
+shadow_mesh = SubResource("ArrayMesh_vt3ai")
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_8ts6e"]
+data = PackedVector3Array(-2, 1, 0.2, -2, 2, -0.2, -2, 2, 0.2, -2, 1, 0.2, -2, 1, -0.2, -2, 2, -0.2, -2, 1, 0.2, -2, -2, -0.2, -2, 1, -0.2, -2, 1, 0.2, -2, -2, 0.2, -2, -2, -0.2, 1, 1, -0.2, 2, 2, -0.2, 1, 2, -0.2, 1, 1, -0.2, 2, 1, -0.2, 2, 2, -0.2, 1, 1, -0.2, 2, -2, -0.2, 2, 1, -0.2, 1, 1, -0.2, 1, -2, -0.2, 2, -2, -0.2, -1, 1, -0.2, 1, 1, -0.2, 1, 2, -0.2, -1, 1, -0.2, 1, 2, -0.2, -1, 2, -0.2, -2, 1, -0.2, -1, 1, -0.2, -1, 2, -0.2, -2, 1, -0.2, -1, 2, -0.2, -2, 2, -0.2, -2, 1, -0.2, -1, -2, -0.2, -1, 1, -0.2, -2, 1, -0.2, -2, -2, -0.2, -1, -2, -0.2, 2, 1, -0.2, 2, 2, 0.2, 2, 2, -0.2, 2, 1, -0.2, 2, 1, 0.2, 2, 2, 0.2, 2, 1, -0.2, 2, -2, 0.2, 2, 1, 0.2, 2, 1, -0.2, 2, -2, -0.2, 2, -2, 0.2, -1, 1, 0.2, -2, 2, 0.2, -1, 2, 0.2, -1, 1, 0.2, -2, 1, 0.2, -2, 2, 0.2, -1, 1, 0.2, -2, -2, 0.2, -2, 1, 0.2, -1, 1, 0.2, -1, -2, 0.2, -2, -2, 0.2, 1, 1, 0.2, -1, 1, 0.2, -1, 2, 0.2, 1, 1, 0.2, -1, 2, 0.2, 1, 2, 0.2, 2, 1, 0.2, 1, 1, 0.2, 1, 2, 0.2, 2, 1, 0.2, 1, 2, 0.2, 2, 2, 0.2, 2, 1, 0.2, 1, -2, 0.2, 1, 1, 0.2, 2, 1, 0.2, 2, -2, 0.2, 1, -2, 0.2, -1, 1, -0.2, -1, -2, 0.2, -1, 1, 0.2, -1, 1, -0.2, -1, -2, -0.2, -1, -2, 0.2, -1, 2, -0.2, -2, 2, 0.2, -2, 2, -0.2, -1, 2, -0.2, -1, 2, 0.2, -2, 2, 0.2, 1, 2, -0.2, -1, 2, 0.2, -1, 2, -0.2, 1, 2, -0.2, 1, 2, 0.2, -1, 2, 0.2, 2, 2, -0.2, 1, 2, 0.2, 1, 2, -0.2, 2, 2, -0.2, 2, 2, 0.2, 1, 2, 0.2, -1, 1, -0.2, 1, 1, 0.2, 1, 1, -0.2, -1, 1, -0.2, -1, 1, 0.2, 1, 1, 0.2, 1, -2, -0.2, 2, -2, 0.2, 2, -2, -0.2, 1, -2, -0.2, 1, -2, 0.2, 2, -2, 0.2, -2, -2, -0.2, -1, -2, 0.2, -1, -2, -0.2, -2, -2, -0.2, -2, -2, 0.2, -1, -2, 0.2, 1, 1, 0.2, 1, -2, -0.2, 1, 1, -0.2, 1, 1, 0.2, 1, -2, 0.2, 1, -2, -0.2)
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_tdt7e"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 2
+properties/1/path = NodePath(".:rotation")
+properties/1/spawn = true
+properties/1/replication_mode = 2
+
+[node name="Construction" type="RigidBody3D" node_paths=PackedStringArray("col")]
+script = ExtResource("1_tdt7e")
+item_name = "wood_doorway"
+col = NodePath("CollisionShape3D")
+metadata/_custom_type_script = "uid://d3e0orbnxtd21"
+
+[node name="Cube" type="MeshInstance3D" parent="."]
+material_override = ExtResource("2_0n7d4")
+mesh = SubResource("ArrayMesh_o0hi2")
+skeleton = NodePath("")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+visible = false
+shape = SubResource("ConcavePolygonShape3D_8ts6e")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_tdt7e")

@@ -1,18 +1,23 @@
 [gd_scene load_steps=5 format=3 uid="uid://b5jum0m25eq1l"]
 
-[ext_resource type="Script" uid="uid://bssj1q15ha5le" path="res://healthbar.gd" id="1_cbi8w"]
-[ext_resource type="Texture2D" uid="uid://brcgdxigmc7r3" path="res://New Piskel.png" id="2_6llkd"]
+[ext_resource type="Script" uid="uid://bssj1q15ha5le" path="res://entities/healthbar.gd" id="1_cbi8w"]
+[ext_resource type="Texture2D" uid="uid://brcgdxigmc7r3" path="res://UI/New Piskel.png" id="2_6llkd"]
 
-[sub_resource type="Gradient" id="Gradient_8toxt"]
-offsets = PackedFloat32Array(0.808511, 1)
+[sub_resource type="Gradient" id="Gradient_p53du"]
+offsets = PackedFloat32Array(0.885442)
+colors = PackedColorArray(0, 0, 0, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_xqb1d"]
-gradient = SubResource("Gradient_8toxt")
-height = 50
-fill_from = Vector2(1, 1)
+gradient = SubResource("Gradient_p53du")
+width = 247
+height = 25
+use_hdr = true
+fill_from = Vector2(1, 0)
+fill_to = Vector2(1, 1)
+metadata/_snap_enabled = true
+metadata/_snap_count = 16
 
 [node name="Node3D" type="Sprite3D"]
-transform = Transform3D(3.92407, 0, 0, 0, 0.673712, 0, 0, 0, 1, 0, 0, 0)
 billboard = 1
 double_sided = false
 texture_filter = 1
@@ -20,10 +25,17 @@ texture = SubResource("GradientTexture2D_xqb1d")
 script = ExtResource("1_cbi8w")
 
 [node name="Sprite3D" type="Sprite3D" parent="."]
-transform = Transform3D(1.06393, 0, 0, 0, 2.14936, 0, 0, 0, 1, 0, 0, 0)
+transform = Transform3D(4.185, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 billboard = 1
-texture_filter = 0
+double_sided = false
 render_priority = 1
 texture = ExtResource("2_6llkd")
 region_enabled = true
 region_rect = Rect2(48, 0, 58.08, 20.24)
+
+[node name="Label3D" type="Label3D" parent="."]
+pixel_size = 0.01
+offset = Vector2(0, 59.73)
+billboard = 1
+text = "Player 1
+"

@@ -1,28 +1,14 @@
-[gd_scene load_steps=14 format=3 uid="uid://wb7vesffp3ca"]
+[gd_scene load_steps=19 format=3 uid="uid://wb7vesffp3ca"]
 
 [ext_resource type="Script" uid="uid://dp4obh6mf73et" path="res://worlds/world_client.gd" id="1_8w78s"]
+[ext_resource type="Environment" uid="uid://ckt3srjx6ckmj" path="res://worlds/sky.tres" id="2_cadv0"]
 [ext_resource type="StyleBox" uid="uid://cyap5lsbo81cr" path="res://UI/panel.tres" id="2_h3vma"]
+[ext_resource type="PackedScene" uid="uid://c8t0iaaiqq0t" path="res://Main logic/option_editor.tscn" id="3_8w78s"]
 [ext_resource type="PackedScene" uid="uid://glyqs4h5x4v1" path="res://UI/chat.tscn" id="3_cadv0"]
-[ext_resource type="PackedScene" uid="uid://dbe5b64d4tcvn" path="res://items/shield.tscn" id="4_jlq55"]
-[ext_resource type="Script" uid="uid://ki08hmotyq03" path="res://Main logic/http.gd" id="5_dajfp"]
-
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ahkoa"]
-sky_top_color = Color(0.0363737, 0.00140555, 0.207638, 1)
-sky_horizon_color = Color(0.0281854, 0.832876, 0.933737, 1)
-sky_curve = 1.02838
-ground_bottom_color = Color(0.207843, 0.423529, 0.247059, 1)
-ground_horizon_color = Color(0.376471, 0.721569, 0.709804, 1)
-ground_curve = 0.113137
-
-[sub_resource type="Sky" id="Sky_1gwru"]
-sky_material = SubResource("ProceduralSkyMaterial_ahkoa")
-
-[sub_resource type="Environment" id="Environment_yynv8"]
-background_mode = 2
-background_color = Color(0.419608, 0.647059, 0.972549, 1)
-sky = SubResource("Sky_1gwru")
-ssao_enabled = true
-glow_enabled = true
+[ext_resource type="Script" uid="uid://eemy5lo36e57" path="res://worlds/client_interface.gd" id="3_jlq55"]
+[ext_resource type="PackedScene" uid="uid://c067j41iw3nkw" path="res://worlds/item_Spawner.tscn" id="4_cadv0"]
+[ext_resource type="FontFile" uid="uid://cxpvlud4t88bp" path="res://MODERNA_.TTF" id="4_dajfp"]
+[ext_resource type="PackedScene" uid="uid://coxg0uh6kt3gu" path="res://serverButton.tscn" id="4_jlq55"]
 
 [sub_resource type="Gradient" id="Gradient_ye2wn"]
 colors = PackedColorArray(0.32549, 0.564706, 0.980392, 1, 0.0470588, 0.254902, 0.607843, 1)
@@ -45,19 +31,51 @@ radial_segments = 20
 rings = 1
 is_hemisphere = true
 
+[sub_resource type="Gradient" id="Gradient_jlq55"]
+offsets = PackedFloat32Array(0.00632911)
+colors = PackedColorArray(1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_dajfp"]
+gradient = SubResource("Gradient_jlq55")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jlq55"]
+bg_color = Color(0, 0, 0, 1)
+
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_036b0"]
 
-[node name="Node3D" type="Node3D" node_paths=PackedStringArray("label_server_name", "label_ping", "label_players_count", "iptextbox", "check", "chat")]
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_h3vma"]
+properties/0/path = NodePath(".:world_name")
+properties/0/spawn = true
+properties/0/replication_mode = 2
+properties/1/path = NodePath(".:world_type")
+properties/1/spawn = false
+properties/1/replication_mode = 0
+properties/2/path = NodePath(".:default_gamemode")
+properties/2/spawn = true
+properties/2/replication_mode = 2
+properties/3/path = NodePath(".:worldspawn")
+properties/3/spawn = true
+properties/3/replication_mode = 2
+properties/4/path = NodePath(".:timeperiod")
+properties/4/spawn = true
+properties/4/replication_mode = 2
+properties/5/path = NodePath(".:pvp")
+properties/5/spawn = true
+properties/5/replication_mode = 2
+properties/6/path = NodePath(".:time")
+properties/6/spawn = true
+properties/6/replication_mode = 0
+
+[node name="Node3D" type="Node3D" node_paths=PackedStringArray("player_name", "skin", "item_spawner", "chat")]
 script = ExtResource("1_8w78s")
-label_server_name = NodePath("Control/Control/HBoxContainer/VBoxContainer/server details/VBoxContainer/GridContainer/TextEdit2")
-label_ping = NodePath("Control/Control/HBoxContainer/VBoxContainer/server details/VBoxContainer/GridContainer/TextEdit")
-label_players_count = NodePath("Control/Control/HBoxContainer/VBoxContainer/server details/VBoxContainer/GridContainer/TextEdit3")
-iptextbox = NodePath("Control/Control/HBoxContainer/VBoxContainer/TabBar/Direct/Direct/HBoxContainer2/TextEdit")
-check = NodePath("Control/Control/HBoxContainer/VBoxContainer/TabBar/Direct/Direct/HBoxContainer2/check")
+player_name = NodePath("Control/Control/VBoxContainer/HBoxContainer/Character customisation/VBoxContainer/GridContainer/TextEdit2")
+skin = NodePath("Control/Control/VBoxContainer/HBoxContainer/Character customisation/VBoxContainer/GridContainer/ColorPickerButton")
+item_spawner = NodePath("MultiplayerSpawner")
+worldspawn = Vector3(0, 150, 0)
 chat = NodePath("chat")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_yynv8")
+environment = ExtResource("2_cadv0")
 
 [node name="TextureRect" type="TextureRect" parent="WorldEnvironment"]
 visible = false
@@ -69,8 +87,8 @@ texture = SubResource("GradientTexture1D_vjlfk")
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_top = -390.0
-offset_right = 471.0
+offset_top = -78.0
+offset_right = 77.0
 offset_bottom = -4.0
 grow_vertical = 0
 
@@ -93,34 +111,88 @@ material_override = SubResource("StandardMaterial3D_uybb1")
 cast_shadow = 0
 mesh = SubResource("SphereMesh_dmxec")
 
-[node name="Control" type="CanvasLayer" parent="."]
+[node name="Control" type="CanvasLayer" parent="." node_paths=PackedStringArray("localhostbutton", "LANButton", "MS1button", "MS2button", "MS3button", "LANtextbox", "MS1textbox", "MS2textbox", "MS3textbox", "player_name", "skin")]
+script = ExtResource("3_jlq55")
+localhostbutton = NodePath("Control/VBoxContainer/HBoxContainer/VBoxContainer/TabBar/Online Server/VBoxContainer/Localhost")
+LANButton = NodePath("Control/VBoxContainer/HBoxContainer/VBoxContainer/TabBar/Online Server/VBoxContainer/LAN")
+MS1button = NodePath("Control/VBoxContainer/HBoxContainer/VBoxContainer/TabBar/Online Server/VBoxContainer/ms1")
+MS2button = NodePath("Control/VBoxContainer/HBoxContainer/VBoxContainer/TabBar/Online Server/VBoxContainer/ms2")
+MS3button = NodePath("Control/VBoxContainer/HBoxContainer/VBoxContainer/TabBar/Online Server/VBoxContainer/ms3")
+LANtextbox = NodePath("Control/VBoxContainer/HBoxContainer/VBoxContainer/TabBar/Edit Servers/Direct/HBoxContainer/TextEdit")
+MS1textbox = NodePath("Control/VBoxContainer/HBoxContainer/VBoxContainer/TabBar/Edit Servers/Direct/TextEdit4")
+MS2textbox = NodePath("Control/VBoxContainer/HBoxContainer/VBoxContainer/TabBar/Edit Servers/Direct/TextEdit2")
+MS3textbox = NodePath("Control/VBoxContainer/HBoxContainer/VBoxContainer/TabBar/Edit Servers/Direct/TextEdit3")
+player_name = NodePath("Control/VBoxContainer/HBoxContainer/Character customisation/VBoxContainer/GridContainer/TextEdit2")
+skin = NodePath("Control/VBoxContainer/HBoxContainer/Character customisation/VBoxContainer/GridContainer/ColorPickerButton")
 
 [node name="Control" type="Control" parent="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 174.0
-offset_top = 131.0
-offset_right = -126.0
-offset_bottom = -161.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Control/Control"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/Control"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="Control/Control/VBoxContainer"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+size_flags_vertical = 0
+texture = SubResource("GradientTexture1D_dajfp")
+
+[node name="Button" type="Button" parent="Control/Control/VBoxContainer/TextureRect"]
+custom_minimum_size = Vector2(100, 50)
+layout_mode = 2
+offset_left = 20.0
+offset_top = 26.0
+offset_right = 230.0
+offset_bottom = 83.0
+size_flags_horizontal = 0
+theme_override_styles/normal = SubResource("StyleBoxFlat_jlq55")
+text = "BACK"
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Control/Control/VBoxContainer/TextureRect"]
+custom_minimum_size = Vector2(500, 200)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -0.5
+offset_top = -11.5
+offset_right = 0.5
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(2, 2)
+pivot_offset = Vector2(250, 100)
+theme_override_fonts/bold_font = ExtResource("4_dajfp")
+bbcode_enabled = true
+text = "[color=black][b]Select Server[/b][/color]"
+fit_content = true
+scroll_active = false
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/Control/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
 alignment = 1
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Control/Control/HBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/Control/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 alignment = 1
 
-[node name="TabBar" type="TabContainer" parent="Control/Control/HBoxContainer/VBoxContainer"]
+[node name="TabBar" type="TabContainer" parent="Control/Control/VBoxContainer/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(600, 0)
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/side_margin = 0
@@ -128,198 +200,244 @@ theme_override_styles/panel = SubResource("StyleBoxEmpty_036b0")
 current_tab = 0
 metadata/_edit_use_anchors_ = true
 
-[node name="Direct" type="PanelContainer" parent="Control/Control/HBoxContainer/VBoxContainer/TabBar"]
+[node name="Online Server" type="PanelContainer" parent="Control/Control/VBoxContainer/HBoxContainer/VBoxContainer/TabBar"]
+custom_minimum_size = Vector2(500, 0)
 layout_mode = 2
 theme_override_styles/panel = ExtResource("2_h3vma")
 metadata/_tab_index = 0
 
-[node name="Direct" type="VBoxContainer" parent="Control/Control/HBoxContainer/VBoxContainer/TabBar/Direct"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/Control/VBoxContainer/HBoxContainer/VBoxContainer/TabBar/Online Server"]
 layout_mode = 2
-alignment = 1
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="Control/Control/HBoxContainer/VBoxContainer/TabBar/Direct/Direct"]
+[node name="Label" type="Label" parent="Control/Control/VBoxContainer/HBoxContainer/VBoxContainer/TabBar/Online Server/VBoxContainer"]
 layout_mode = 2
-alignment = 1
+text = "Localhost"
 
-[node name="check" type="Button" parent="Control/Control/HBoxContainer/VBoxContainer/TabBar/Direct/Direct/HBoxContainer2"]
-custom_minimum_size = Vector2(100, 50)
+[node name="Localhost" parent="Control/Control/VBoxContainer/HBoxContainer/VBoxContainer/TabBar/Online Server/VBoxContainer" node_paths=PackedStringArray("world") instance=ExtResource("4_jlq55")]
 layout_mode = 2
-text = "CHECK"
+world = NodePath("../../../../../../../../..")
+ip = -1
 
-[node name="TextEdit" type="TextEdit" parent="Control/Control/HBoxContainer/VBoxContainer/TabBar/Direct/Direct/HBoxContainer2"]
-custom_minimum_size = Vector2(300, 0)
+[node name="HSeparator" type="HSeparator" parent="Control/Control/VBoxContainer/HBoxContainer/VBoxContainer/TabBar/Online Server/VBoxContainer"]
 layout_mode = 2
-size_flags_vertical = 3
-theme_override_font_sizes/font_size = 15
-placeholder_text = "  Enter Host Address
-"
-emoji_menu_enabled = false
 
-[node name="Online Server" type="PanelContainer" parent="Control/Control/HBoxContainer/VBoxContainer/TabBar"]
+[node name="Label lan" type="Label" parent="Control/Control/VBoxContainer/HBoxContainer/VBoxContainer/TabBar/Online Server/VBoxContainer"]
+layout_mode = 2
+text = "LAN server"
+
+[node name="LAN" parent="Control/Control/VBoxContainer/HBoxContainer/VBoxContainer/TabBar/Online Server/VBoxContainer" node_paths=PackedStringArray("world") instance=ExtResource("4_jlq55")]
+layout_mode = 2
+world = NodePath("../../../../../../../../..")
+ip = 0
+
+[node name="HSeparator2" type="HSeparator" parent="Control/Control/VBoxContainer/HBoxContainer/VBoxContainer/TabBar/Online Server/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label2" type="Label" parent="Control/Control/VBoxContainer/HBoxContainer/VBoxContainer/TabBar/Online Server/VBoxContainer"]
+layout_mode = 2
+text = "Saved servers"
+
+[node name="ms1" parent="Control/Control/VBoxContainer/HBoxContainer/VBoxContainer/TabBar/Online Server/VBoxContainer" node_paths=PackedStringArray("world") instance=ExtResource("4_jlq55")]
+layout_mode = 2
+world = NodePath("../../../../../../../../..")
+
+[node name="ms2" parent="Control/Control/VBoxContainer/HBoxContainer/VBoxContainer/TabBar/Online Server/VBoxContainer" node_paths=PackedStringArray("world") instance=ExtResource("4_jlq55")]
+layout_mode = 2
+world = NodePath("../../../../../../../../..")
+
+[node name="ms3" parent="Control/Control/VBoxContainer/HBoxContainer/VBoxContainer/TabBar/Online Server/VBoxContainer" node_paths=PackedStringArray("world") instance=ExtResource("4_jlq55")]
+layout_mode = 2
+world = NodePath("../../../../../../../../..")
+
+[node name="HSeparator3" type="HSeparator" parent="Control/Control/VBoxContainer/HBoxContainer/VBoxContainer/TabBar/Online Server/VBoxContainer"]
+layout_mode = 2
+
+[node name="Button" type="Button" parent="Control/Control/VBoxContainer/HBoxContainer/VBoxContainer/TabBar/Online Server/VBoxContainer"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+size_flags_vertical = 8
+text = "Refresh"
+
+[node name="Edit Servers" type="PanelContainer" parent="Control/Control/VBoxContainer/HBoxContainer/VBoxContainer/TabBar"]
 visible = false
 layout_mode = 2
 theme_override_styles/panel = ExtResource("2_h3vma")
 metadata/_tab_index = 1
 
-[node name="Label" type="Label" parent="Control/Control/HBoxContainer/VBoxContainer/TabBar/Online Server"]
+[node name="Direct" type="VBoxContainer" parent="Control/Control/VBoxContainer/HBoxContainer/VBoxContainer/TabBar/Edit Servers"]
 layout_mode = 2
-text = "No servers online"
+size_flags_vertical = 4
+alignment = 1
 
-[node name="server details" type="PanelContainer" parent="Control/Control/HBoxContainer/VBoxContainer"]
+[node name="HSeparator2" type="HSeparator" parent="Control/Control/VBoxContainer/HBoxContainer/VBoxContainer/TabBar/Edit Servers/Direct"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Control/Control/VBoxContainer/HBoxContainer/VBoxContainer/TabBar/Edit Servers/Direct"]
+layout_mode = 2
+text = "Public Servers"
+
+[node name="TextEdit4" type="TextEdit" parent="Control/Control/VBoxContainer/HBoxContainer/VBoxContainer/TabBar/Edit Servers/Direct"]
+custom_minimum_size = Vector2(300, 40)
 layout_mode = 2
 size_flags_vertical = 3
-theme_override_styles/panel = ExtResource("2_h3vma")
-metadata/_edit_use_anchors_ = true
-metadata/_edit_group_ = true
-
-[node name="VBoxContainer" type="VBoxContainer" parent="Control/Control/HBoxContainer/VBoxContainer/server details"]
-layout_mode = 2
-
-[node name="GridContainer" type="GridContainer" parent="Control/Control/HBoxContainer/VBoxContainer/server details/VBoxContainer"]
-layout_mode = 2
-columns = 2
-
-[node name="Label" type="RichTextLabel" parent="Control/Control/HBoxContainer/VBoxContainer/server details/VBoxContainer/GridContainer"]
-layout_direction = 2
-layout_mode = 2
-bbcode_enabled = true
-text = "World Name:"
-fit_content = true
-
-[node name="TextEdit2" type="RichTextLabel" parent="Control/Control/HBoxContainer/VBoxContainer/server details/VBoxContainer/GridContainer"]
-custom_minimum_size = Vector2(300, 40)
-layout_mode = 2
-bbcode_enabled = true
-text = "-"
-fit_content = true
-autowrap_mode = 0
-text_direction = 1
-
-[node name="TextEdit4" type="RichTextLabel" parent="Control/Control/HBoxContainer/VBoxContainer/server details/VBoxContainer/GridContainer"]
-custom_minimum_size = Vector2(300, 40)
-layout_mode = 2
-bbcode_enabled = true
-text = "Players Online:"
-fit_content = true
-autowrap_mode = 0
-text_direction = 1
-
-[node name="TextEdit3" type="RichTextLabel" parent="Control/Control/HBoxContainer/VBoxContainer/server details/VBoxContainer/GridContainer"]
-custom_minimum_size = Vector2(300, 40)
-layout_mode = 2
-bbcode_enabled = true
-text = "-"
-
-[node name="Label3" type="RichTextLabel" parent="Control/Control/HBoxContainer/VBoxContainer/server details/VBoxContainer/GridContainer"]
-layout_mode = 2
-text = "Ping:"
-
-[node name="TextEdit" type="RichTextLabel" parent="Control/Control/HBoxContainer/VBoxContainer/server details/VBoxContainer/GridContainer"]
-custom_minimum_size = Vector2(50, 30)
-layout_mode = 2
-text = "-"
-scroll_active = false
-
-[node name="join" type="Button" parent="Control/Control/HBoxContainer/VBoxContainer/server details/VBoxContainer"]
-layout_mode = 2
-text = "JOIN
+theme_override_font_sizes/font_size = 15
+placeholder_text = " Server 1 Address
 "
+emoji_menu_enabled = false
 
-[node name="Character customisation" type="PanelContainer" parent="Control/Control/HBoxContainer"]
+[node name="TextEdit2" type="TextEdit" parent="Control/Control/VBoxContainer/HBoxContainer/VBoxContainer/TabBar/Edit Servers/Direct"]
+custom_minimum_size = Vector2(300, 40)
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 15
+placeholder_text = " Server 2 Address
+"
+emoji_menu_enabled = false
+
+[node name="TextEdit3" type="TextEdit" parent="Control/Control/VBoxContainer/HBoxContainer/VBoxContainer/TabBar/Edit Servers/Direct"]
+custom_minimum_size = Vector2(300, 40)
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 15
+placeholder_text = " Server 3 Address"
+emoji_menu_enabled = false
+
+[node name="HSeparator" type="HSeparator" parent="Control/Control/VBoxContainer/HBoxContainer/VBoxContainer/TabBar/Edit Servers/Direct"]
+layout_mode = 2
+
+[node name="Label2" type="Label" parent="Control/Control/VBoxContainer/HBoxContainer/VBoxContainer/TabBar/Edit Servers/Direct"]
+layout_mode = 2
+text = "LAN Server"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/Control/VBoxContainer/HBoxContainer/VBoxContainer/TabBar/Edit Servers/Direct"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Control/Control/VBoxContainer/HBoxContainer/VBoxContainer/TabBar/Edit Servers/Direct/HBoxContainer"]
+layout_mode = 2
+text = "      Private address: 192.168.1."
+
+[node name="TextEdit" type="SpinBox" parent="Control/Control/VBoxContainer/HBoxContainer/VBoxContainer/TabBar/Edit Servers/Direct/HBoxContainer"]
+custom_minimum_size = Vector2(29.545, 11.775)
+layout_mode = 2
+size_flags_vertical = 3
+min_value = 1.0
+max_value = 30.0
+value = 1.0
+rounded = true
+
+[node name="HSeparator3" type="HSeparator" parent="Control/Control/VBoxContainer/HBoxContainer/VBoxContainer/TabBar/Edit Servers/Direct"]
+layout_mode = 2
+
+[node name="check" type="Button" parent="Control/Control/VBoxContainer/HBoxContainer/VBoxContainer/TabBar/Edit Servers/Direct"]
+custom_minimum_size = Vector2(100, 50)
+layout_mode = 2
+text = "Save"
+
+[node name="Character customisation" type="PanelContainer" parent="Control/Control/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_styles/panel = ExtResource("2_h3vma")
 metadata/_edit_use_anchors_ = true
-metadata/_edit_group_ = true
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Control/Control/HBoxContainer/Character customisation"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/Control/VBoxContainer/HBoxContainer/Character customisation"]
 layout_mode = 2
 
-[node name="SubViewportContainer" type="SubViewportContainer" parent="Control/Control/HBoxContainer/Character customisation/VBoxContainer"]
+[node name="SubViewportContainer" type="SubViewportContainer" parent="Control/Control/VBoxContainer/HBoxContainer/Character customisation/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 3
 
-[node name="SubViewport" type="SubViewport" parent="Control/Control/HBoxContainer/Character customisation/VBoxContainer/SubViewportContainer"]
+[node name="SubViewport" type="SubViewport" parent="Control/Control/VBoxContainer/HBoxContainer/Character customisation/VBoxContainer/SubViewportContainer"]
 handle_input_locally = false
 size = Vector2i(200, 300)
 render_target_update_mode = 4
 
-[node name="GridContainer" type="GridContainer" parent="Control/Control/HBoxContainer/Character customisation/VBoxContainer"]
+[node name="GridContainer" type="GridContainer" parent="Control/Control/VBoxContainer/HBoxContainer/Character customisation/VBoxContainer"]
 layout_direction = 2
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 8
 columns = 2
 
-[node name="Label" type="Label" parent="Control/Control/HBoxContainer/Character customisation/VBoxContainer/GridContainer"]
+[node name="Label" type="Label" parent="Control/Control/VBoxContainer/HBoxContainer/Character customisation/VBoxContainer/GridContainer"]
 layout_mode = 2
 text = "Player Name:"
 
-[node name="TextEdit2" type="TextEdit" parent="Control/Control/HBoxContainer/Character customisation/VBoxContainer/GridContainer"]
+[node name="TextEdit2" type="TextEdit" parent="Control/Control/VBoxContainer/HBoxContainer/Character customisation/VBoxContainer/GridContainer"]
 custom_minimum_size = Vector2(250, 40)
 layout_mode = 2
 theme_override_font_sizes/font_size = 17
 placeholder_text = "Enter Player name"
 wrap_mode = 1
 
-[node name="Label6" type="Label" parent="Control/Control/HBoxContainer/Character customisation/VBoxContainer/GridContainer"]
+[node name="Label6" type="Label" parent="Control/Control/VBoxContainer/HBoxContainer/Character customisation/VBoxContainer/GridContainer"]
 layout_mode = 2
 text = "Hair:"
 
-[node name="ColorPickerButton3" type="ColorPickerButton" parent="Control/Control/HBoxContainer/Character customisation/VBoxContainer/GridContainer"]
+[node name="ColorPickerButton3" type="ColorPickerButton" parent="Control/Control/VBoxContainer/HBoxContainer/Character customisation/VBoxContainer/GridContainer"]
 layout_mode = 2
 edit_alpha = false
 
-[node name="Label2" type="Label" parent="Control/Control/HBoxContainer/Character customisation/VBoxContainer/GridContainer"]
+[node name="Label2" type="Label" parent="Control/Control/VBoxContainer/HBoxContainer/Character customisation/VBoxContainer/GridContainer"]
 layout_mode = 2
 text = "Skin:"
 
-[node name="ColorPickerButton" type="ColorPickerButton" parent="Control/Control/HBoxContainer/Character customisation/VBoxContainer/GridContainer"]
+[node name="ColorPickerButton" type="ColorPickerButton" parent="Control/Control/VBoxContainer/HBoxContainer/Character customisation/VBoxContainer/GridContainer"]
 layout_mode = 2
 text = "drhxtxdfh"
 color = Color(1, 1, 1, 1)
 edit_alpha = false
 
-[node name="Label3" type="Label" parent="Control/Control/HBoxContainer/Character customisation/VBoxContainer/GridContainer"]
+[node name="Label3" type="Label" parent="Control/Control/VBoxContainer/HBoxContainer/Character customisation/VBoxContainer/GridContainer"]
 layout_mode = 2
 text = "Pants"
 
-[node name="ColorPickerButton2" type="ColorPickerButton" parent="Control/Control/HBoxContainer/Character customisation/VBoxContainer/GridContainer"]
+[node name="ColorPickerButton2" type="ColorPickerButton" parent="Control/Control/VBoxContainer/HBoxContainer/Character customisation/VBoxContainer/GridContainer"]
 layout_mode = 2
 text = "drhxtxdfh"
 color = Color(1, 1, 1, 1)
 edit_alpha = false
 
-[node name="Label4" type="Label" parent="Control/Control/HBoxContainer/Character customisation/VBoxContainer/GridContainer"]
+[node name="Label4" type="Label" parent="Control/Control/VBoxContainer/HBoxContainer/Character customisation/VBoxContainer/GridContainer"]
 layout_mode = 2
 text = "Face:"
 
-[node name="OptionButton" type="OptionButton" parent="Control/Control/HBoxContainer/Character customisation/VBoxContainer/GridContainer"]
+[node name="OptionButton" type="OptionButton" parent="Control/Control/VBoxContainer/HBoxContainer/Character customisation/VBoxContainer/GridContainer"]
 layout_mode = 2
 
-[node name="Label5" type="Label" parent="Control/Control/HBoxContainer/Character customisation/VBoxContainer/GridContainer"]
+[node name="Label5" type="Label" parent="Control/Control/VBoxContainer/HBoxContainer/Character customisation/VBoxContainer/GridContainer"]
 layout_mode = 2
 text = "Shirt:"
 
-[node name="OptionButton2" type="OptionButton" parent="Control/Control/HBoxContainer/Character customisation/VBoxContainer/GridContainer"]
+[node name="OptionButton2" type="OptionButton" parent="Control/Control/VBoxContainer/HBoxContainer/Character customisation/VBoxContainer/GridContainer"]
 layout_mode = 2
 
-[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
-_spawnable_scenes = PackedStringArray("uid://8xvqvm52qjs3", "uid://5a3ord0kx8ab")
-spawn_path = NodePath("..")
+[node name="TextureRect2" type="TextureRect" parent="Control/Control/VBoxContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+size_flags_vertical = 8
+texture = SubResource("GradientTexture1D_dajfp")
 
-[node name="chat" parent="." instance=ExtResource("3_cadv0")]
-offset_left = 4.0
-offset_top = -189.0
-offset_right = 319.0
-offset_bottom = 27.0
+[node name="MultiplayerSpawner" parent="." node_paths=PackedStringArray("world") instance=ExtResource("4_cadv0")]
+_spawnable_scenes = PackedStringArray()
+world = NodePath("..")
 
-[node name="shield" parent="." instance=ExtResource("4_jlq55")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 103.292, 0)
+[node name="chat" parent="." node_paths=PackedStringArray("world") instance=ExtResource("3_cadv0")]
+anchors_preset = -1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -348.0
+offset_top = -49.0
+offset_right = -33.0
+offset_bottom = -5.0
+world = NodePath("..")
 
-[node name="HTTPRequest" type="HTTPRequest" parent="."]
-script = ExtResource("5_dajfp")
+[node name="Control2" parent="." instance=ExtResource("3_8w78s")]
+visible = false
 
-[connection signal="button_down" from="Control/Control/HBoxContainer/VBoxContainer/TabBar/Direct/Direct/HBoxContainer2/check" to="." method="ping_server"]
-[connection signal="button_down" from="Control/Control/HBoxContainer/VBoxContainer/server details/VBoxContainer/join" to="." method="join_world"]
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_h3vma")
+
+[connection signal="button_up" from="Control/Control/VBoxContainer/TextureRect/Button" to="Control" method="_on_back_button_up"]
+[connection signal="button_down" from="Control/Control/VBoxContainer/HBoxContainer/VBoxContainer/TabBar/Online Server/VBoxContainer/Button" to="." method="check_servers"]
+[connection signal="button_down" from="Control/Control/VBoxContainer/HBoxContainer/VBoxContainer/TabBar/Edit Servers/Direct/check" to="." method="save_ip_addresses"]

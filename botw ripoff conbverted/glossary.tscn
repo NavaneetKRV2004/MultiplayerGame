@@ -1,0 +1,91 @@
+[gd_scene load_steps=7 format=3 uid="uid://c0m6mbqfmi0t4"]
+
+[ext_resource type="Script" uid="uid://bgp4j651wpros" path="res://glossary.gd" id="1_cdujq"]
+[ext_resource type="PackedScene" uid="uid://dnea7ljedyc3d" path="res://items/iron_sword.tscn" id="3_73e0h"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_cdujq"]
+sky_top_color = Color(0.675151, 0.798644, 0.998553, 1)
+sky_horizon_color = Color(1, 1, 1, 1)
+sky_curve = 0.000828638
+ground_bottom_color = Color(0.150844, 0.227914, 1, 1)
+ground_curve = 0.0303145
+
+[sub_resource type="Sky" id="Sky_xuf5l"]
+sky_material = SubResource("ProceduralSkyMaterial_cdujq")
+
+[sub_resource type="Environment" id="Environment_a2qh2"]
+background_mode = 2
+sky = SubResource("Sky_xuf5l")
+sky_rotation = Vector3(-0.466003, 0, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cdujq"]
+bg_color = Color(0, 0, 0, 1)
+
+[node name="Node3D" type="Node"]
+script = ExtResource("1_cdujq")
+zoomFactor = 50
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Panel" type="Panel" parent="CanvasLayer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="GridContainer" type="GridContainer" parent="CanvasLayer/HBoxContainer/Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -266.0
+offset_top = -132.0
+offset_right = 266.0
+offset_bottom = 132.0
+grow_horizontal = 2
+grow_vertical = 2
+columns = 4
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="CanvasLayer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="CanvasLayer/HBoxContainer/SubViewportContainer"]
+handle_input_locally = false
+msaa_3d = 3
+size = Vector2i(2, 2)
+render_target_update_mode = 4
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="CanvasLayer/HBoxContainer/SubViewportContainer/SubViewport"]
+environment = SubResource("Environment_a2qh2")
+
+[node name="Camera3D" type="Camera3D" parent="CanvasLayer/HBoxContainer/SubViewportContainer/SubViewport"]
+current = true
+
+[node name="Node3D" type="Marker3D" parent="CanvasLayer/HBoxContainer/SubViewportContainer/SubViewport"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2.67)
+
+[node name="iron sword" parent="CanvasLayer/HBoxContainer/SubViewportContainer/SubViewport/Node3D" instance=ExtResource("3_73e0h")]
+despawnable = false
+
+[node name="Button" type="Button" parent="CanvasLayer"]
+custom_minimum_size = Vector2(100, 50)
+offset_left = 20.0
+offset_top = 26.0
+offset_right = 230.0
+offset_bottom = 83.0
+size_flags_horizontal = 0
+theme_override_styles/normal = SubResource("StyleBoxFlat_cdujq")
+text = "BACK"
+
+[connection signal="button_up" from="CanvasLayer/Button" to="." method="_on_back_button_up"]

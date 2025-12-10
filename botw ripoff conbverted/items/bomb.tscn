@@ -1,8 +1,10 @@
-[gd_scene load_steps=13 format=4 uid="uid://dga5bfv20q0fs"]
+[gd_scene load_steps=15 format=4 uid="uid://dga5bfv20q0fs"]
 
 [ext_resource type="Script" uid="uid://blkbnr5rh2bmf" path="res://items/bomb.gd" id="1_u4eti"]
 [ext_resource type="Texture2D" uid="uid://bjxip3qxir24q" path="res://items/bomb_bomb texture.png" id="2_l6bv3"]
 [ext_resource type="Shader" uid="uid://baggd04vkvre8" path="res://items/bomb.gdshader" id="2_qtvlg"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_tqfld"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_2gcom"]
 resource_local_to_scene = true
@@ -78,8 +80,21 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_y4yve")
 
-[node name="RigidBody3D" type="RigidBody3D"]
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_tqfld"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 2
+properties/1/path = NodePath(".:rotation")
+properties/1/spawn = true
+properties/1/replication_mode = 2
+
+[node name="RigidBody3D" type="RigidBody3D" node_paths=PackedStringArray("col")]
 script = ExtResource("1_u4eti")
+item_name = "bomb"
+col = NodePath("CollisionShape3D")
+stackable = true
+inventory_texture = SubResource("PlaceholderTexture2D_tqfld")
+metadata/_custom_type_script = "uid://bqjt47uklbh5b"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
@@ -104,3 +119,6 @@ transform = Transform3D(2, 0, 0, 0, -2, 1.74846e-07, 0, -1.74846e-07, -2, 0, 0, 
 material_overlay = SubResource("ShaderMaterial_vqf6r")
 mesh = SubResource("ArrayMesh_hbi8y")
 skeleton = NodePath("")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_tqfld")

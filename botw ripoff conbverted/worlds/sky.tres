@@ -1,0 +1,22 @@
+[gd_resource type="Environment" load_steps=9 format=3 uid="uid://ckt3srjx6ckmj"]
+
+[ext_resource type="Shader" uid="uid://bxhhyajmoc6be" path="res://worlds/sky.gdshader" id="1_5gyc0"]
+[ext_resource type="Texture2D" uid="uid://bxm7rt4g62rnk" path="res://worlds/world0/day.png" id="2_0w11w"]
+[ext_resource type="Texture2D" uid="uid://dw58nmqqi73sh" path="res://worlds/world0/night.png" id="2_5gyc0"]
+[ext_resource type="Texture2D" uid="uid://b8n0kacfyiv6t" path="res://worlds/world0/night_starfield.png" id="4_5mq01"]
+[ext_resource type="Texture2D" uid="uid://6ov5wexejehp" path="res://worlds/world0/starfield02.png" id="5_xdrv7"]
+[ext_resource type="Texture2D" uid="uid://bs4kcsym7a8aa" path="res://worlds/world0/sunset.png" id="6_6jljj"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_dptxg"]
+shader = ExtResource("1_5gyc0")
+shader_parameter/cube_atlas = Array[Texture2D]([ExtResource("2_0w11w"), ExtResource("2_5gyc0"), ExtResource("4_5mq01"), ExtResource("5_xdrv7"), ExtResource("6_6jljj")])
+shader_parameter/selected_sky = 0
+shader_parameter/time = 57.13
+
+[sub_resource type="Sky" id="Sky_py8sg"]
+sky_material = SubResource("ShaderMaterial_dptxg")
+
+[resource]
+background_mode = 2
+sky = SubResource("Sky_py8sg")
+tonemap_white = 15.09

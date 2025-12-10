@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://dp7iu07ha62v4"]
 
-[ext_resource type="Script" uid="uid://d3xmqo1ltw0ol" path="res://cube.gd" id="1_jbd7x"]
-[ext_resource type="Texture2D" uid="uid://bw6j8kcjyg3wj" path="res://icon.svg" id="2_wd2d1"]
+[ext_resource type="Script" uid="uid://bqjt47uklbh5b" path="res://items/items.gd" id="1_ra7aa"]
+[ext_resource type="Texture2D" uid="uid://dyfgmthiv47ae" path="res://icon.svg" id="2_wd2d1"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wd2d1"]
 albedo_texture = ExtResource("2_wd2d1")
@@ -13,10 +13,19 @@ material = SubResource("StandardMaterial3D_wd2d1")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_jbd7x"]
 
-[node name="cube" type="RigidBody3D"]
-script = ExtResource("1_jbd7x")
-inventory_texture = ExtResource("2_wd2d1")
+[node name="cube" type="RigidBody3D" node_paths=PackedStringArray("col")]
+script = ExtResource("1_ra7aa")
+item_name = "cube"
+col = NodePath("CollisionShape3D")
+held = null
+replication_interval = null
+collectable = null
+despawnable = true
+despawntime = 10.0
+destroyable = true
 stackable = true
+inventory_texture = ExtResource("2_wd2d1")
+metadata/_custom_type_script = "uid://bqjt47uklbh5b"
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource("BoxMesh_xc3wn")

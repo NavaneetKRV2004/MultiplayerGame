@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://c067j41iw3nkw"]
+
+[ext_resource type="Script" uid="uid://ceu8vqu78x65f" path="res://worlds/item_spawner.gd" id="1_xf4hc"]
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner"]
+_spawnable_scenes = PackedStringArray("uid://8xvqvm52qjs3")
+spawn_path = NodePath("..")
+script = ExtResource("1_xf4hc")

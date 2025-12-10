@@ -1,9 +1,11 @@
-[gd_scene load_steps=8 format=3 uid="uid://dfsb2trjkrd60"]
+[gd_scene load_steps=9 format=3 uid="uid://dfsb2trjkrd60"]
 
-[ext_resource type="PackedScene" uid="uid://ow5x0trjcpqj" path="res://man.glb" id="1_it34o"]
-[ext_resource type="PackedScene" uid="uid://dxpd4td0jmyik" path="res://flagbase.tscn" id="2_5akga"]
+[ext_resource type="PackedScene" uid="uid://ow5x0trjcpqj" path="res://player/man.glb" id="1_it34o"]
+[ext_resource type="Material" uid="uid://dc1sd1jpaxe0m" path="res://worlds/BLACK_MATERIAL.tres" id="1_tolpc"]
+[ext_resource type="PackedScene" uid="uid://dxpd4td0jmyik" path="res://items/flagbase.tscn" id="2_5akga"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_flfwh"]
+material = ExtResource("1_tolpc")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_myvr5"]
 resource_local_to_scene = true

@@ -1,85 +1,70 @@
-extends world
-@export var iplabel:NodePath
+extends World
+class_name WorldServer
 
-var debug=[]
+func _ready() -> void:
+	super._ready()
 
 	
-func load_world_for_client(peer_id):
-	rpc_id(peer_id,"ping_reply",world_type,$sun.rotation_degrees.x,pvp)
-	print("\n\nsent world info\n\n")
-
+	for i in range(len(g.world_types)):
+		%landtype.add_item(g.world_types[i][0],i)
+	if "server" in s.arguments:
+		#var args=JSON.parse_string(s.arguments["server"])
+		#if not args is  Dictionary:
+			#args={}
+		#world_name=args["name"] if "name" in args else "Server World"
+		#world_type=args["type"] if "type" in args else 0
+		#pvp=args["pvp"] if "pvp" in args else true
+		#default_gamemode=args["gm"] if "gm" in args else 0
+		#print("Server starting")
+		
+		_on_host_button_down()
 
 func _on_host_button_down():
 	$Control.hide()
-	multi.create_server(9999)
+	multi=ENetMultiplayerPeer.new()
+	multi.create_server(g.PORT_GAME)
 	multiplayer.multiplayer_peer=multi
 	
 	
 	#multiplayer.peer_connected.connect(spawn_player)
-	multiplayer.peer_connected.connect(send_world_details)
+	multiplayer.peer_connected.connect(spawn_player)
 	multiplayer.peer_disconnected.connect(delete_player)
 	id=multi.get_unique_id()
 	
 	
 	
 	
-	
-	world_name=get_node("Control/Control/Panel/MarginContainer/VBoxContainer/HBoxContainer/TextEdit2").text
-	pvp=get_node("Control/Control/Panel/MarginContainer/VBoxContainer/HBoxContainer3/CheckButton").button_pressed
-	var gm=get_node("Control/Control/Panel/MarginContainer/VBoxContainer/HBoxContainer4/gamemode")
-	default_gamemode=gm.get_item_id(gm.selected)
-	gm=get_node("Control/Control/Panel/MarginContainer/VBoxContainer/HBoxContainer6/landtype")
-	world_type=gm.get_item_id(gm.selected)
-	
-	if world_type in global.world_types:
-		var l=load(global.world_types[world_type]).instantiate()
-		add_child(l)
-	else:
-		print("World type doesnt exist")
-	
-
-func send_world_details(peer_id):  #server
-	
-	var world_details:Dictionary = {
-		"ping_name":world_name,
-		"ping_playercount":players.size(),
-		"type":world_type,
-		"sunrot":$sun.rotation_degrees.x,
-		"pvp_enabled":pvp
-		}
+	if not "server" in s.arguments:
+		world_name=%TextEdit2.text if %TextEdit2.text !="" else "World"
+		pvp=%CheckButton.button_pressed
+		default_gamemode=%gm.get_selected_id()
+		world_type=%landtype.get_selected_id()
 		
-	print("player requesting info")
-	rpc_id(peer_id,"ping_reply",world_details)
 	
-	print("sent world info: ",world_details)
+	var l=load(g.world_types[world_type][1]).instantiate()
+	add_child(l)
 	
-@rpc
-func ping_reply(d:Dictionary):
-	pass
+	
 	
 
-	
+
 
 
 func _on_label_ready():
 	var jip=IP.get_local_addresses()
-	var jip2=[]
 	for i in jip:
-		if ":" not in i:
-			jip2.append(i)
-			
-	get_node(iplabel).text=str(jip2) #"Local address: "+jip[7]+"\nPublic Address: "+jip[3]
+		if i.begins_with("192."):
+			%iptext.text="Local Address: "+i
+			break
 
-@rpc("any_peer")
-func update_player_customization(d:Dictionary):
-	spawn_player(d.id)
-	print("Got Customizaion info of",d.id)
-	var temp=players[d.id]
-	temp.Player_name=d.name
-	temp.hair=d.hair
-	temp.skin=d.skin
-	temp.pants=d.pants
-	temp.face=d.face
-	temp.shirt=d.shirt
-	temp.update_looks()
-	$chat.add_text(d.name+" joined")
+
+
+	
+func timer_spawn_trident():
+	var t =load("res://items/trident.tscn")
+	var temp
+	for i in range(9):
+		temp=t.instantiate()
+		temp.name=StringName("penis"+str(randi()))
+		temp.position=Vector3(i/3*10,100,(i%3)*10)
+		add_child(temp)

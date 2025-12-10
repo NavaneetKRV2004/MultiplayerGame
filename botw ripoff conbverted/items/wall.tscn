@@ -1,0 +1,13 @@
+[gd_scene load_steps=4 format=3 uid="uid://dcsp2w1d3f701"]
+
+[ext_resource type="PackedScene" uid="uid://bd1nhjxr5j4oy" path="res://items/wall.glb" id="1_803s8"]
+[ext_resource type="Texture2D" uid="uid://dbxlhcljasty" path="res://items/wood.png" id="2_0smbv"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lh6ma"]
+albedo_texture = ExtResource("2_0smbv")
+texture_filter = 0
+
+[node name="wall" instance=ExtResource("1_803s8")]
+
+[node name="Cube" parent="." index="0"]
+material_override = SubResource("StandardMaterial3D_lh6ma")

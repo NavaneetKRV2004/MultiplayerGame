@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=3 uid="uid://cvmdtyuh3sgaf"]
+
+[ext_resource type="Shader" uid="uid://ceowk5wpndqle" path="res://worlds/sea.tres" id="1_xwcm7"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xwcm7"]
+render_priority = 0
+shader = ExtResource("1_xwcm7")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_cd1ay"]
+material = SubResource("ShaderMaterial_xwcm7")
+size = Vector2(10000, 10000)
+subdivide_width = 500
+subdivide_depth = 500
+
+[node name="Node3D" type="MeshInstance3D"]
+mesh = SubResource("PlaneMesh_cd1ay")

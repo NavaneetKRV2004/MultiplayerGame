@@ -51,10 +51,12 @@ varying_type = 1
 
 [resource]
 code = "shader_type spatial;
+render_mode blend_mix, depth_draw_opaque, cull_back, diffuse_lambert, specular_schlick_ggx;
+
 
 // Varyings
-varying flat int normal_y;
-varying flat int vertex_y;
+varying flat int var_normal_y;
+varying flat int var_vertex_y;
 
 
 
@@ -71,7 +73,7 @@ void vertex() {
 
 
 // VaryingSetter:6
-	normal_y = int(n_out4p1);
+	var_normal_y = int(n_out4p1);
 
 
 // Input:3
@@ -85,12 +87,11 @@ void vertex() {
 
 
 // VaryingSetter:7
-	vertex_y = int(n_out5p1);
+	var_vertex_y = int(n_out5p1);
 
 
 }
 "
-graph_offset = Vector2(-525.434, 56.2126)
 varyings/normal_y = "0,1"
 varyings/vertex_y = "0,1"
 nodes/vertex/0/position = Vector2(900, -40)

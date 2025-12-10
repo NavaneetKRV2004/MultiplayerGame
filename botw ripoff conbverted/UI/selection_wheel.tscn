@@ -1,20 +1,18 @@
 [gd_scene load_steps=2 format=3 uid="uid://c04dcscdudo2l"]
 
-[ext_resource type="Script" uid="uid://bt0irdgdx8ixx" path="res://selection_wheel.gd" id="1_ofd7g"]
+[ext_resource type="Script" uid="uid://dc5ox5ey01j8p" path="res://UI/selection_wheel.gd" id="1_ofd7g"]
 
-[node name="Selection Wheel" type="Control" node_paths=PackedStringArray("items")]
+[node name="Selection Wheel" type="Control"]
+visible = false
 layout_mode = 3
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
+anchors_preset = 0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 script = ExtResource("1_ofd7g")
-items_count = 3
+trigger_action = "select wheel"
+items_count = 8
 offset_percentage = 0.2
 radius = 260
 inner_circle_color = Color(1, 1, 1, 1)
@@ -23,5 +21,4 @@ circle_color = Color(0.568627, 0.568627, 0.568627, 0.741176)
 line_color = Color(1, 1, 1, 1)
 line_width = 2
 transparency = 0.6
-items = [null]
 select_color = Color(1, 1, 1, 1)
