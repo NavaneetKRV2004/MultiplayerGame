@@ -1,5 +1,0 @@
-index,company,body-style,wheel-base ,length ,engine-type ,num-of-cylinders ,horsepower ,average-mileage ,price
-0, 0, alfa-romero ,convertible ,88.6 ,168.8 ,dohc ,four ,111 ,21 ,13495.0,
-1 ,1 ,alfa-romero ,convertible ,88.6 ,168.8 ,dohc ,four ,111 ,21 ,16500.0,
-2, 2 ,alfa-romero ,hatchback ,94.5 ,171.2 ,ohcv ,six ,154 ,19 ,16500.0
-3, 3 ,audi ,sedan ,99.8 ,176.6 ,ohc ,four ,102 ,24 ,13950.0

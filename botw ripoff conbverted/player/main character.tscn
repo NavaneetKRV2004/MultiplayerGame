@@ -390,6 +390,22 @@ tracks/5/keys = {
 "values": [Vector3(0, 0, 0), Vector3(-0.0374489, -0.710633, 0.635082), Vector3(0.019548, -1.56932, 2.43326)]
 }
 
+[sub_resource type="Animation" id="Animation_mi5hc"]
+resource_name = "hit"
+length = 0.335
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("armjoint:rotation")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0666667, 0.333333),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 0.293721, 0), Vector3(0, 0, 0)]
+}
+
 [sub_resource type="Animation" id="Animation_qih6g"]
 resource_name = "idle"
 length = 0.2935
@@ -549,22 +565,6 @@ tracks/3/path = NodePath("armjoint/hand")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = PackedFloat32Array(0, 1, 0, 0, 0, 1, 0.2, 1, 0, 0, 0.274547, 0.961574)
-
-[sub_resource type="Animation" id="Animation_mi5hc"]
-resource_name = "hit"
-length = 0.335
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("armjoint:rotation")
-tracks/0/interp = 2
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.0666667, 0.333333),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Vector3(0, 0, 0), Vector3(0, 0.293721, 0), Vector3(0, 0, 0)]
-}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_85etg"]
 _data = {

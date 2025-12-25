@@ -41,8 +41,9 @@ class Dsettings:
 var arguments:Dictionary={}
 var settings:Dsettings=Dsettings.new()
 func load_():
+	var isfile:bool=FileAccess.file_exists(saveData)
 	var file=FileAccess.open(saveData, FileAccess.READ)
-	if file:
+	if isfile:
 		var js=JSON.parse_string(file.get_as_text())
 		if not js or js and not js is Dictionary:
 			g.p("Settings file corrupted",self,g.DEBUG_MESSAGES_TYPE.GAME_DATA)
@@ -52,7 +53,7 @@ func load_():
 			g.p("Settings file valid",self,g.DEBUG_MESSAGES_TYPE.GAME_DATA)
 			
 	else:
-		file.close()
+		
 		file=FileAccess.open(saveData,FileAccess.WRITE_READ)
 		file.store_string(JSON.stringify(settings.saveToDictionary()))
 		g.p("Writing data to settings file:\n "+JSON.stringify(  settings.saveToDictionary(), "\t"),self,g.DEBUG_MESSAGES_TYPE.GAME_DATA)
