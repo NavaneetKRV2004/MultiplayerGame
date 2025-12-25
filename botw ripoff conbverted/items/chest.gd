@@ -17,7 +17,7 @@ func interact():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	super._process(delta)
+	super._physics_process(delta)
 	if open:
 		lid.rotation_degrees.z=lerp(lid.rotation_degrees.z,openedpos,0.5)
 	else:

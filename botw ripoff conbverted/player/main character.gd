@@ -107,11 +107,11 @@ func resetanim():
 	$"bow placement".rotation_degrees=Vector3(0,-90,-30)
 
 @rpc("call_local")	
-func play(a,backwards=false):
+func play(a,backwards=false,duration=1.0):
 	var neg=-1 if backwards else 1
 	if anim.current_animation != a:
 		resetanim()
-		anim.play(a,-1,neg,backwards)
+		anim.play(a,-1,neg*(1/duration),backwards)
 
 @rpc("any_peer","call_local")
 func damage(n:float=0.0,   kb:float=0.0,   global_source_position:Vector3=Vector3(0,0,0)    ):
@@ -256,6 +256,7 @@ func _physics_process(_delta):
 			else:
 				if col is player:
 					col.damage.rpc(2,100,global_position)
+					play("hit",false)
 		if Input.is_action_just_released("lmb"):
 			var col=ray.get_collider()
 			state="melee"
@@ -319,10 +320,11 @@ func _physics_process(_delta):
 	else:
 		if is_on_floor():
 			gravity_component.y=0
-			if Input.is_action_just_pressed("space") and input_enabled:
-				gravity_component.y = 30
 		else:
 			gravity_component.y=clamp(gravity_component.y-gravity,-300,300)
+			
+		if Input.is_action_just_pressed("space") and input_enabled and (is_on_floor() or $GroundDetection.get_collider()):
+			gravity_component.y = 30
 				
 	
 	

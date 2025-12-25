@@ -4,7 +4,7 @@ class_name swords
 @export var weapon_owner:player
 @export var Damage:float = 5.0
 @export var kb:float=30.0
-
+@export var swingDuration:float=0.75
 var attack_area:Area3D:
 	get():
 		for i in get_children():
@@ -26,9 +26,9 @@ func interactJustPressedLMB(my_player:player,col):
 	weapon_owner = my_player
 	if my_player.is_on_floor():
 		#my_player.rpc("play","attack_h")
-		my_player.play("attack_h")
+		my_player.play("attack_h",false,swingDuration)
 	else:
-		my_player.play("attack_v")
+		my_player.play("attack_v",false,swingDuration)
 		#my_player.rpc("play","attack_v")
 func reset():
 	swing(false,1.0)
