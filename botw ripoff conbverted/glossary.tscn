@@ -63,7 +63,7 @@ stretch = true
 [node name="SubViewport" type="SubViewport" parent="CanvasLayer/HBoxContainer/SubViewportContainer"]
 handle_input_locally = false
 msaa_3d = 3
-size = Vector2i(2, 2)
+size = Vector2i(574, 648)
 render_target_update_mode = 4
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="CanvasLayer/HBoxContainer/SubViewportContainer/SubViewport"]
@@ -76,7 +76,6 @@ current = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2.67)
 
 [node name="iron sword" parent="CanvasLayer/HBoxContainer/SubViewportContainer/SubViewport/Node3D" instance=ExtResource("3_73e0h")]
-despawnable = false
 
 [node name="Button" type="Button" parent="CanvasLayer"]
 custom_minimum_size = Vector2(100, 50)

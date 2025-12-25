@@ -79,8 +79,8 @@ func save_():
 		
 	return
 	
-	var cf=ConfigFile.new()
-	cf.set_value("rendering","renderer/rendering_method",$TabContainer/Video/Panel/VBoxContainer/Rmethod.get_item_text(settings["Rend Method"]))
-	cf.save("res://override.cfg")
-	Engine.set_max_fps(settings["fps"])
+	#var cf=ConfigFile.new()
+	#cf.set_value("rendering","renderer/rendering_method",$TabContainer/Video/Panel/VBoxContainer/Rmethod.get_item_text(settings["Rend Method"]))
+	#cf.save("res://override.cfg")
+	#Engine.set_max_fps(settings["fps"])
 	

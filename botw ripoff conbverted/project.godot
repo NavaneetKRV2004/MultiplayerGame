@@ -22,6 +22,10 @@ config/icon="res://icon.svg"
 g="*res://worlds/world_settings.gd"
 s="*res://Main logic/options2.gd"
 
+[debug]
+
+gdscript/warnings/unused_parameter=0
+
 [filesystem]
 
 import/fbx/enabled=false

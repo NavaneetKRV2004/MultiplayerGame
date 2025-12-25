@@ -82,7 +82,8 @@ func interactReleasedRMB(player_ref:player, item_looked_at):
 	pass
 func reset():
 	pass
-
+func debug()->Array:
+	return []
 func delete_copies():
 	rpc("delete_copies_rpc")
 	
@@ -90,3 +91,6 @@ func delete_copies():
 @rpc("any_peer","call_remote")
 func delete_copies_rpc():
 	queue_free()
+	
+func setExtraPropertiesForReplication(extra:Array):
+	pass

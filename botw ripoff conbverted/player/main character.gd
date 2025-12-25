@@ -192,8 +192,7 @@ func _ready():
 	
 	
 func _physics_process(_delta):
-	if Input.is_action_just_pressed("scroll down"):
-		damage(0,30,Vector3(30,0,30))
+	
 	if not is_multiplayer_authority():
 	
 		return
@@ -436,7 +435,7 @@ func update_debug():
 		
 	
 		var debug=[
-		"[color=BLACK][b]"+
+		
 		"FPS: %d/%d  %.2fms"%[Engine.get_frames_per_second(),Engine.get_physics_ticks_per_second(),RenderingServer.viewport_get_measured_render_time_gpu(get_viewport().get_viewport_rid())],
 		"RAM: %d MB"%[OS.get_static_memory_usage()/1000000,],
 		"Player: %s (%s)"%[Player_name,name],
@@ -451,11 +450,11 @@ func update_debug():
 		"Perspective: "+str(camera.perspective),
 		"Default Perspective: "+str(camera.default_perspective),
 		"hotbar index: %d\tItem: %s"%[hotbar_index,held_item.item_name if held_item else "Nil"],
+		"\t"+"\n\t".join(held_item.debug()) if held_item else "",
 		"colliding with: [%d]\n%s"%[c,l],
 		"Items on ground: "+str(d1),
 		"Pointed Object's Authority: "+str(ray.get_collider().get_multiplayer_authority()) if ray.get_collider() else "",
-		"[/b][/color]"
 		]
 	
 			
-		$DebugData.text="\n".join(debug)
+		$DebugData.text="[color=BLACK][b]"+"\n".join(debug)+"[/b][/color]"

@@ -1,5 +1,7 @@
 extends MultiplayerSpawner
 class_name customMultiplayerSpawner
+
+var ps=preload("res://particles/bomb_particles.tscn")
 var sync_items={}
 @export var world:World
 func _ready() -> void:
@@ -31,11 +33,25 @@ func _spawn_item(d:Dictionary,extra:Array=[]):
 	it.set_multiplayer_authority(1)
 	if extra.size()!=0:
 		it.setExtraPropertiesForReplication(extra)
+
+
+func spawn_particles(type:String,global_position:Vector3):
+	_rpc_spawn_particles.rpc(type,global_position)
+@rpc("any_peer","call_local")
+func _rpc_spawn_particles(type:String,global_position:Vector3):
 	
+	var p=ps.instantiate()
+	world.add_child(p)
+	p.restart()
+	p.position=global_position
+	p.emitting=true
 	
+
 	
 func _process(delta: float) -> void:
 	sync_items.clear()
 	for i in world.get_children():
 		if i is items:
 			sync_items[i.name]=i.item_name
+		if i is GPUParticles3D and not i.emitting:
+			i.queue_free() 

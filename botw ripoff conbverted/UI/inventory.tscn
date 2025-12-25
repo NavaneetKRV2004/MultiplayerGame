@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://beu2yy4dhdgfp"]
+[gd_scene load_steps=7 format=3 uid="uid://beu2yy4dhdgfp"]
 
 [ext_resource type="Texture2D" uid="uid://cp2k5j10j2ar8" path="res://UI/pane;.png" id="1_0fbet"]
 [ext_resource type="Script" uid="uid://fl136ii46a7d" path="res://UI/inventory.gd" id="1_62e2m"]
+[ext_resource type="Script" uid="uid://beu3if51w1wsq" path="res://UI/creative_menu.gd" id="3_fxcd2"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_62e2m"]
 
@@ -69,4 +70,15 @@ offset_right = 282.512
 offset_bottom = -46.2496
 mouse_filter = 2
 
+[node name="Creative menu" type="ItemList" parent="."]
+layout_mode = 1
+anchors_preset = -1
+offset_left = 679.0
+offset_top = 105.0
+offset_right = 1124.0
+offset_bottom = 437.0
+auto_width = true
+script = ExtResource("3_fxcd2")
+
 [connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
+[connection signal="item_clicked" from="Creative menu" to="Creative menu" method="_on_item_clicked"]

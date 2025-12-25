@@ -175,7 +175,6 @@ offset_bottom = 130.0
 [node name="iron sword" parent="." instance=ExtResource("5_xuf5l")]
 process_mode = 4
 transform = Transform3D(0.946317, 0.32324, 0, -0.32324, 0.946317, 0, 0, 0, 1, -0.385674, 0, 0.6532)
-despawnable = false
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.37533, 5.36147)

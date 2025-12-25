@@ -1,0 +1,52 @@
+[gd_scene load_steps=8 format=3 uid="uid://diasaq1wes07w"]
+
+[sub_resource type="Curve" id="Curve_marvc"]
+_data = [Vector2(0.00760456, 1), 0.0, 0.0, 0, 0, Vector2(0.524715, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.00636947), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_fp4o5"]
+curve = SubResource("Curve_marvc")
+
+[sub_resource type="Curve" id="Curve_38yse"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.730038, 0.627389), -2.23604, -2.23604, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_marvc"]
+curve = SubResource("Curve_38yse")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_6uah4"]
+lifetime_randomness = 0.17
+particle_flag_damping_as_friction = true
+inherit_velocity_ratio = 1.0
+velocity_pivot = Vector3(0, 5, 0)
+direction = Vector3(0, 1, 0)
+initial_velocity_min = 30.0
+initial_velocity_max = 30.0
+damping_min = 5.64
+damping_max = 9.216
+scale_min = 0.5
+scale_curve = SubResource("CurveTexture_marvc")
+alpha_curve = SubResource("CurveTexture_fp4o5")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fp4o5"]
+transparency = 1
+diffuse_mode = 3
+specular_mode = 2
+disable_fog = true
+vertex_color_use_as_albedo = true
+albedo_color = Color(0.270222, 0.270222, 0.270222, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_38yse"]
+material = SubResource("StandardMaterial3D_fp4o5")
+radius = 2.0
+height = 4.0
+radial_segments = 10
+rings = 10
+
+[node name="GPUParticles3D2" type="GPUParticles3D"]
+amount = 50
+lifetime = 2.45
+explosiveness = 1.0
+local_coords = true
+process_material = SubResource("ParticleProcessMaterial_6uah4")
+draw_pass_1 = SubResource("SphereMesh_38yse")

@@ -1,10 +1,9 @@
 [gd_scene load_steps=15 format=4 uid="uid://dga5bfv20q0fs"]
 
 [ext_resource type="Script" uid="uid://blkbnr5rh2bmf" path="res://items/bomb.gd" id="1_u4eti"]
+[ext_resource type="Texture2D" uid="uid://belc7hqbnp1f7" path="res://items/bomb_slot.png" id="2_6uah4"]
 [ext_resource type="Texture2D" uid="uid://bjxip3qxir24q" path="res://items/bomb_bomb texture.png" id="2_l6bv3"]
 [ext_resource type="Shader" uid="uid://baggd04vkvre8" path="res://items/bomb.gdshader" id="2_qtvlg"]
-
-[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_tqfld"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_2gcom"]
 resource_local_to_scene = true
@@ -37,7 +36,7 @@ resource_local_to_scene = true
 render_priority = 0
 shader = ExtResource("2_qtvlg")
 shader_parameter/col = Color(1, 0, 0, 1)
-shader_parameter/freq = 10.0
+shader_parameter/progress = 0.0
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qssnq"]
 resource_name = "bomb material"
@@ -87,13 +86,24 @@ properties/0/replication_mode = 2
 properties/1/path = NodePath(".:rotation")
 properties/1/spawn = true
 properties/1/replication_mode = 2
+properties/2/path = NodePath(".:explosion_time")
+properties/2/spawn = true
+properties/2/replication_mode = 2
+properties/3/path = NodePath(".:lit")
+properties/3/spawn = true
+properties/3/replication_mode = 2
+properties/4/path = NodePath(".:time")
+properties/4/spawn = true
+properties/4/replication_mode = 2
 
 [node name="RigidBody3D" type="RigidBody3D" node_paths=PackedStringArray("col")]
 script = ExtResource("1_u4eti")
+explosion_time = 5.0
 item_name = "bomb"
 col = NodePath("CollisionShape3D")
-stackable = true
-inventory_texture = SubResource("PlaceholderTexture2D_tqfld")
+inventory_texture = ExtResource("2_6uah4")
+LMB = "Light"
+RMB = "Throw"
 metadata/_custom_type_script = "uid://bqjt47uklbh5b"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
@@ -103,6 +113,7 @@ shape = SubResource("SphereShape3D_2gcom")
 [node name="GPUParticles3D" type="GPUParticles3D" parent="."]
 transform = Transform3D(1.07045, 0, 0, 0, 0.478032, 0, 0, 0, 1, 0, 0.501804, 0)
 material_override = SubResource("StandardMaterial3D_gfqsp")
+emitting = false
 lifetime = 0.5
 collision_base_size = 0.0
 visibility_aabb = AABB(-3.87354, -3.91748, -4, 8, 8, 8)

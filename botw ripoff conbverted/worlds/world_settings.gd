@@ -22,6 +22,10 @@ enum teams{
 	YELLOW
 }
 
+var particles:Dictionary={
+	"bomb":"res://particles/bomb_particles.tscn"
+}
+
 func _input(_event):
 	if Input.is_action_just_pressed("quit"):
 		get_tree().quit()
@@ -46,7 +50,7 @@ func p(text,source:Node=null,type:DEBUG_MESSAGES_TYPE=DEBUG_MESSAGES_TYPE.MISC):
 	"basic sword":{
 		"scene":"res://items/basic_sword.tscn",
 		"stackable":false,
-		"texture":null
+		"texture":"res://items/basic_sword_slot.png"
 	},
 	"iron sword":{
 		"scene":"res://items/iron_sword.tscn",
@@ -66,8 +70,8 @@ func p(text,source:Node=null,type:DEBUG_MESSAGES_TYPE=DEBUG_MESSAGES_TYPE.MISC):
 	
 	"bomb":{
 		"scene":"res://items/bomb.tscn",
-		"stackable":true,
-		"texture":null
+		"stackable":false,
+		"texture":"res://items/bomb_slot.png"
 	},
 	
 	"bow":{
