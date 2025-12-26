@@ -280,7 +280,7 @@ func _physics_process(_delta):
 
 		if Input.is_action_just_released("pick up"):
 			var col=ray.get_collider()
-			if col and col is items and col.collectable and not col.held and inventory.isAddable(col):
+			if col and col is items and (col.collectable or not gamemode_survival) and not col.held and inventory.isAddable(col):
 				inventory.add_item(col,1)
 				col.delete_copies()
 				player_world.remove_child(col)

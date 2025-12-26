@@ -17,7 +17,7 @@ func _die():
 				i.apply_impulse((i.position-position).normalized()*explforce)
 	$CollisionShape3D.disabled=true
 	if get_parent() is World:
-		get_parent().item_spawner.spawn_particles("bomb",position+Vector3(0,5,0))
+		get_parent().item_spawner.spawn_particles("bomb",position)
 	super._die()
 		
 func reset():

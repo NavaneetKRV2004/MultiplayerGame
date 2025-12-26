@@ -48,6 +48,7 @@ func _ready():
 	
 	if not inventory_texture:
 		push_error("%s has no inventory texture"%item_name)
+		
 	
 	
 	freeze_mode=RigidBody3D.FREEZE_MODE_KINEMATIC

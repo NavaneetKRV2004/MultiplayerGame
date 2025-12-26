@@ -1,7 +1,8 @@
-[gd_scene load_steps=8 format=4 uid="uid://d3rgqggucjgg"]
+[gd_scene load_steps=9 format=4 uid="uid://d3rgqggucjgg"]
 
 [ext_resource type="Script" uid="uid://d3e0orbnxtd21" path="res://items/construction.gd" id="1_tdt7e"]
 [ext_resource type="Material" uid="uid://djjhb11vc511s" path="res://items/wood.tres" id="2_0n7d4"]
+[ext_resource type="Texture2D" uid="uid://dwnmsc7p71tvg" path="res://items/door_way_slot.png" id="2_ykyst"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_m1xio"]
 resource_name = "Material.001"
@@ -59,15 +60,19 @@ properties/1/replication_mode = 2
 script = ExtResource("1_tdt7e")
 item_name = "wood_doorway"
 col = NodePath("CollisionShape3D")
+collectable = false
+destroyable = true
+inventory_texture = ExtResource("2_ykyst")
 metadata/_custom_type_script = "uid://d3e0orbnxtd21"
 
 [node name="Cube" type="MeshInstance3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
 material_override = ExtResource("2_0n7d4")
 mesh = SubResource("ArrayMesh_o0hi2")
 skeleton = NodePath("")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-visible = false
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
 shape = SubResource("ConcavePolygonShape3D_8ts6e")
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]

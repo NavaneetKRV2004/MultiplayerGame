@@ -9,14 +9,7 @@ class_name WorldClient
 @export var player_name:TextEdit
 @export var skin:ColorPickerButton
 
-func _input(event: InputEvent) -> void:
-	if Input.is_action_just_pressed("gamemode_survival"):
-		var p=load("res://particles/bomb_particles.tscn").instantiate()
-		add_child(p)
-		p.restart()
-		p.position.y=150
-		p.emitting=true
-		
+
 	
 	
 func join_world(ip:String,type:int):

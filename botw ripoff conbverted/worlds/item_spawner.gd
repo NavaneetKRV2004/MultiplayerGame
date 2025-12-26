@@ -34,21 +34,25 @@ func _spawn_item(d:Dictionary,extra:Array=[]):
 	if extra.size()!=0:
 		it.setExtraPropertiesForReplication(extra)
 
-
+var particles_queue=[]
 func spawn_particles(type:String,global_position:Vector3):
 	_rpc_spawn_particles.rpc(type,global_position)
 @rpc("any_peer","call_local")
 func _rpc_spawn_particles(type:String,global_position:Vector3):
+	particles_queue.append([type,global_position])
 	
-	var p=ps.instantiate()
-	world.add_child(p)
-	p.restart()
-	p.position=global_position
-	p.emitting=true
 	
 
 	
 func _process(delta: float) -> void:
+	
+	if particles_queue!=[]:
+		var pl=particles_queue.pop_back()
+		var p=load(g.particles[pl[0]]).instantiate()
+		get_parent().add_child(p)
+		p.position=pl[1]
+		p.emitting=true
+	
 	sync_items.clear()
 	for i in world.get_children():
 		if i is items:

@@ -66,3 +66,5 @@ func interactJustPressedRMB(my_player,b):
 func interactReleasedRMB(my_player,b):
 		release()
 		my_player.speed*=2
+func debug():
+	return ["Shooting speed: %d"%[arrow_speed],"Withdraw Time: %d"%[withdraw_time],"Progress: %f"%[anim.current_animation_position if anim.is_playing() else 0.0]]

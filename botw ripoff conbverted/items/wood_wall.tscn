@@ -1,7 +1,7 @@
 [gd_scene load_steps=9 format=4 uid="uid://bgo8ymnv1qokd"]
 
 [ext_resource type="Script" uid="uid://d3e0orbnxtd21" path="res://items/construction.gd" id="1_i6xpd"]
-[ext_resource type="Texture2D" uid="uid://dbxlhcljasty" path="res://items/wood.png" id="2_v06n8"]
+[ext_resource type="Texture2D" uid="uid://b0ow2cw7ma35y" path="res://items/wall_slot.png" id="2_v06n8"]
 [ext_resource type="Material" uid="uid://djjhb11vc511s" path="res://items/wood.tres" id="3_v06n8"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_iewqy"]
@@ -53,7 +53,6 @@ item_name = "wood_wall"
 col = NodePath("CollisionShape3D")
 collectable = false
 destroyable = true
-stackable = true
 inventory_texture = ExtResource("2_v06n8")
 metadata/_custom_type_script = "uid://d3e0orbnxtd21"
 

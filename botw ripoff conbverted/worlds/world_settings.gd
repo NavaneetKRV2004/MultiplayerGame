@@ -83,7 +83,7 @@ func p(text,source:Node=null,type:DEBUG_MESSAGES_TYPE=DEBUG_MESSAGES_TYPE.MISC):
 	"sniper_bow":{
 		"scene":"res://items/sniper_bow.tscn",
 		"stackable":false,
-		"texture":"res://items/bowslot.png"
+		"texture":"res://items/sniper_bow_slot.png"
 	},
 	
 	"chest":{
@@ -124,12 +124,12 @@ func p(text,source:Node=null,type:DEBUG_MESSAGES_TYPE=DEBUG_MESSAGES_TYPE.MISC):
 	"wood_wall":{
 		"scene":"res://items/wood_wall.tscn",
 		"stackable":true,
-		"texture":null
+		"texture":"res://items/wall_slot.png"
 	},
 	"wood_doorway":{
 		"scene":"res://items/wood_doorway.tscn",
 		"stackable":true,
-		"texture":null
+		"texture":"res://items/door_way_slot.png"
 	}
 	
 }

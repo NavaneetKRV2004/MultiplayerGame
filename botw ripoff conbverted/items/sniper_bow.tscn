@@ -1,7 +1,8 @@
-[gd_scene load_steps=9 format=3 uid="uid://b0pxyk4av2r72"]
+[gd_scene load_steps=10 format=3 uid="uid://b0pxyk4av2r72"]
 
 [ext_resource type="Script" uid="uid://bu3kjhj1ivc61" path="res://items/bow.gd" id="1_27l6l"]
 [ext_resource type="PackedScene" uid="uid://bosb2sxhjnxo4" path="res://items/bow_fast.glb" id="2_00e88"]
+[ext_resource type="Texture2D" uid="uid://ciqxop3rkfso3" path="res://items/sniper_bow_slot.png" id="2_6hux1"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_00e88"]
 size = Vector3(1.32718, 2.9375, 0.229004)
@@ -205,6 +206,7 @@ anim = NodePath("AnimationPlayer")
 point = NodePath("Marker3D")
 item_name = "sniper_bow"
 col = NodePath("CollisionShape3D")
+inventory_texture = ExtResource("2_6hux1")
 metadata/_custom_type_script = "uid://bu3kjhj1ivc61"
 
 [node name="bow_fast" parent="." instance=ExtResource("2_00e88")]
