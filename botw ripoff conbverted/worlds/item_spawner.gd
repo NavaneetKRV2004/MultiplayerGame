@@ -12,27 +12,32 @@ func _ready() -> void:
 
 
 func make_copies(item:items,extra:Array=[]):
+	var temp:Array=[]
+	temp.append(item.item_name)
+	temp.append(item.global_position)
+	temp.append(item.global_rotation)
+	temp.append(item.linear_velocity)
+	item.free()
 	_spawn_item.rpc_id(1,
 		{ 
 			
-			"type":item.item_name,
-			"pos":item.global_position,
-			"rot":item.global_rotation,
-			"vel":item.linear_velocity
+			"type":temp[0],
+			"pos":temp[1],
+			"rot":temp[2],
+			"vel":temp[3]
 		},extra)
-	item.free()
 	
 @rpc("any_peer","call_remote")
 func _spawn_item(d:Dictionary,extra:Array=[]):
 	var it:items=load(g.list_of_items[d.type]["scene"]).instantiate()
 	it.name=it.item_name+"_"+str(randi())
-	world.add_child(it)
-	it.global_position=d.pos
-	it.global_rotation=d.rot
+	it.position=d.pos-world.position
+	it.rotation=d.rot
 	it.linear_velocity=d.vel
 	it.set_multiplayer_authority(1)
 	if extra.size()!=0:
 		it.setExtraPropertiesForReplication(extra)
+	world.add_child(it)
 
 var particles_queue=[]
 func spawn_particles(type:String,global_position:Vector3):

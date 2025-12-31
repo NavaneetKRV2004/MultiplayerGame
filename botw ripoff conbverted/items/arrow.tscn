@@ -63,7 +63,6 @@ inventory_texture = ExtResource("2_pjbu3")
 transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0, 0)
 
 [node name="GPUParticles3D" type="GPUParticles3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.602855)
 emitting = false
 amount = 50
 lifetime = 6.05

@@ -29,7 +29,7 @@ func join_world(ip:String,type:int):
 	
 	my_player=spawn_player(id)
 	my_player.skin=skin.color
-	my_player.Player_name=player_name.text
+	my_player.Player_name=player_name.text if player_name.text !="" else "GNF soldier "+str(id)
 	
 	multi.peer_disconnected.connect(delete_player)
 	

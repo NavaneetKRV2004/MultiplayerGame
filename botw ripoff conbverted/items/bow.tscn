@@ -241,8 +241,8 @@ properties/1/replication_mode = 2
 
 [node name="Node3D" type="RigidBody3D" node_paths=PackedStringArray("anim", "point", "col")]
 script = ExtResource("1_uvgic")
-arrow_speed = 100.0
-withdraw_time = 2.435
+arrow_speed = 20.0
+withdraw_time = 2.0
 anim = NodePath("AnimationPlayer")
 point = NodePath("Marker3D")
 item_name = "bow"

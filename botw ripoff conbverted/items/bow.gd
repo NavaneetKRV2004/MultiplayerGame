@@ -67,4 +67,9 @@ func interactReleasedRMB(my_player,b):
 		release()
 		my_player.speed*=2
 func debug():
-	return ["Shooting speed: %d"%[arrow_speed],"Withdraw Time: %d"%[withdraw_time],"Progress: %f"%[anim.current_animation_position if anim.is_playing() else 0.0]]
+	
+	return ["Shooting speed: %d"%[arrow_speed],
+	"Withdraw Time: %d"%[withdraw_time],
+	"Progress: %f"%[anim.current_animation_position if anim.current_animation else 0.0],
+	"Potential damage: %d" %[arrow_speed*1.5*(anim.current_animation_position if anim.current_animation else 1.0)]
+	]
