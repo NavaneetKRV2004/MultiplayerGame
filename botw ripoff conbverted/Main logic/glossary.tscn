@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://c0m6mbqfmi0t4"]
 
-[ext_resource type="Script" uid="uid://bgp4j651wpros" path="res://glossary.gd" id="1_cdujq"]
+[ext_resource type="Script" uid="uid://bgp4j651wpros" path="res://Main logic/glossary.gd" id="1_cdujq"]
 [ext_resource type="PackedScene" uid="uid://dnea7ljedyc3d" path="res://items/iron_sword.tscn" id="3_73e0h"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_cdujq"]

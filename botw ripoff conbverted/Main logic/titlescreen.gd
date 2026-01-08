@@ -24,7 +24,7 @@ func server():
 func toggle_settings():
 	options.visible=not options.visible
 func glossary():
-	get_tree().change_scene_to_file("res://glossary.tscn")
+	get_tree().change_scene_to_file("res://Main logic/glossary.tscn")
 	
 func play_ui_sound():
 	$CanvasLayer/Control/AudioStreamPlayer.play(0.0)

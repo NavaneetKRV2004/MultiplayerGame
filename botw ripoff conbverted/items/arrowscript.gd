@@ -47,7 +47,7 @@ func _physics_process(_delta):
 			queue_free()
 			return
 	
-		elif i is StaticBody3D:
+		elif i is StaticBody3D :
 			freeze=true
 			return
 
@@ -55,8 +55,8 @@ func _physics_process(_delta):
 			if is_multiplayer_authority():
 				g.p(i.name+" was shot by "+arrow_owner+ " and did damage:"+str(floor(Damage*velocity_before_last_collision.length())) +"moving at "+str(velocity_before_last_collision.length())+" m/s",self,g.DEBUG_MESSAGES_TYPE.COMBAT)
 				i.damage.rpc(floor(Damage*velocity_before_last_collision.length()),10,global_position)
-			$bruh.reparent(i,true)
-			queue_free()
+				delete_copies()
+			
 			return
 			
 	velocity_before_last_collision=linear_velocity

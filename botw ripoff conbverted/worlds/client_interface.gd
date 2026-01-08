@@ -29,17 +29,17 @@ func _ready() -> void:
 	
 func check_servers():
 	localhostbutton.ask_server()
-	#LANButton.ask_server()
-	#MS1button.ask_server()
-	#MS2button.ask_server()
-	#MS3button.ask_server()
-	#
+	LANButton.ask_server()
+	MS1button.ask_server()
+	MS2button.ask_server()
+	MS3button.ask_server()
+	
 func save_ip_addresses():
 	s.settings.server_list[0]=str(int(LANtextbox.value))
 	s.settings.server_list[1]=MS1textbox.text
 	s.settings.server_list[2]=MS2textbox.text
 	s.settings.server_list[3]=MS3textbox.text
-
+	s.save_()
 	
 
 

@@ -1,0 +1,22 @@
+[gd_scene load_steps=3 format=3 uid="uid://d1rsn2wvebfpm"]
+
+[ext_resource type="Script" uid="uid://dd0sps6hkwg2d" path="res://items/bow_string.gd" id="1_d068t"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_1c05j"]
+resource_local_to_scene = true
+
+[node name="bow string" type="Node3D" node_paths=PackedStringArray("upper", "lower")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 0)
+script = ExtResource("1_d068t")
+upper = NodePath("MeshInstance3D")
+lower = NodePath("MeshInstance3D2")
+progress = 1.0
+half_length = 1.0
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.017, 0, 0, 0, 1, 0.0141421, 0, -1, 0.0141421, 0, 0.5, 0.5)
+mesh = SubResource("BoxMesh_1c05j")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.017, 0, 0, 0, -1, 0.0141421, 0, -1, -0.0141421, 0, -0.5, 0.5)
+mesh = SubResource("BoxMesh_1c05j")

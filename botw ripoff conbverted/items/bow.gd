@@ -24,6 +24,7 @@ func release():
 		arrow.global_rotation=my_player.arrow_point.global_rotation
 		arrow.linear_velocity=my_player._get_facing_direction()*arrow_speed*anim.current_animation_position
 		my_player.player_world.item_spawner.make_copies(arrow,[my_player.Player_name])
+		assert(my_player.Player_name != "")
 		
 	anim.play("withdraw",-1,-1/release_animation_time)
 	arrow=null

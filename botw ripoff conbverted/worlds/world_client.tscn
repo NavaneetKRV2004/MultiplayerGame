@@ -8,7 +8,7 @@
 [ext_resource type="Script" uid="uid://eemy5lo36e57" path="res://worlds/client_interface.gd" id="3_jlq55"]
 [ext_resource type="PackedScene" uid="uid://c067j41iw3nkw" path="res://worlds/item_Spawner.tscn" id="4_cadv0"]
 [ext_resource type="FontFile" uid="uid://cxpvlud4t88bp" path="res://MODERNA_.TTF" id="4_dajfp"]
-[ext_resource type="PackedScene" uid="uid://coxg0uh6kt3gu" path="res://serverButton.tscn" id="4_jlq55"]
+[ext_resource type="PackedScene" uid="uid://coxg0uh6kt3gu" path="res://Main logic/serverButton.tscn" id="4_jlq55"]
 
 [sub_resource type="Gradient" id="Gradient_ye2wn"]
 colors = PackedColorArray(0.32549, 0.564706, 0.980392, 1, 0.0470588, 0.254902, 0.607843, 1)
@@ -240,6 +240,7 @@ text = "Saved servers"
 [node name="ms1" parent="Control/Control/VBoxContainer/HBoxContainer/VBoxContainer/TabBar/Online Server/VBoxContainer" node_paths=PackedStringArray("world") instance=ExtResource("4_jlq55")]
 layout_mode = 2
 world = NodePath("../../../../../../../../..")
+ip = 1
 
 [node name="ms2" parent="Control/Control/VBoxContainer/HBoxContainer/VBoxContainer/TabBar/Online Server/VBoxContainer" node_paths=PackedStringArray("world") instance=ExtResource("4_jlq55")]
 layout_mode = 2
@@ -440,4 +441,4 @@ replication_config = SubResource("SceneReplicationConfig_h3vma")
 
 [connection signal="button_up" from="Control/Control/VBoxContainer/TextureRect/Button" to="Control" method="_on_back_button_up"]
 [connection signal="button_down" from="Control/Control/VBoxContainer/HBoxContainer/VBoxContainer/TabBar/Online Server/VBoxContainer/Button" to="." method="check_servers"]
-[connection signal="button_down" from="Control/Control/VBoxContainer/HBoxContainer/VBoxContainer/TabBar/Edit Servers/Direct/check" to="." method="save_ip_addresses"]
+[connection signal="button_down" from="Control/Control/VBoxContainer/HBoxContainer/VBoxContainer/TabBar/Edit Servers/Direct/check" to="Control" method="save_ip_addresses"]
