@@ -1,6 +1,9 @@
-[gd_scene load_steps=2 format=3 uid="uid://glyqs4h5x4v1"]
+[gd_scene load_steps=3 format=3 uid="uid://glyqs4h5x4v1"]
 
 [ext_resource type="Script" uid="uid://33xjw7xalo1d" path="res://UI/chat.gd" id="1_iqp8c"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_isvah"]
+bg_color = Color(0.427493, 0.427493, 0.427493, 0.52549)
 
 [node name="chat" type="Control"]
 layout_mode = 3
@@ -13,20 +16,23 @@ offset_right = 366.0
 offset_bottom = -3.0
 grow_vertical = 0
 script = ExtResource("1_iqp8c")
+open = true
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_top = -36.0
-offset_right = 344.0
+offset_top = -57.0
+offset_right = 494.0
 grow_vertical = 0
 
 [node name="Label" type="RichTextLabel" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 8
-focus_mode = 2
+mouse_default_cursor_shape = 1
+theme_override_font_sizes/normal_font_size = 20
+theme_override_styles/normal = SubResource("StyleBoxFlat_isvah")
 bbcode_enabled = true
 text = "Game started.."
 fit_content = true
@@ -37,6 +43,13 @@ visible = false
 layout_mode = 2
 size_flags_vertical = 8
 placeholder_text = "Chat"
+max_length = 50
+keep_editing_on_text_submit = true
 caret_blink = true
 
+[node name="Timer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+
 [connection signal="text_submitted" from="VBoxContainer/TextEdit" to="." method="_on_text_edit_text_submitted"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

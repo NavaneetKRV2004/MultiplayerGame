@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://8xvqvm52qjs3"]
+[gd_scene load_steps=27 format=3 uid="uid://8xvqvm52qjs3"]
 
 [ext_resource type="Script" uid="uid://d3lr651m53nfc" path="res://player/main character.gd" id="1_ss7nu"]
 [ext_resource type="Material" uid="uid://ddxeiqueh33ll" path="res://player/main charactershader.tres" id="2_obcun"]
@@ -6,7 +6,6 @@
 [ext_resource type="Script" uid="uid://bpcr132m223x5" path="res://player/Camera3D.gd" id="3_xnocw"]
 [ext_resource type="Script" uid="uid://basusc15iacfd" path="res://player/hand.gd" id="5_qih6g"]
 [ext_resource type="PackedScene" uid="uid://dbe5b64d4tcvn" path="res://items/shield.tscn" id="6_e64tl"]
-[ext_resource type="PackedScene" uid="uid://b0pxyk4av2r72" path="res://items/sniper_bow.tscn" id="7_qih6g"]
 [ext_resource type="AudioStream" uid="uid://dy364o0kpjoco" path="res://audio/clean-fast-swooshaiff-14784.mp3" id="8_rr61b"]
 [ext_resource type="PackedScene" uid="uid://b5jum0m25eq1l" path="res://entities/healthbar.tscn" id="9_w5jlg"]
 [ext_resource type="PackedScene" uid="uid://c04dcscdudo2l" path="res://UI/selection_wheel.tscn" id="10_j7ges"]
@@ -650,8 +649,6 @@ transform = Transform3D(0.214502, -0.24619, 0.945187, -0.0503988, 0.963635, 0.26
 unique_name_in_owner = true
 transform = Transform3D(-3.14593e-06, -1.79107e-06, -1, -0.5, 0.866025, 2.18557e-08, 0.866025, 0.5, -3.61999e-06, -0.595927, 0.332829, 0)
 
-[node name="Node3D" parent="bow placement" instance=ExtResource("7_qih6g")]
-
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource("8_rr61b")
 
@@ -662,7 +659,11 @@ replication_config = SubResource("SceneReplicationConfig_87i4w")
 [node name="DebugData" type="RichTextLabel" parent="."]
 offset_right = 648.0
 offset_bottom = 648.0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 3
 bbcode_enabled = true
+text = "wrgrgrgsredgesresrgersgesr"
+progress_bar_delay = 0
 
 [node name="GPUParticles3D" type="GPUParticles3D" parent="."]
 emitting = false
@@ -683,6 +684,7 @@ libraries = {
 }
 
 [node name="inventory" parent="." instance=ExtResource("11_qih6g")]
+visible = false
 offset_left = -2.0
 offset_top = 2.0
 offset_right = -2.0

@@ -19,7 +19,8 @@ var strtime:String
 
 var players:Dictionary={}
 var my_player:player=null
-
+@export var isHealthShownInPlayerList:bool=true
+@export var ischeatsEnabled:bool=true
 
 
 var multi=null

@@ -1,7 +1,7 @@
 extends Node
 const PORT_GAME:=7000
 const PORT_HTTP:=8000
-const void_level:int=-50
+const void_level:int=-200
 
 
 @export var world_types:Array=[
@@ -13,7 +13,9 @@ const void_level:int=-50
 	["Hide and Seek"],
 	["Catch"],
 	["Bomb it"],
-	["CTF"]
+	["CTF"],
+	["spleef"],
+	["Castle snipers"]
 	]
 enum teams{
 	RED,

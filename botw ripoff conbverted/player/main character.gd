@@ -204,7 +204,8 @@ func _physics_process(_delta):
 	if health<=0:
 		rpc.call("respawn")
 	if Input.is_action_just_pressed("mouse escape"):
-		player_world.chat.visible=not player_world.chat.visible
+		player_world.chat.visible=true
+		player_world.chat.open=not player_world.chat.open
 		
 		
 	if inventory.visible or my_selection_wheel.visible or player_world.chat.open or player_world.options.visible:
@@ -214,7 +215,7 @@ func _physics_process(_delta):
 		input_enabled=true
 		
 	
-	if not player_world.chat.open:
+	if not player_world.chat.open and not player_world.options.visible:
 		if not my_selection_wheel.visible:
 			if Input.is_action_just_pressed("inventory"):
 				if get_held_item():
@@ -388,11 +389,14 @@ func _process(delta):
 
 func _input(event):
 	
-	if not is_multiplayer_authority() or not input_enabled:
-		return
-	if Input.is_action_just_pressed("escape"):
+	if Input.is_action_just_pressed("escape") and is_multiplayer_authority():
 		
 		player_world.options.visible=not player_world.options.visible
+		inventory.hide()
+		player_world.chat.open=false
+		
+	if not is_multiplayer_authority() or not input_enabled:
+		return
 		
 	if Input.is_action_just_pressed("zoom"):
 		camera.perspective=2
@@ -457,4 +461,4 @@ func update_debug():
 		]
 	
 			
-		$DebugData.text="[color=BLACK][b]"+"\n".join(debug)+"[/b][/color]"
+		$DebugData.text="[color=WHITE][b]"+"\n".join(debug)+"[/b][/color]"

@@ -39,6 +39,7 @@ func _on_host_button_down():
 		pvp=%CheckButton.button_pressed
 		default_gamemode=%gm.get_selected_id()
 		world_type=%landtype.get_selected_id()
+		ischeatsEnabled=%cheats.button_pressed
 		
 	
 	var l=load(g.world_types[world_type][1]).instantiate()
@@ -56,15 +57,3 @@ func _on_label_ready():
 		if i.begins_with("192."):
 			%iptext.text="Local Address: "+i
 			break
-
-
-
-	
-func timer_spawn_trident():
-	var t =load("res://items/trident.tscn")
-	var temp
-	for i in range(9):
-		temp=t.instantiate()
-		temp.name=StringName("penis"+str(randi()))
-		temp.position=Vector3(i/3*10,100,(i%3)*10)
-		add_child(temp)
