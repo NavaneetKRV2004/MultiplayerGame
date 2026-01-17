@@ -94,6 +94,7 @@ shadow_mesh = SubResource("ArrayMesh_x4iao")
 [node name="Node3D" type="RigidBody3D" node_paths=PackedStringArray("col")]
 freeze_mode = 1
 script = ExtResource("1_2s5ad")
+construction_type = 2
 item_name = "tree"
 col = NodePath("CollisionShape3D")
 destroyable = true

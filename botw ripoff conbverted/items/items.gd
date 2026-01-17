@@ -81,6 +81,10 @@ func interactReleasedLMB(player_ref:player, item_looked_at):
 	pass
 func interactReleasedRMB(player_ref:player, item_looked_at):
 	pass
+	
+func idle(player_ref:player):
+	pass
+	
 func reset():
 	pass
 func debug()->Array:

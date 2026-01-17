@@ -30,6 +30,7 @@ grow_vertical = 0
 [node name="Label" type="RichTextLabel" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 8
+focus_mode = 2
 mouse_default_cursor_shape = 1
 theme_override_font_sizes/normal_font_size = 20
 theme_override_styles/normal = SubResource("StyleBoxFlat_isvah")

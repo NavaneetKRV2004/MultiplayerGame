@@ -26,7 +26,15 @@ func make_copies(item:items,extra:Array=[]):
 			"rot":temp[2],
 			"vel":temp[3]
 		},extra)
+func create_item(type:String,pos:Vector3,rot:Vector3,vel:Vector3,extra:Array=[]):
 	
+	_spawn_item.rpc_id(1,
+		{ 
+			"type":type,
+			"pos":pos,
+			"rot":rot,
+			"vel":vel
+		},extra)
 @rpc("any_peer","call_remote")
 func _spawn_item(d:Dictionary,extra:Array=[]):
 	var it:items=load(g.list_of_items[d.type]["scene"]).instantiate()

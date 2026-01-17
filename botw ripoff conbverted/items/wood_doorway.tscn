@@ -62,6 +62,7 @@ item_name = "wood_doorway"
 col = NodePath("CollisionShape3D")
 collectable = false
 destroyable = true
+stackable = true
 inventory_texture = ExtResource("2_ykyst")
 metadata/_custom_type_script = "uid://d3e0orbnxtd21"
 

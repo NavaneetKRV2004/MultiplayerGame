@@ -143,11 +143,6 @@ func _enter_tree():
 	set_multiplayer_authority(name.to_int())
 	
 func _ready():
-	var bow:Bow=$"bow placement".get_child(0)
-	if not bow:
-		push_error("No bow at spawn")
-	else:
-		bow.my_player=self
 		
 	player_world=get_parent()
 	if not is_multiplayer_authority():
@@ -234,18 +229,17 @@ func _physics_process(_delta):
 	else:
 		input_enabled=false
 			
-	
+	if get_held_item():
+				get_held_item().idle(self)
+	if not inventory.getItemAt(hotbar_index):
+			setHotbarIndex(hotbar_index) #refresh held item if count is 0
 	if input_enabled:
 		$body.visible=camera.perspective!=1
 		if Input.is_action_just_pressed("perspective"):
 			
 			camera.perspective=0 if camera.perspective==1 else 1
 			
-			
-		
-			
-		
-			
+
 #region mouse item interactions
 		if Input.is_action_just_pressed("lmb"):
 			var col=ray.get_collider()
@@ -278,7 +272,8 @@ func _physics_process(_delta):
 				get_held_item().interactReleasedRMB(self,col)
 				
 #endregion
-
+		
+		
 		if Input.is_action_just_released("pick up"):
 			var col=ray.get_collider()
 			if col and col is items and (col.collectable or not gamemode_survival) and not col.held and inventory.isAddable(col):
