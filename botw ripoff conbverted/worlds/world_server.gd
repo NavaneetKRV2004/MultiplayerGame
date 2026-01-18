@@ -57,3 +57,17 @@ func _on_label_ready():
 		if i.begins_with("192."):
 			%iptext.text="Local Address: "+i
 			break
+			
+			
+func save_world():
+	var save=FileAccess.open("FirstWorldEver.world",FileAccess.WRITE)
+	var buffer:String=""
+	for i in get_children():
+		if i is items:
+			var temp=i.item_name+":\n\tpos: "+str(i.position.x)+" "+str(i.position.y)+" "+str(i.position.z)
+			temp+="\n\trot: "+str(i.rotation.x)+" "+str(i.rotation.y)+" "+str(i.rotation.z)
+			buffer+="\n"+temp
+	save.store_string(buffer)
+	
+
+			

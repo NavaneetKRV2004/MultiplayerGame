@@ -7,19 +7,23 @@ enum constr{
 	TREE
 }
 @export var construction_type:constr=constr.WALL
-var ghost:MeshInstance3D=null
+var ghost:Node=null
+@export var nodeIfMultipleMesh:Node=null
 var ghostOn:bool=false
 
 func _ready() -> void:
 	super._ready()
 	if not ghost:
-		for i in get_children():
-			if i is MeshInstance3D:
-				ghost=i.duplicate()
-				
-				
-				break
+		if not nodeIfMultipleMesh: #if only one mesh exists
+			for i in get_children():
+				if i is MeshInstance3D:
+					ghost=i.duplicate()
+					break
+		else:
+			ghost=nodeIfMultipleMesh.duplicate()
 	ghost.scale=Vector3.ONE
+	
+	
 func _setHeld():
 	
 	var value= not get_parent() is World
@@ -28,13 +32,19 @@ func _setHeld():
 	col.disabled=value
 	
 	if held:
-		for i in get_children():
-			if i is MeshInstance3D:
-				i.scale=Vector3(held_size_ratio,held_size_ratio,held_size_ratio)
+		if not nodeIfMultipleMesh:
+			for i in get_children():
+				if i is MeshInstance3D:
+					i.scale=Vector3(held_size_ratio,held_size_ratio,held_size_ratio)
+		else:
+			nodeIfMultipleMesh.scale=Vector3(held_size_ratio,held_size_ratio,held_size_ratio)
 	else:
-		for i in get_children():
-			if i is MeshInstance3D:
-				i.scale=Vector3(1,1,1)
+		if not nodeIfMultipleMesh:
+			for i in get_children():
+				if i is MeshInstance3D:
+					i.scale=Vector3(1,1,1)
+		else:
+			nodeIfMultipleMesh.scale=Vector3.ONE
 	
 	
 func interactJustPressedLMB(player_ref:player, item_looked_at):
@@ -64,9 +74,11 @@ func idle(player_ref):
 	if ghost and held and ghostOn:
 		if player_ref.ray.is_colliding():
 			ghost.global_position=player_ref.ray.get_collision_point()
+			ghost.rotation_degrees.y=rotation_degrees.y
 			ghost.show()
 		else:
 			ghost.hide()
+			
 		match construction_type:
 			constr.FLOOR_CEILING:
 				ghost.global_position.y+=0.2
@@ -74,5 +86,8 @@ func idle(player_ref):
 				ghost.global_position.y+=2.0
 			constr.TREE:
 				pass
+		if Input.is_action_pressed("shift"):
+			ghost.global_position=round(ghost.global_position)
+			ghost.global_rotation_degrees=45*round(ghost.global_rotation_degrees/45.0)
 			
 		

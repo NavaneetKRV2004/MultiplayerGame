@@ -62,6 +62,9 @@ func _on_text_edit_text_submitted(new_text:String):
 					
 					if args[3].is_valid_int():
 						world.my_player.position.z=int(args[3])
+			"/save":
+				rpc("add_text","Saving...","[color=FF0000]<Server>[/color]")
+				rpc_id(1,"askServerToSave")
 	edit.text=""
 					
 						
@@ -87,3 +90,8 @@ func check_if_chat_should_disappear_and_do():
 func _on_timer_timeout() -> void:
 	if not edit.visible:
 		visible=false
+@rpc("any_peer","reliable")
+func askServerToSave(): 
+	if world is WorldServer and is_multiplayer_authority():
+		world.save_world()
+	
