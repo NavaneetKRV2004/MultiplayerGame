@@ -5,7 +5,7 @@ class_name entity_camera
 var default_perspective:int=1
 @export var CUSTOM_FOV=75.0
 @export var LOOK_CLOSE_FOV=20.0
-
+var BOW_FOV:float=CUSTOM_FOV
 @export var isWobbling:bool = false
 @export var wobbling_rate:float=5.0
 @export var isRunning:bool=false
@@ -15,6 +15,15 @@ var wobble_angle_cumulative:float=0.0
 func default():
 	perspective=default_perspective
 	size=1
+	
+	
+enum perspective_modes{
+	C_ZOOMED=-1,
+	THIRD_PERSON=0,
+	FIRST_PERSON=1,
+	ALMOST_C_ZOOM=2,
+	BOW_USED=3
+}
 func _process(_delta):
 	if s:
 		
@@ -46,7 +55,8 @@ func _process(_delta):
 			fov=clamp(fov+1,1,150)
 		position=position.lerp(Vector3.ZERO,0.1)
 		rotation_degrees.x=lerp_angle(rotation_degrees.x,90,0.05)
-		
+	elif perspective==3:   
+		fov=lerp(fov,BOW_FOV,0.1)
 	else:
 		default()
 	
@@ -85,3 +95,6 @@ func _wobble(delta):
 		return
 	wobble_angle_cumulative+=delta*wobbling_rate*(2.0 if isRunning else 1.0)
 	h_offset+=sin(wobble_angle_cumulative)/10.0
+
+
+	

@@ -7,7 +7,7 @@ var bomb=preload("res://items/bomb.tscn")
 @onready var ray:RayCast3D = $body/head/ray
 @onready var anim = $AnimationPlayer
 @onready var arrow_point=$body/head/Arrowpoint
-
+@onready var bow_placement=$"body/head/bow placement"
 #player-------------------------------------------------------
 @export var Player_name:StringName="stupid name"
 @export var health:float=80.0
@@ -42,7 +42,7 @@ var hotbar_index=0
 @export_group("Movement")
 var lerped_player_movement=Vector3.ZERO
 @export var speed=10
-var boost=1
+var speed_modifier:float=1
 @export var pushforce=10
 var knockback_force:Vector3=Vector3(0,0,0)
 
@@ -230,9 +230,13 @@ func _physics_process(_delta):
 		input_enabled=false
 			
 	if get_held_item():
-				get_held_item().idle(self)
+		get_held_item().idle(self)
 	if not inventory.getItemAt(hotbar_index):
 			setHotbarIndex(hotbar_index) #refresh held item if count is 0
+			
+	
+	$armjoint/MeshInstance3D.visible=not get_held_item() is Bow
+	
 	if input_enabled:
 		$body.visible=camera.perspective!=1
 		if Input.is_action_just_pressed("perspective"):
@@ -298,9 +302,13 @@ func _physics_process(_delta):
 			state="melee"
 		elif Input.is_action_just_released("shield"):
 			rpc("play","shield",true)
-			
-		boost = 2 if Input.is_action_pressed("boost") else 1
-			
+#region Deciding speed modifier
+		speed_modifier = 1
+		if Input.is_action_pressed("boost"):
+			speed_modifier*=2 if gamemode_survival else 4
+		if get_held_item() is Bow and Input.is_action_pressed("rmb"):
+			speed_modifier/=2.0
+#endregion
 		if Input.is_action_just_pressed("gamemode_survival"):
 			gamemode_survival=not(gamemode_survival)
 
@@ -310,7 +318,7 @@ func _physics_process(_delta):
 	player_input_component=Vector3.ZERO
 	if not gamemode_survival:
 		if input_enabled:
-			player_input_component.y = boost*speed*(-int(Input.is_action_pressed("shift"))+int(Input.is_action_pressed("space")))
+			player_input_component.y = speed_modifier*speed*(-int(Input.is_action_pressed("shift"))+int(Input.is_action_pressed("space")))
 		gravity_component.y=0
 	else:
 		if is_on_floor():
@@ -325,20 +333,20 @@ func _physics_process(_delta):
 	
 	if input_enabled:
 		if Input.is_action_pressed("w"):
-			player_input_component.x+=cos(deg_to_rad(-get_rotation_degrees().y))*speed*boost
-			player_input_component.z+=sin(deg_to_rad(-get_rotation_degrees().y))*speed*boost
+			player_input_component.x+=cos(deg_to_rad(-get_rotation_degrees().y))*speed*speed_modifier
+			player_input_component.z+=sin(deg_to_rad(-get_rotation_degrees().y))*speed*speed_modifier
 		if Input.is_action_pressed("a"):
-			player_input_component.x+=cos(deg_to_rad(-get_rotation_degrees().y-90))*speed*boost
-			player_input_component.z+=sin(deg_to_rad(-get_rotation_degrees().y-90))*speed*boost
+			player_input_component.x+=cos(deg_to_rad(-get_rotation_degrees().y-90))*speed*speed_modifier
+			player_input_component.z+=sin(deg_to_rad(-get_rotation_degrees().y-90))*speed*speed_modifier
 		if Input.is_action_pressed("s"):
 			
-			player_input_component.x+=-cos(deg_to_rad(-get_rotation_degrees().y))*speed*boost
-			player_input_component.z+=-sin(deg_to_rad(-get_rotation_degrees().y))*speed*boost
+			player_input_component.x+=-cos(deg_to_rad(-get_rotation_degrees().y))*speed*speed_modifier
+			player_input_component.z+=-sin(deg_to_rad(-get_rotation_degrees().y))*speed*speed_modifier
 		if Input.is_action_pressed("d"):
-			player_input_component.x+=cos(deg_to_rad(-get_rotation_degrees().y+90))*speed*boost
-			player_input_component.z+=sin(deg_to_rad(-get_rotation_degrees().y+90))*speed*boost
-		camera.isWobbling=not player_input_component.is_zero_approx()
-		camera.isRunning= boost != 1
+			player_input_component.x+=cos(deg_to_rad(-get_rotation_degrees().y+90))*speed*speed_modifier
+			player_input_component.z+=sin(deg_to_rad(-get_rotation_degrees().y+90))*speed*speed_modifier
+		camera.isWobbling=not player_input_component.is_zero_approx() and $GroundDetection.is_colliding()
+		camera.isRunning= speed_modifier != 1
 		
 	lerped_player_movement=lerp(lerped_player_movement,player_input_component,0.1)
 	#knockback_force.y=clampf(knockback_force.y,-1.0,7.0)

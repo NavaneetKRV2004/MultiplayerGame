@@ -69,7 +69,7 @@ func _physics_process(delta: float) -> void:
 		#ticks_spent=0
 	##if global_position.y<-500:
 		##_die()
-	if held:
+	if held and not self is Bow:
 		global_transform=get_parent().global_transform
 
 func interactJustPressedLMB(player_ref:player, item_looked_at):

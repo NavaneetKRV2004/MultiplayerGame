@@ -132,6 +132,16 @@ func p(text,source:Node=null,type:DEBUG_MESSAGES_TYPE=DEBUG_MESSAGES_TYPE.MISC):
 		"scene":"res://items/wood_doorway.tscn",
 		"stackable":true,
 		"texture":"res://items/door_way_slot.png"
+	},
+	"wood_floor":{
+		"scene":"res://items/wood_floor.tscn",
+		"stackable":true,
+		"texture":"res://items/door_way_slot.png"
+	},
+	"glass":{
+		"scene":"res://items/glass.tscn",
+		"stackable":true,
+		"texture":"res://items/glass_glass.png"
 	}
 	
 }

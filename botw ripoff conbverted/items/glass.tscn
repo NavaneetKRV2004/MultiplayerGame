@@ -1,0 +1,75 @@
+[gd_scene load_steps=9 format=4 uid="uid://c222r2owfxdoj"]
+
+[ext_resource type="Script" uid="uid://d3e0orbnxtd21" path="res://items/construction.gd" id="1_0c7ln"]
+[ext_resource type="Texture2D" uid="uid://b4w1lowkiaybr" path="res://items/glass.png" id="2_5x6pu"]
+[ext_resource type="Texture2D" uid="uid://jmdtwbm62bhp" path="res://items/glass_glass.png" id="3_8bp86"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nenmm"]
+resource_name = "Material"
+transparency = 1
+albedo_texture = ExtResource("3_8bp86")
+roughness = 0.5
+texture_filter = 2
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_emyby"]
+_surfaces = [{
+"aabb": AABB(-0.1, -2, -2, 0.2, 4, 4),
+"format": 34896613377,
+"index_count": 36,
+"index_data": PackedByteArray("AAABAAIAAAADAAEABAACAAEAAwAEAAEABQAAAAIAAwAAAAUABAAGAAIABQACAAYAAwAHAAQAAwAFAAcABwAGAAQABwAFAAYA"),
+"name": "Material",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 8,
+"vertex_data": PackedByteArray("AAAAAP//AAAAAP//AAAAAAAA/////wAAAAAAAAAAAAD/////AAAAAP//AAD//wAA////////AAD//wAAAAAAAA==")
+}]
+blend_shape_mode = 0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_b8qbv"]
+resource_name = "glass_Cube_001"
+_surfaces = [{
+"aabb": AABB(-0.1, -2, -2, 0.2, 4, 4),
+"attribute_data": PackedByteArray("///7/wKAAoD//wKAAoD7//+B//9SgMF//4H/f/9///8CgAKA/v/7/wKA+//+/wKAAYABgP+B/P8BgPz//4EBgP9//P//gQGA/4H8//9/AYABgPz//4H/f/+B//8BgAGA"),
+"format": 34896613399,
+"index_count": 36,
+"index_data": PackedByteArray("AAABAAIAAAADAAEABAAFAAYABAAHAAUACAAJAAoACAALAAkADAANAA4ADAAPAA0AEAARABIAEAATABEAFAAVABYAFAAXABUA"),
+"material": SubResource("StandardMaterial3D_nenmm"),
+"name": "Material",
+"primitive": 3,
+"uv_scale": Vector4(1.9998, 2, 0, 0),
+"vertex_count": 24,
+"vertex_data": PackedByteArray("AAAAAP///78AAP//AAD/vwAA//////+/AAAAAAAA/78AAAAAAAD///////8AAP//AAD//wAA/////wAAAAD/////AAAAAP//////////////////AAD/////AAD///////8AAP////8AAP//////////////////AAAAAP////8AAAAAAAD/v///AAD///+///8AAAAA/78AAAAA////v/////8AAPb/AAD/////9v8AAP//AAD2//////////b//3////9/////f/7//3///xOA6/9MgrL9X4Kf/f9/////v/9//7//f/+//3//v/9//3//f/9//3//f/9//3//fwAA/38AAP9/AAD/fwAA/38JgPq/BMAJAAmA+r8EwAoA")
+}]
+blend_shape_mode = 0
+shadow_mesh = SubResource("ArrayMesh_emyby")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ngwly"]
+size = Vector3(0.2, 4, 4)
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_0c7ln"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 2
+properties/1/path = NodePath(".:rotation")
+properties/1/spawn = true
+properties/1/replication_mode = 2
+
+[node name="glass" type="RigidBody3D" node_paths=PackedStringArray("nodeIfMultipleMesh", "col")]
+script = ExtResource("1_0c7ln")
+nodeIfMultipleMesh = NodePath("Cube")
+item_name = "glass"
+col = NodePath("CollisionShape3D")
+stackable = true
+inventory_texture = ExtResource("2_5x6pu")
+metadata/_custom_type_script = "uid://d3e0orbnxtd21"
+
+[node name="Cube" type="MeshInstance3D" parent="."]
+mesh = SubResource("ArrayMesh_b8qbv")
+skeleton = NodePath("")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00109863, -0.00524902, 0.015625)
+shape = SubResource("BoxShape3D_ngwly")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_0c7ln")

@@ -8,10 +8,17 @@ class_name Bow
 const minimum_withdraw_percentage:float=0.1
 ##Time it takes for string to come back to rest
 const release_animation_time:float=0.25
-@export var my_player:player
+@export var bow_fov:float=70
+@export var my_player:player=null
 @export var anim:AnimationPlayer
 @export var point:Marker3D
+@export var string:Node3D
 var arrow:Arrow
+
+var progress:float=0:
+	get():
+		return string.progress
+	
 
 func withdraw():
 	anim.play("withdraw",-1,1/withdraw_time)
@@ -60,17 +67,29 @@ func interactJustPressedRMB(my_player,b):
 	withdraw()
 	
 	
-	my_player.speed/=2.0
+	
 
 		
 	
 func interactReleasedRMB(my_player,b):
 		release()
-		my_player.speed*=2
+		
 func debug():
 	
 	return ["Shooting speed: %d"%[arrow_speed],
 	"Withdraw Time: %d"%[withdraw_time],
-	"Progress: %f"%[anim.current_animation_position if anim.current_animation else 0.0],
-	"Potential damage: %d" %[arrow_speed*1.5*(anim.current_animation_position if anim.current_animation else 1.0)]
+	"Progress: %f"%[progress],
+	"Potential damage: %d" %[arrow_speed*1.5*(progress)]
 	]
+func idle(player_ref):
+	if progress >0.0:
+		player_ref.camera.perspective=3
+		player_ref.camera.BOW_FOV=bow_fov
+	else:
+		player_ref.camera.default()
+	global_transform=player_ref.bow_placement.global_transform
+	
+#func _physics_process(delta: float) -> void:
+	#super._physics_process(delta)
+	#if my_player:
+		#global_transform=my_player.bow_placement.global_transform

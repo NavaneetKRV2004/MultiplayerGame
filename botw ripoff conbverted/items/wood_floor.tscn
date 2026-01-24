@@ -1,15 +1,12 @@
-[gd_scene load_steps=9 format=4 uid="uid://bgo8ymnv1qokd"]
+[gd_scene load_steps=9 format=4 uid="uid://b3em571d5lqp8"]
 
-[ext_resource type="Script" uid="uid://d3e0orbnxtd21" path="res://items/construction.gd" id="1_i6xpd"]
-[ext_resource type="Texture2D" uid="uid://b0ow2cw7ma35y" path="res://items/wall_slot.png" id="2_v06n8"]
-[ext_resource type="Material" uid="uid://djjhb11vc511s" path="res://items/wood.tres" id="3_v06n8"]
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_iewqy"]
-size = Vector3(0.4, 4, 4)
+[ext_resource type="Script" uid="uid://d3e0orbnxtd21" path="res://items/construction.gd" id="1_sskkf"]
+[ext_resource type="Texture2D" uid="uid://b0ow2cw7ma35y" path="res://items/wall_slot.png" id="2_q20rp"]
+[ext_resource type="Material" uid="uid://djjhb11vc511s" path="res://items/wood.tres" id="2_yup1x"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bcsi3"]
 
-[sub_resource type="ArrayMesh" id="ArrayMesh_v06n8"]
+[sub_resource type="ArrayMesh" id="ArrayMesh_7tnsx"]
 _surfaces = [{
 "aabb": AABB(-0.2, -2, -2, 0.4, 4, 4),
 "format": 34896613377,
@@ -22,7 +19,7 @@ _surfaces = [{
 }]
 blend_shape_mode = 0
 
-[sub_resource type="ArrayMesh" id="ArrayMesh_343mk"]
+[sub_resource type="ArrayMesh" id="ArrayMesh_q20rp"]
 resource_name = "wall_Cube_001"
 _surfaces = [{
 "aabb": AABB(-0.2, -2, -2, 0.4, 4, 4),
@@ -37,9 +34,12 @@ _surfaces = [{
 "vertex_data": PackedByteArray("AAAAAP///78AAP//AAD/vwAA//////+/AAAAAAAA/78AAAAAAAD///////8AAP//AAD//wAA/////wAAAAD/////AAAAAP//////////////////AAD/////AAD///////8AAP////8AAP//////////////////AAAAAP////8AAAAAAAD/v///AAD///+///8AAAAA/78AAAAA////v/////8AAP//AAD///////8AAP//AAD//////////////3////9/////f/7//3////9/////f/7//3/+//9/////v/9//7//f/+//3//v/9//3//f/9//3//f/9//3//fwAA/38AAP9/AAD/fwAA/3//f/+//3//v/9//7//f/+/")
 }]
 blend_shape_mode = 0
-shadow_mesh = SubResource("ArrayMesh_v06n8")
+shadow_mesh = SubResource("ArrayMesh_7tnsx")
 
-[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_v06n8"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_yup1x"]
+size = Vector3(4, 0.4, 4)
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_yup1x"]
 properties/0/path = NodePath(".:position")
 properties/0/spawn = true
 properties/0/replication_mode = 2
@@ -47,23 +47,27 @@ properties/1/path = NodePath(".:rotation")
 properties/1/spawn = true
 properties/1/replication_mode = 2
 
-[node name="wood wall" type="RigidBody3D" node_paths=PackedStringArray("col")]
-script = ExtResource("1_i6xpd")
-item_name = "wood_wall"
+[node name="wood floor" type="RigidBody3D" node_paths=PackedStringArray("nodeIfMultipleMesh", "col")]
+script = ExtResource("1_sskkf")
+construction_type = 0
+nodeIfMultipleMesh = NodePath("Node3D")
+item_name = "wood_floor"
 col = NodePath("CollisionShape3D")
-collectable = false
-destroyable = true
 stackable = true
-inventory_texture = ExtResource("2_v06n8")
+inventory_texture = ExtResource("2_q20rp")
 metadata/_custom_type_script = "uid://d3e0orbnxtd21"
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-shape = SubResource("BoxShape3D_iewqy")
+[node name="Node3D" type="Node3D" parent="."]
 
-[node name="Cube" type="MeshInstance3D" parent="."]
-material_override = ExtResource("3_v06n8")
-mesh = SubResource("ArrayMesh_343mk")
+[node name="Cube" type="MeshInstance3D" parent="Node3D"]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0)
+material_override = ExtResource("2_yup1x")
+mesh = SubResource("ArrayMesh_q20rp")
 skeleton = NodePath("")
 
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00469971, -0.0022583, 0.00234985)
+shape = SubResource("BoxShape3D_yup1x")
+
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
-replication_config = SubResource("SceneReplicationConfig_v06n8")
+replication_config = SubResource("SceneReplicationConfig_yup1x")

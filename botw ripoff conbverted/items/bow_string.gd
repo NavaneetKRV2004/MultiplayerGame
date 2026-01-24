@@ -16,3 +16,6 @@ extends Node3D
 @export var half_length:float=0.0
 
 @export var extend_till:float=1.0
+
+func _ready() -> void:
+	progress=0.0
