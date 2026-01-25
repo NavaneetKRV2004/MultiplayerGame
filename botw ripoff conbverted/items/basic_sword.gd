@@ -30,7 +30,7 @@ func interactJustPressedLMB(my_player:player,col):
 	else:
 		my_player.play("attack_v",false,swingDuration)
 		#my_player.rpc("play","attack_v")
-func reset():
+func reset(player_ref):
 	swing(false,1.0)
 	clear()
 	

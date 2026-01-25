@@ -68,12 +68,13 @@ _data = {
 &"flicker": SubResource("Animation_hq1kj")
 }
 
-[node name="Node2D" type="Node2D"]
+[node name="Node2D" type="Node2D" node_paths=PackedStringArray("arrow_count")]
 texture_filter = 2
 script = ExtResource("1_lftyd")
 vspacing = 50
 hspacing = 50
 flickering = true
+arrow_count = NodePath("screen/CenterContainer/crosshair/Label")
 
 [node name="screen" type="CanvasLayer" parent="."]
 
@@ -167,6 +168,17 @@ size_flags_horizontal = 4
 layout_mode = 2
 texture = ExtResource("2_1f8a1")
 stretch_mode = 3
+
+[node name="Label" type="Label" parent="screen/CenterContainer/crosshair"]
+custom_minimum_size = Vector2(51.67, 44.615)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
+text = "56"
+horizontal_alignment = 2
+vertical_alignment = 2
 
 [node name="topleft" type="Control" parent="screen"]
 layout_mode = 3

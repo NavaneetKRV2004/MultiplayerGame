@@ -72,7 +72,7 @@ func setHotbarIndex(i:int):
 		hotbar_index=clamp(hotbar_index,0,7)
 	
 	if get_held_item():
-		get_held_item().reset()
+		get_held_item().reset(self)
 		$armjoint/hand.remove_child(get_held_item())
 			
 	if inventory.getItemAt(hotbar_index):
@@ -169,7 +169,7 @@ func _ready():
 		for i in inv:
 			i.name=i.item_name+str(randi())
 			if i is Arrow:
-				inventory.add_item(i,10)
+				inventory.add_item(i,20)
 			else:
 				inventory.add_item(i,1)
 			
@@ -214,7 +214,7 @@ func _physics_process(_delta):
 		if not my_selection_wheel.visible:
 			if Input.is_action_just_pressed("inventory"):
 				if get_held_item():
-					get_held_item().reset()
+					get_held_item().reset(self)
 				inventory.visible=not inventory.visible
 				input_enabled=not inventory.visible
 				if not inventory.visible:
@@ -223,7 +223,7 @@ func _physics_process(_delta):
 			if Input.is_action_just_pressed("select wheel"):
 				my_selection_wheel.show()
 				if get_held_item():
-					get_held_item().reset()
+					get_held_item().reset(self)
 			if Input.is_action_just_released("select wheel"):
 				my_selection_wheel.hide()
 	else:
@@ -238,7 +238,7 @@ func _physics_process(_delta):
 	$armjoint/MeshInstance3D.visible=not get_held_item() is Bow
 	
 	if input_enabled:
-		$body.visible=camera.perspective!=1
+		$body.visible=not camera.perspective in [1,3]
 		if Input.is_action_just_pressed("perspective"):
 			
 			camera.perspective=0 if camera.perspective==1 else 1

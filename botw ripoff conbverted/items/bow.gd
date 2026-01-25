@@ -54,7 +54,7 @@ func loadArrow(arr:Arrow):
 	
 
 
-func interactJustPressedRMB(my_player,b):
+func interactJustPressedRMB(my_player:player,b):
 	self.my_player=my_player
 	
 	if not isLoaded():
@@ -93,3 +93,9 @@ func idle(player_ref):
 	#super._physics_process(delta)
 	#if my_player:
 		#global_transform=my_player.bow_placement.global_transform
+func reset(player_ref):
+	if arrow and player_ref:
+		player_ref.inventory.add_item(arrow,1)
+		arrow=null
+	string.progress=0
+	anim.play("RESET")

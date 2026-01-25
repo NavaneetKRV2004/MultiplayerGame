@@ -1,4 +1,3 @@
-@tool
 extends Node2D
 
 @onready var heart_node = $"screen/topleft/0"
@@ -9,9 +8,9 @@ var current_hearts=20
 @export var alpha=1.0
 @export var flickering=false
 @onready var refs=[]
-var parent:Node=null
+var parent:player=null
 var prevHealth:int=0
-
+@export var arrow_count:Label
 
 func _health():
 	var life:int=0
@@ -58,3 +57,11 @@ func _physics_process(_delta):
 		for i in refs:
 			if i.frame==4:
 				i.modulate.a=alpha
+	
+	if parent.get_held_item() is Bow and not parent.inventory.visible:
+		var index=parent.inventory.getFirstArrowIndexInInventory()
+		arrow_count.text= str(parent.inventory.inventory[index].count)
+		arrow_count.show()
+	else:
+		arrow_count.hide()
+			

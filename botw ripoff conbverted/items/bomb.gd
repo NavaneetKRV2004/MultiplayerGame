@@ -20,7 +20,7 @@ func _die():
 		get_parent().item_spawner.spawn_particles("bomb",position)
 	super._die()
 		
-func reset():
+func reset(player_ref):
 	time=0.0
 	lit=0
 func debug():
