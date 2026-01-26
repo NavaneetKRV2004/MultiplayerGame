@@ -75,10 +75,14 @@ properties/7/replication_mode = 2
 properties/8/path = NodePath(".:ischeatsEnabled")
 properties/8/spawn = true
 properties/8/replication_mode = 2
+properties/9/path = NodePath(".:sky")
+properties/9/spawn = true
+properties/9/replication_mode = 2
 
-[node name="Node3D" type="Node3D" node_paths=PackedStringArray("item_spawner", "chat")]
+[node name="Node3D" type="Node3D" node_paths=PackedStringArray("item_spawner", "environment", "chat")]
 script = ExtResource("1_30chk")
 item_spawner = NodePath("MultiplayerSpawner")
+environment = NodePath("WorldEnvironment")
 chat = NodePath("chat")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
@@ -247,6 +251,28 @@ layout_mode = 2
 
 [node name="LineEdit3" type="LineEdit" parent="Control/Control/Panel/MarginContainer/VBoxContainer/GridContainer/HBoxContainer"]
 layout_mode = 2
+
+[node name="Label9" type="Label" parent="Control/Control/Panel/MarginContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+text = "Sky"
+
+[node name="sky" type="OptionButton" parent="Control/Control/Panel/MarginContainer/VBoxContainer/GridContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 8
+alignment = 1
+selected = 0
+item_count = 5
+popup/item_0/text = "Day"
+popup/item_0/id = 0
+popup/item_1/text = "Night"
+popup/item_1/id = 1
+popup/item_2/text = "Stars"
+popup/item_2/id = 2
+popup/item_3/text = "Apocalypse"
+popup/item_3/id = 3
+popup/item_4/text = "Evening"
+popup/item_4/id = 4
 
 [node name="host" type="TextureButton" parent="Control/Control/Panel/MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(100, 0)

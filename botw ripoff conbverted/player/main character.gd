@@ -443,7 +443,7 @@ func update_debug():
 	
 		var debug=[
 		
-		"FPS: %d/%d  %.2fms"%[Engine.get_frames_per_second(),Engine.get_physics_ticks_per_second(),RenderingServer.viewport_get_measured_render_time_gpu(get_viewport().get_viewport_rid())],
+		"FPS: %d/%d  Delta:%.2fms Ping: %dms"%[Engine.get_frames_per_second(),Engine.get_physics_ticks_per_second(),RenderingServer.viewport_get_measured_render_time_gpu(get_viewport().get_viewport_rid()),player_world.PING],
 		"RAM: %d MB"%[OS.get_static_memory_usage()/1000000,],
 		"Player: %s (%s)"%[Player_name,name],
 		"Health: %d/%d"%[health,maxHealth],

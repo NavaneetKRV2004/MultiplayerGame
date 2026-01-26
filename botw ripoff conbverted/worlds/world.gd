@@ -15,7 +15,12 @@ var Player = load(player_scene)
 @export var pvp:bool=true
 @export var time:float=0.0
 var strtime:String
-
+@export var environment:WorldEnvironment=null
+@export var sky:int=0:
+	set(new):
+		if environment:
+			environment.environment.sky.sky_material.set_shader_parameter("selected_sky",new)
+		sky=new
 
 var players:Dictionary={}
 var my_player:player=null

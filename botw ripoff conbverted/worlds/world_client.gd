@@ -32,5 +32,17 @@ func join_world(ip:String,type:int):
 	my_player.Player_name=player_name.text if player_name.text !="" else "GNF soldier "+str(id)
 	
 	multi.peer_disconnected.connect(delete_player)
-	
-	
+
+var PING:int=-80085
+
+func ping():
+	var time_msec:int=Time.get_ticks_msec()
+	if my_player:
+		rpc_id(1,"ping_reply",time_msec)
+@rpc("any_peer")
+func pong(time_msec:int):
+	PING=Time.get_ticks_msec()-time_msec
+
+@rpc("any_peer")
+func ping_reply(time_msec:int):
+	pass

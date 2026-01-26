@@ -72,13 +72,17 @@ properties/7/replication_mode = 2
 properties/8/path = NodePath(".:ischeatsEnabled")
 properties/8/spawn = true
 properties/8/replication_mode = 2
+properties/9/path = NodePath(".:sky")
+properties/9/spawn = true
+properties/9/replication_mode = 2
 
-[node name="Node3D" type="Node3D" node_paths=PackedStringArray("player_name", "skin", "item_spawner", "chat")]
+[node name="Node3D" type="Node3D" node_paths=PackedStringArray("player_name", "skin", "item_spawner", "environment", "chat")]
 script = ExtResource("1_8w78s")
 player_name = NodePath("Control/Control/VBoxContainer/HBoxContainer/Character customisation/VBoxContainer/GridContainer/TextEdit2")
 skin = NodePath("Control/Control/VBoxContainer/HBoxContainer/Character customisation/VBoxContainer/GridContainer/ColorPickerButton")
 item_spawner = NodePath("MultiplayerSpawner")
 worldspawn = Vector3(0, 150, 0)
+environment = NodePath("WorldEnvironment")
 chat = NodePath("chat")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
@@ -459,6 +463,10 @@ offset_top = -0.23999
 offset_right = -2.0
 offset_bottom = -0.23999
 
+[node name="ping timer" type="Timer" parent="."]
+autostart = true
+
 [connection signal="button_up" from="Control/Control/VBoxContainer/TextureRect/Button" to="Control" method="_on_back_button_up"]
 [connection signal="button_down" from="Control/Control/VBoxContainer/HBoxContainer/VBoxContainer/TabBar/Online Server/VBoxContainer/Button" to="." method="check_servers"]
 [connection signal="button_down" from="Control/Control/VBoxContainer/HBoxContainer/VBoxContainer/TabBar/Edit Servers/Direct/check" to="Control" method="save_ip_addresses"]
+[connection signal="timeout" from="ping timer" to="." method="ping"]

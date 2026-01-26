@@ -40,7 +40,7 @@ func _on_host_button_down():
 		default_gamemode=%gm.get_selected_id()
 		world_type=%landtype.get_selected_id()
 		ischeatsEnabled=%cheats.button_pressed
-		
+		sky=%sky.get_selected_id()
 	
 	var l=load(g.world_types[world_type][1]).instantiate()
 	add_child(l)
@@ -69,5 +69,12 @@ func save_world():
 			buffer+="\n"+temp
 	save.store_string(buffer)
 	
-
-			
+@rpc("any_peer")
+func ping_reply(time_msec:int):
+	var x=multiplayer.get_remote_sender_id()
+	if x>1:
+		rpc_id(x,"pong",time_msec)
+	
+@rpc("any_peer")
+func pong(time_msec:int):
+	pass
