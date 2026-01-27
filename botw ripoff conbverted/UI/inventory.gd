@@ -103,6 +103,10 @@ func add_item(item:Node,count:int) -> bool:
 ##Returns duplicate of item if count more than 1 else returns original item and clears slot
 func subtract_item(i:int) -> items:
 	
+	if get_parent() is player and not get_parent().gamemode_survival and inventory[i].item:
+		return inventory[i].item.duplicate()
+		
+	
 	if not inventory[i].item:
 		return null
 	

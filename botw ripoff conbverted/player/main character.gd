@@ -115,7 +115,7 @@ func play(a,backwards=false,duration=1.0):
 
 @rpc("any_peer","call_local")
 func damage(n:float=0.0,   kb:float=0.0,   global_source_position:Vector3=Vector3(0,0,0)    ):
-	if is_multiplayer_authority():
+	if is_multiplayer_authority() and gamemode_survival:
 		health-=n
 		g.p(Player_name+" got damaged (-"+str(floor(n))+")",self,g.DEBUG_MESSAGES_TYPE.COMBAT)
 		camera.start_shake()
@@ -450,7 +450,7 @@ func update_debug():
 		"Velocity: (%d,%d,%d)"%[velocity.x,velocity.y,velocity.z],
 		"\tgravity_component: (%d %d %d)\n\tknockback_force: (%d,%d,%d,)\n\tLerped_player_movement: (%d,%d,%d)"%[gravity_component.x,gravity_component.y,gravity_component.z,knockback_force.x,knockback_force.y,knockback_force.z,lerped_player_movement.x,lerped_player_movement.y,lerped_player_movement.z],
 		"Velocity Magnitude: "+str(round(velocity.length()*100.0)/100.0),
-		"Gamemode: "+"Survival" if gamemode_survival else "Creative",
+		"Gamemode: "+("[color=GREEN]Survival[/color]" if gamemode_survival else "[color=YELLOW]Creative[/color]"),
 		"Time: "+player_world.strtime,
 		"FOV: "+str(ceil(camera.fov)), 
 		"Perspective: "+str(camera.perspective),
