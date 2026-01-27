@@ -75,11 +75,12 @@ func _on_visibility_changed() -> void:
 func getItemAt(i:int) -> Node:
 	return inventory[i].item
 	
-##Does not remove item from scene tree on adding. Make sure to orphan the item before or after adding item.
+##Removes item from scene tree on adding unless not in scenetree.
 ##If item exists in inventory and stackable, original item is queue freed and count is incremented
 func add_item(item:Node,count:int) -> bool:
 	assert(count>0,"Tried to add item with count %d (should be non-zero positive integer)"%count)
-		
+	if item.is_inside_tree():
+		item.get_parent().remove_child(item)
 	for i in range(rows*columns):
 		if inventory[i].item == null:
 			inventory[i].item=item

@@ -89,6 +89,7 @@ func reset(player_ref:player):
 	pass
 func debug()->Array:
 	return []
+##Removes this item's copies from other clients and server using queue_free
 func delete_copies():
 	rpc("delete_copies_rpc")
 	

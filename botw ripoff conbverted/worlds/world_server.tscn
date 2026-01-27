@@ -243,14 +243,21 @@ text = "Spawn point"
 layout_mode = 2
 size_flags_horizontal = 8
 
-[node name="LineEdit" type="LineEdit" parent="Control/Control/Panel/MarginContainer/VBoxContainer/GridContainer/HBoxContainer"]
+[node name="LineEdit" type="SpinBox" parent="Control/Control/Panel/MarginContainer/VBoxContainer/GridContainer/HBoxContainer"]
 layout_mode = 2
+min_value = -1000.0
+max_value = 1000.0
+rounded = true
+alignment = 1
+prefix = "x: "
 
-[node name="LineEdit2" type="LineEdit" parent="Control/Control/Panel/MarginContainer/VBoxContainer/GridContainer/HBoxContainer"]
+[node name="LineEdit2" type="SpinBox" parent="Control/Control/Panel/MarginContainer/VBoxContainer/GridContainer/HBoxContainer"]
 layout_mode = 2
+prefix = "y: "
 
-[node name="LineEdit3" type="LineEdit" parent="Control/Control/Panel/MarginContainer/VBoxContainer/GridContainer/HBoxContainer"]
+[node name="LineEdit3" type="SpinBox" parent="Control/Control/Panel/MarginContainer/VBoxContainer/GridContainer/HBoxContainer"]
 layout_mode = 2
+prefix = "z: "
 
 [node name="Label9" type="Label" parent="Control/Control/Panel/MarginContainer/VBoxContainer/GridContainer"]
 layout_mode = 2

@@ -41,7 +41,7 @@ func ping():
 		rpc_id(1,"ping_reply",time_msec)
 @rpc("any_peer")
 func pong(time_msec:int):
-	PING=Time.get_ticks_msec()-time_msec
+	PING=(Time.get_ticks_msec()-time_msec)/2	
 
 @rpc("any_peer")
 func ping_reply(time_msec:int):
