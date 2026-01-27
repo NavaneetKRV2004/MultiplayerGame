@@ -240,7 +240,7 @@ func _physics_process(_delta):
 	$armjoint/MeshInstance3D.visible=not get_held_item() is Bow
 	
 	if input_enabled:
-		$body.visible=not camera.perspective in [1,3]
+		$body.visible=not (camera.perspective in [-1,1,2,3])
 		if Input.is_action_just_pressed("perspective"):
 			
 			camera.perspective=0 if camera.perspective==1 else 1
@@ -328,7 +328,7 @@ func _physics_process(_delta):
 			gravity_component.y=clamp(gravity_component.y-gravity,-300,300)
 			
 		if Input.is_action_just_pressed("space") and input_enabled and (is_on_floor() or $GroundDetection.get_collider()):
-			gravity_component.y = 30
+			gravity_component.y = 20
 				
 	
 	

@@ -10,12 +10,12 @@ const void_level:int=-200
 	["parkour","res://worlds/parkour.tscn",],
 	["bedwars","res://worlds/bedwars.tscn",],
 	["pvp arena","res://worlds/pvpmap.tscn"],
+	["Castle snipers","res://worlds/castle_snipers.tscn"],
 	["Hide and Seek"],
 	["Catch"],
 	["Bomb it"],
 	["CTF"],
 	["spleef"],
-	["Castle snipers"]
 	]
 enum teams{
 	RED,

@@ -1,0 +1,14 @@
+castle scene
+crosshair customisation
+held item replication
+enable all servers
+item shop
+enforce survival mode
+pickaxe
+axe
+double handed weapons
+sticky bomb, mine bomb
+spleef
+aim practice board
+door
+spear

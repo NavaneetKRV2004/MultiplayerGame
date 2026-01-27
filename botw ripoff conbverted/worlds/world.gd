@@ -111,7 +111,9 @@ func _physics_process(delta):
 
 	#Color(0.047058, 0.254901, 0.607843)
 	
-
+	for i in players.keys():
+		if not players[i]:
+			players.erase(i)
 		
 func _exit_tree():
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
