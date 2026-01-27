@@ -56,6 +56,7 @@ func _physics_process(_delta):
 				g.p(i.name+" was shot by "+arrow_owner+ " and did damage:"+str(floor(Damage*velocity_before_last_collision.length())) +"moving at "+str(velocity_before_last_collision.length())+" m/s",self,g.DEBUG_MESSAGES_TYPE.COMBAT)
 				i.damage.rpc(floor(Damage*velocity_before_last_collision.length()),10,global_position)
 				delete_copies()
+				queue_free()
 			
 			return
 			

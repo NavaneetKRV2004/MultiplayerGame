@@ -145,6 +145,8 @@ func _enter_tree():
 func _ready():
 		
 	player_world=get_parent()
+	player_world.players[name.to_int()]=self
+	
 	if not is_multiplayer_authority():
 		$ui.queue_free()
 		$DebugData.queue_free()
@@ -445,7 +447,7 @@ func update_debug():
 		"FPS: %d/%d  Delta:%.2fms Ping: %dms"%[Engine.get_frames_per_second(),Engine.get_physics_ticks_per_second(),RenderingServer.viewport_get_measured_render_time_gpu(get_viewport().get_viewport_rid()),player_world.PING],
 		"RAM: %d MB"%[OS.get_static_memory_usage()/1000000,],
 		"Player: %s (%s)"%[Player_name,name],
-		"Health: %d/%d"%[health,maxHealth],
+		"Health: %d/%d Deaths: %d"%[health,maxHealth,deaths],
 		"Coordinates: (%d,%d,%d)"%[position.x,position.y,position.z],
 		"Velocity: (%d,%d,%d)"%[velocity.x,velocity.y,velocity.z],
 		"\tgravity_component: (%d %d %d)\n\tknockback_force: (%d,%d,%d,)\n\tLerped_player_movement: (%d,%d,%d)"%[gravity_component.x,gravity_component.y,gravity_component.z,knockback_force.x,knockback_force.y,knockback_force.z,lerped_player_movement.x,lerped_player_movement.y,lerped_player_movement.z],

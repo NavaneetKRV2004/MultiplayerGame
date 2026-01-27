@@ -8,15 +8,10 @@ func _ready() -> void:
 	for i in range(len(g.world_types)):
 		%landtype.add_item(g.world_types[i][0],i)
 	if "server" in s.arguments:
-		#var args=JSON.parse_string(s.arguments["server"])
-		#if not args is  Dictionary:
-			#args={}
-		#world_name=args["name"] if "name" in args else "Server World"
-		#world_type=args["type"] if "type" in args else 0
+		world_name=s.arguments["name"] if "name" in s.arguments else "Debug Server"
+		world_type=int(s.arguments["type"]) if "type" in s.arguments else 0
 		#pvp=args["pvp"] if "pvp" in args else true
 		#default_gamemode=args["gm"] if "gm" in args else 0
-		#print("Server starting")
-		
 		_on_host_button_down()
 
 func _on_host_button_down():
@@ -26,7 +21,6 @@ func _on_host_button_down():
 	multiplayer.multiplayer_peer=multi
 	
 	
-	#multiplayer.peer_connected.connect(spawn_player)
 	multiplayer.peer_connected.connect(spawn_player)
 	multiplayer.peer_disconnected.connect(delete_player)
 	id=multi.get_unique_id()

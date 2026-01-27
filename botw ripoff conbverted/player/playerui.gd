@@ -52,6 +52,7 @@ func _ready():
 	
 	
 func _physics_process(_delta):
+	$screen/topleft.visible=parent and parent.gamemode_survival
 	_health()
 	if flickering:
 		for i in refs:

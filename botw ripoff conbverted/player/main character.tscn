@@ -703,6 +703,6 @@ inventory = NodePath("../inventory")
 
 [node name="GroundDetection" type="RayCast3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.875, 0)
-target_position = Vector3(0, -0.5, 0)
+target_position = Vector3(0, -2, 0)
 
 [connection signal="selected" from="Selection Wheel" to="." method="setHotbarIndex"]
