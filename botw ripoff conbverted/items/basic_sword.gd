@@ -47,7 +47,7 @@ func _on_area_3d_body_entered(body):
 		return
 	if body in Enemies_damaged:
 		return
-	if body is enemies  or body is player and body != weapon_owner:
+	if body is enemies  or (body is player and body != weapon_owner and body.player_world.pvp):
 		body.damage.rpc(Damage*attack_multiplier,kb,global_position)
 		g.p("Damage dealt by "+weapon_owner.Player_name+": "+str(Damage),self,g.DEBUG_MESSAGES_TYPE.COMBAT)
 		add_body(body)

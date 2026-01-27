@@ -59,7 +59,7 @@ func _ready() -> void:
 func _process(_delta: float) -> void:
 	if visible and not frozen :
 		$cursor.position=get_local_mouse_position()-Vector2(10,10)
-
+	$"Creative menu".visible=get_parent() is player and not get_parent().gamemode_survival
 	
 
 

@@ -3,7 +3,7 @@ crosshair customisation
 held item replication
 enable all servers
 item shop
-enforce survival mode
+continous sky transition
 pickaxe
 axe
 double handed weapons

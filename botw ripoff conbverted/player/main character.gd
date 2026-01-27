@@ -254,7 +254,7 @@ func _physics_process(_delta):
 			if get_held_item():
 				get_held_item().interactJustPressedLMB(self,col)
 			else:
-				if col is player:
+				if col is player and player_world.pvp:
 					col.damage.rpc(2,100,global_position)
 					play("hit",false)
 		if Input.is_action_just_released("lmb"):
@@ -311,7 +311,10 @@ func _physics_process(_delta):
 			speed_modifier/=2.0
 #endregion
 		if Input.is_action_just_pressed("gamemode_survival"):
-			gamemode_survival=not(gamemode_survival)
+			if player_world.default_gamemode==1:
+				gamemode_survival=true
+			else:
+				gamemode_survival=not gamemode_survival
 
 		
 			
@@ -447,12 +450,12 @@ func update_debug():
 		"FPS: %d/%d  Delta:%.2fms Ping: %dms"%[Engine.get_frames_per_second(),Engine.get_physics_ticks_per_second(),RenderingServer.viewport_get_measured_render_time_gpu(get_viewport().get_viewport_rid()),player_world.PING],
 		"RAM: %d MB"%[OS.get_static_memory_usage()/1000000,],
 		"Player: %s (%s)"%[Player_name,name],
-		"Health: %d/%d Deaths: %d"%[health,maxHealth,deaths],
+		"Health: %d/%d Deaths: %d PvP: %s"%[health,maxHealth,deaths,"ON" if player_world.pvp else "OFF"],
 		"Coordinates: (%d,%d,%d)"%[position.x,position.y,position.z],
 		"Velocity: (%d,%d,%d)"%[velocity.x,velocity.y,velocity.z],
 		"\tgravity_component: (%d %d %d)\n\tknockback_force: (%d,%d,%d,)\n\tLerped_player_movement: (%d,%d,%d)"%[gravity_component.x,gravity_component.y,gravity_component.z,knockback_force.x,knockback_force.y,knockback_force.z,lerped_player_movement.x,lerped_player_movement.y,lerped_player_movement.z],
 		"Velocity Magnitude: "+str(round(velocity.length()*100.0)/100.0),
-		"Gamemode: "+("[color=GREEN]Survival[/color]" if gamemode_survival else "[color=YELLOW]Creative[/color]"),
+		"Gamemode: "+("[color=GREEN]Survival[/color]" if gamemode_survival else "[color=YELLOW]Creative[/color]")+" default: "+str(player_world.default_gamemode),
 		"Time: "+player_world.strtime,
 		"FOV: "+str(ceil(camera.fov)), 
 		"Perspective: "+str(camera.perspective),

@@ -6,9 +6,9 @@ class_name World
 var Player = load(player_scene)
  
 @export_group("World Settings")
-@export var world_name="World"
+@export var world_name:String="World"
 @export var world_type:int
-@export var default_gamemode:int
+@export var default_gamemode:int=1
 @export var worldspawn:Vector3=Vector3(0,50,0)
 @export var ren=20
 @export var timeperiod:float = 200.0

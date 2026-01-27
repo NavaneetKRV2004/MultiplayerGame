@@ -10,8 +10,8 @@ func _ready() -> void:
 	if "server" in s.arguments:
 		world_name=s.arguments["name"] if "name" in s.arguments else "Debug Server"
 		world_type=int(s.arguments["type"]) if "type" in s.arguments else 0
-		#pvp=args["pvp"] if "pvp" in args else true
-		#default_gamemode=args["gm"] if "gm" in args else 0
+		pvp=not ("pvp" in s.arguments and (s.arguments["pvp"] in ["0","False","false","FALSE"])) 
+		default_gamemode=int(s.arguments["gm"]) if "gm" in s.arguments else 0
 		_on_host_button_down()
 
 func _on_host_button_down():
