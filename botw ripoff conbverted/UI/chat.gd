@@ -1,5 +1,5 @@
 extends Control
-@onready var edit =$VBoxContainer/TextEdit
+@onready var edit:LineEdit =$VBoxContainer/TextEdit
 @onready var textbox=$VBoxContainer/Label
 @export var open:bool=false:
 	set(value):
@@ -16,16 +16,17 @@ extends Control
 			
 
 @export var world:World=null
-
+const affirmative:Array = ["1","true","on"]
+const negative:Array = ["0","false","off"]
 
 	
 @rpc("any_peer","call_local")
-func add_text(content,player_name="game"):
+func add_text(content,player_name="[color=FF0000]<Server>[/color]"):
 	textbox.text+="\n[color=000000]"+player_name+"[/color]: "+content
 	visible=true
 	check_if_chat_should_disappear_and_do()
 	
-func add_error(content:String):
+func add_error(content:String="Invalid Syntax"):
 	textbox.text+="\n[color=FF0000]"+content+"[/color]"
 	visible=true
 	check_if_chat_should_disappear_and_do()
@@ -34,11 +35,14 @@ func add_error(content:String):
 
 func _on_text_edit_text_submitted(new_text:String):
 	if not new_text[0]=="/":
-		rpc("add_text",new_text,(world.my_player.Player_name) if world is WorldClient else ("[color=FF0000]<Server>[/color]"))
+		if world is WorldClient:
+			rpc("add_text",new_text,world.my_player.Player_name)
+		else:
+			rpc("add_text",new_text)
 		edit.edit()
 		
 	else:
-		if not world.ischeatsEnabled:
+		if not new_text.begins_with("/save") and not world.ischeatsEnabled:
 			add_error("Cheats disabled")
 			return
 		var args:PackedStringArray=new_text.split(" ")
@@ -65,6 +69,13 @@ func _on_text_edit_text_submitted(new_text:String):
 			"/save":
 				rpc("add_text","Saving...","[color=FF0000]<Server>[/color]")
 				rpc_id(1,"askServerToSave")
+			"/gamerule","/gr":
+				if len(args)==3:
+					gamerule(args[1],args[2])
+				else:
+					add_error()
+			_:
+				add_error("No such command")
 	edit.text=""
 					
 						
@@ -95,3 +106,32 @@ func askServerToSave():
 	if world is WorldServer and is_multiplayer_authority():
 		world.save_world()
 	
+func gamerule(property:String,value:String):
+	property= property.to_lower()
+	value=value.to_lower()
+	match property:
+		"pvp":
+			if value in affirmative:
+				_change_gamerule("pvp",true)
+			elif value in negative:
+				_change_gamerule("pvp",false)
+			else:
+				add_error("Value should be Boolean")
+		"gm","gamemode":
+			if value in ["0","1"]:
+				_change_gamerule("gm",value.to_int())
+			else:
+				add_error("Value should be valid Int")
+		_:
+			add_error("No such gamerule")
+	rpc_id(1,"gamerule",property,value)
+	
+@rpc("any_peer","call_remote")
+func _change_gamerule(rule,value):
+	match rule:
+		"pvp":
+			world.pvp=value
+		"gm":
+			world.default_gamemode=value
+	rpc("add_text","Gamerule "+rule+" changed to "+str(value))
+		

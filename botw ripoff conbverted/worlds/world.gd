@@ -114,6 +114,8 @@ func _physics_process(delta):
 	for i in players.keys():
 		if not players[i]:
 			players.erase(i)
+	if self is WorldClient and my_player and default_gamemode==1 and not my_player.gamemode_survival:
+			my_player.gamemode_survival=true
 		
 func _exit_tree():
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)

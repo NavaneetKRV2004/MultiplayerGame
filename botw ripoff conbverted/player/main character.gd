@@ -203,7 +203,11 @@ func _physics_process(_delta):
 	if Input.is_action_just_pressed("mouse escape"):
 		player_world.chat.visible=true
 		player_world.chat.open=not player_world.chat.open
-		
+	if Input.is_action_just_pressed("commands") and not player_world.chat.edit.visible:
+		player_world.chat.visible=true
+		player_world.chat.open=true
+		player_world.chat.edit.text+="/"
+		player_world.chat.edit.caret_column=len(player_world.chat.edit.text)
 		
 	if inventory.visible or my_selection_wheel.visible or player_world.chat.open or player_world.options.visible:
 		Input.mouse_mode=Input.MOUSE_MODE_VISIBLE
@@ -238,7 +242,7 @@ func _physics_process(_delta):
 			
 	
 	$armjoint/MeshInstance3D.visible=not get_held_item() is Bow
-	
+
 	if input_enabled:
 		$body.visible=not (camera.perspective in [-1,1,2,3])
 		if Input.is_action_just_pressed("perspective"):
