@@ -36,7 +36,7 @@ var inv:Array=[]
 var hotbar_index=0
 @export var inventory:Inventory
 @export var my_selection_wheel:Node
-
+@export var held_item_for_sync:String=""
 
 #MOVEMENT------------------------------------------------------------
 @export_group("Movement")
@@ -191,8 +191,9 @@ func _ready():
 func _physics_process(_delta):
 	
 	if not is_multiplayer_authority():
-	
+		not_authority()
 		return
+	held_item_for_sync=get_held_item().item_name if get_held_item() else ""
 	if position.y<g.void_level-50:
 		rpc("respawn")
 		
@@ -391,8 +392,8 @@ func _process(delta):
 	if not is_multiplayer_authority(): 
 		position=lerp(position,position2,0.1)
 		return
-	rotate_y(delta*s.settings.JS*(int(Input.is_action_pressed("look right"))-int(Input.is_action_pressed("look left"))))
-	$body/head.rotate_z(delta*s.settings.JS*(int(Input.is_action_pressed("look up"))-int(Input.is_action_pressed("look down"))))
+	rotate_y(delta*s.JS*(int(Input.is_action_pressed("look right"))-int(Input.is_action_pressed("look left"))))
+	$body/head.rotate_z(delta*s.JS*(int(Input.is_action_pressed("look up"))-int(Input.is_action_pressed("look down"))))
 	if $body/head.rotation_degrees.x >0:
 		$body/head.rotation_degrees.x=0
 	
@@ -419,8 +420,8 @@ func _input(event):
 	
 	
 	if event is InputEventMouseMotion and Input.get_mouse_mode()==2:
-		rotate_y(-event.get_relative().x*s.settings.MS/22500.0)
-		$body/head.rotate_z(-event.get_relative().y*s.settings.MS/22500.0)
+		rotate_y(-event.get_relative().x*s.MS/22500.0)
+		$body/head.rotate_z(-event.get_relative().y*s.MS/22500.0)
 		
 	#if Input.is_action_just_pressed("reload map"):
 		#damage(0,100,arrow_point.global_position)
@@ -476,3 +477,14 @@ func update_debug():
 	
 			
 		$DebugData.text="[color=WHITE][b]"+"\n".join(debug)+"[/b][/color]"
+
+
+##run every physics frame if not authority
+func not_authority():
+	if get_held_item():
+		if get_held_item().item_name != held_item_for_sync:
+			get_held_item().queue_free()
+	else:
+		if "" != held_item_for_sync:
+			var temp:items=load(g.list_of_items[held_item_for_sync].source).instantiate()
+			$armjoint/hand.add_child(temp)
