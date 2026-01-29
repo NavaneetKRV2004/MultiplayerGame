@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://c8t0iaaiqq0t"]
+[gd_scene load_steps=4 format=3 uid="uid://c8t0iaaiqq0t"]
 
 [ext_resource type="Script" uid="uid://brmj82ynit8s2" path="res://Main logic/options_editor.gd" id="1_l2uwi"]
 [ext_resource type="StyleBox" uid="uid://cyap5lsbo81cr" path="res://UI/panel.tres" id="2_wr5n8"]
+[ext_resource type="StyleBox" uid="uid://blgjtrwjfhf4h" path="res://Main logic/BWbuttonModern.tres" id="3_wr5n8"]
 
 [node name="Control" type="Control" node_paths=PackedStringArray("fov_slider", "MS_slider", "JS_slider", "Rend_method_option", "fps_option", "fov_label", "ms_label", "js_label")]
 layout_mode = 3
@@ -38,9 +39,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -337.0
-offset_top = -245.5
+offset_top = -302.0
 offset_right = 337.0
-offset_bottom = 245.5
+offset_bottom = 302.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = ExtResource("2_wr5n8")
@@ -59,11 +60,10 @@ offset_right = 277.0
 offset_bottom = 213.0
 grow_horizontal = 2
 grow_vertical = 2
-current_tab = 1
+current_tab = 0
 clip_tabs = false
 
 [node name="Video" type="TabBar" parent="Panel2/TabContainer"]
-visible = false
 layout_mode = 2
 metadata/_tab_index = 0
 
@@ -118,7 +118,6 @@ text = "Fps:"
 [node name="fps" type="OptionButton" parent="Panel2/TabContainer/Video/Panel/VBoxContainer"]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
-size_flags_horizontal = 4
 size_flags_vertical = 4
 selected = 6
 item_count = 7
@@ -144,13 +143,13 @@ text = "FOV:"
 [node name="fov" type="HSlider" parent="Panel2/TabContainer/Video/Panel/VBoxContainer"]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
-size_flags_horizontal = 4
 size_flags_vertical = 4
 min_value = 50.0
 value = 100.0
 rounded = true
 
 [node name="Label" type="Label" parent="Panel2/TabContainer/Video/Panel/VBoxContainer/fov"]
+custom_minimum_size = Vector2(80.725, 0)
 layout_mode = 0
 offset_left = 109.0
 offset_top = -4.0
@@ -159,8 +158,38 @@ offset_bottom = 22.0
 theme_override_font_sizes/font_size = 15
 text = "75
 "
+horizontal_alignment = 2
+
+[node name="Label4" type="Label" parent="Panel2/TabContainer/Video/Panel/VBoxContainer"]
+layout_mode = 2
+text = "Crosshair size:"
+
+[node name="crosshair size" type="HSlider" parent="Panel2/TabContainer/Video/Panel/VBoxContainer"]
+layout_mode = 2
+min_value = 10.0
+value = 10.0
+
+[node name="Label" type="Label" parent="Panel2/TabContainer/Video/Panel/VBoxContainer/crosshair size"]
+custom_minimum_size = Vector2(190.4, 0)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+text = "75"
+horizontal_alignment = 2
+
+[node name="Label5" type="Label" parent="Panel2/TabContainer/Video/Panel/VBoxContainer"]
+layout_mode = 2
+text = "Crosshair type:"
+
+[node name="SpinBox" type="SpinBox" parent="Panel2/TabContainer/Video/Panel/VBoxContainer"]
+layout_mode = 2
+min_value = 1.0
+max_value = 5.0
+value = 1.0
+rounded = true
 
 [node name="Controls" type="TabBar" parent="Panel2/TabContainer"]
+visible = false
 layout_mode = 2
 metadata/_tab_index = 1
 
@@ -268,24 +297,34 @@ RMB
 G
 Home"
 
-[node name="Button" type="Button" parent="Panel2"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = 209.0
-offset_top = -174.0
-offset_right = 259.0
-offset_bottom = -143.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel2"]
+layout_mode = 0
+offset_left = 67.0
+offset_top = 529.0
+offset_right = 426.0
+offset_bottom = 569.0
+
+[node name="Button" type="Button" parent="Panel2/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.860369, 0.860369, 0.860369, 1)
+theme_override_constants/outline_size = 9
+theme_override_styles/normal = ExtResource("3_wr5n8")
 text = "Back"
+
+[node name="Button2" type="Button" parent="Panel2/HBoxContainer"]
+custom_minimum_size = Vector2(88, 37)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/normal = ExtResource("3_wr5n8")
+text = "Open Data File"
 
 [connection signal="item_selected" from="Panel2/TabContainer/Video/Panel/VBoxContainer/Rmethod" to="." method="_on_rmethod_item_selected"]
 [connection signal="item_selected" from="Panel2/TabContainer/Video/Panel/VBoxContainer/fps" to="." method="_on_fps_item_selected"]
 [connection signal="value_changed" from="Panel2/TabContainer/Video/Panel/VBoxContainer/fov" to="." method="_on_fov_drag_ended"]
+[connection signal="value_changed" from="Panel2/TabContainer/Video/Panel/VBoxContainer/crosshair size" to="." method="_on_crosshair_size_value_changed"]
+[connection signal="value_changed" from="Panel2/TabContainer/Video/Panel/VBoxContainer/SpinBox" to="." method="_on_spin_box_value_changed"]
 [connection signal="value_changed" from="Panel2/TabContainer/Controls/Panel/VBoxContainer/ms" to="." method="_on_ms_drag_ended"]
 [connection signal="value_changed" from="Panel2/TabContainer/Controls/Panel/VBoxContainer/js" to="." method="_on_js_drag_ended"]
-[connection signal="button_down" from="Panel2/Button" to="." method="hide_self"]
+[connection signal="button_down" from="Panel2/HBoxContainer/Button" to="." method="hide_self"]
+[connection signal="button_down" from="Panel2/HBoxContainer/Button2" to="." method="open_settings_file"]

@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://c067j41iw3nkw" path="res://worlds/item_Spawner.tscn" id="4_cadv0"]
 [ext_resource type="FontFile" uid="uid://cxpvlud4t88bp" path="res://MODERNA_.TTF" id="4_dajfp"]
 [ext_resource type="PackedScene" uid="uid://coxg0uh6kt3gu" path="res://Main logic/serverButton.tscn" id="4_jlq55"]
+[ext_resource type="StyleBox" uid="uid://blgjtrwjfhf4h" path="res://Main logic/BWbuttonModern.tres" id="4_ni4tx"]
 [ext_resource type="PackedScene" uid="uid://q7stdod102r4" path="res://UI/players_list.tscn" id="10_uvk1u"]
 
 [sub_resource type="Gradient" id="Gradient_ye2wn"]
@@ -38,9 +39,6 @@ colors = PackedColorArray(1, 1, 1, 1)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_dajfp"]
 gradient = SubResource("Gradient_jlq55")
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jlq55"]
-bg_color = Color(0, 0, 0, 1)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_036b0"]
 
@@ -163,7 +161,7 @@ offset_top = 26.0
 offset_right = 230.0
 offset_bottom = 83.0
 size_flags_horizontal = 0
-theme_override_styles/normal = SubResource("StyleBoxFlat_jlq55")
+theme_override_styles/normal = ExtResource("4_ni4tx")
 text = "BACK"
 
 [node name="RichTextLabel" type="RichTextLabel" parent="Control/Control/VBoxContainer/TextureRect"]
@@ -265,6 +263,7 @@ layout_mode = 2
 custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
 size_flags_vertical = 8
+theme_override_styles/normal = ExtResource("4_ni4tx")
 text = "Refresh"
 
 [node name="Edit Servers" type="PanelContainer" parent="Control/Control/VBoxContainer/HBoxContainer/VBoxContainer/TabBar"]

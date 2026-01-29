@@ -341,18 +341,21 @@ func _physics_process(_delta):
 	
 	if input_enabled:
 		if Input.is_action_pressed("w"):
-			player_input_component.x+=cos(deg_to_rad(-get_rotation_degrees().y))*speed*speed_modifier
-			player_input_component.z+=sin(deg_to_rad(-get_rotation_degrees().y))*speed*speed_modifier
+			player_input_component.x+=cos(deg_to_rad(-get_rotation_degrees().y))
+			player_input_component.z+=sin(deg_to_rad(-get_rotation_degrees().y))
 		if Input.is_action_pressed("a"):
-			player_input_component.x+=cos(deg_to_rad(-get_rotation_degrees().y-90))*speed*speed_modifier
-			player_input_component.z+=sin(deg_to_rad(-get_rotation_degrees().y-90))*speed*speed_modifier
+			player_input_component.x+=cos(deg_to_rad(-get_rotation_degrees().y-90))
+			player_input_component.z+=sin(deg_to_rad(-get_rotation_degrees().y-90))
 		if Input.is_action_pressed("s"):
 			
-			player_input_component.x+=-cos(deg_to_rad(-get_rotation_degrees().y))*speed*speed_modifier
-			player_input_component.z+=-sin(deg_to_rad(-get_rotation_degrees().y))*speed*speed_modifier
+			player_input_component.x+=-cos(deg_to_rad(-get_rotation_degrees().y))
+			player_input_component.z+=-sin(deg_to_rad(-get_rotation_degrees().y))
 		if Input.is_action_pressed("d"):
-			player_input_component.x+=cos(deg_to_rad(-get_rotation_degrees().y+90))*speed*speed_modifier
-			player_input_component.z+=sin(deg_to_rad(-get_rotation_degrees().y+90))*speed*speed_modifier
+			player_input_component.x+=cos(deg_to_rad(-get_rotation_degrees().y+90))
+			player_input_component.z+=sin(deg_to_rad(-get_rotation_degrees().y+90))
+		var normalized_xz=Vector2(player_input_component.x,player_input_component.z).normalized()*speed*speed_modifier
+		player_input_component.x=normalized_xz.x
+		player_input_component.z=normalized_xz.y
 		camera.isWobbling=not player_input_component.is_zero_approx() and $GroundDetection.is_colliding()
 		camera.isRunning= speed_modifier != 1
 		

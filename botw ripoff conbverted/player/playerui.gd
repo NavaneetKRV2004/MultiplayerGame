@@ -11,7 +11,11 @@ var current_hearts=20
 var parent:player=null
 var prevHealth:int=0
 @export var arrow_count:Label
-
+var crosshair_texture_index:int=0
+var crosshair_size:float=10:
+	set(val):
+		val=clamp(val,10,100)
+		$screen/CenterContainer/crosshair.custom_minimum_size=Vector2(val,val)
 func _health():
 	var life:int=0
 	if get_parent() is player:
@@ -52,6 +56,16 @@ func _ready():
 	
 	
 func _physics_process(_delta):
+	crosshair_size= s.settings.cross_hair_size
+	var table:Array=[
+		Vector2(0,0),
+		Vector2(100,0),
+		Vector2(0,100),
+		Vector2(100,100),
+		Vector2(0,200)
+		]
+	var position_rect=table[s.settings.cross_hair_type-1]
+	$screen/CenterContainer/crosshair.texture.region=Rect2(position_rect,Vector2(100,100))
 	$screen/topleft.visible=parent and parent.gamemode_survival
 	_health()
 	if flickering:

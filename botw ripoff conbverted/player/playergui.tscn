@@ -1,10 +1,14 @@
-[gd_scene load_steps=9 format=3 uid="uid://dg3jx6uy8pufy"]
+[gd_scene load_steps=10 format=3 uid="uid://dg3jx6uy8pufy"]
 
 [ext_resource type="Script" uid="uid://ct64xrlcl3ro7" path="res://player/playerui.gd" id="1_lftyd"]
-[ext_resource type="Texture2D" uid="uid://d1l3tv3pkg3y2" path="res://UI/New Piskel (1).png" id="2_1f8a1"]
+[ext_resource type="Texture2D" uid="uid://dlh4ivthfwe1h" path="res://UI/crosshairs.png" id="4_5bsw7"]
 [ext_resource type="Texture2D" uid="uid://gssp04lgsps7" path="res://UI/hotbaricon.png" id="4_sk3ik"]
 [ext_resource type="Texture2D" uid="uid://ds05rilmyvobj" path="res://UI/hearts.png" id="5_5bsw7"]
 [ext_resource type="Texture2D" uid="uid://cf6wkjm1oltcq" path="res://UI/hotbaricon (1).png" id="5_lphdg"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_csy1n"]
+atlas = ExtResource("4_5bsw7")
+region = Rect2(0, 100, 100, 100)
 
 [sub_resource type="Animation" id="Animation_j7jtd"]
 length = 0.001
@@ -156,24 +160,36 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -5.0
-offset_top = -5.0
-offset_right = 5.0
-offset_bottom = 5.0
+offset_left = -50.0
+offset_top = -50.0
+offset_right = 50.0
+offset_bottom = 50.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
+mouse_filter = 2
 
 [node name="crosshair" type="TextureRect" parent="screen/CenterContainer"]
+self_modulate = Color(0, 0, 0, 1)
+texture_filter = 2
+custom_minimum_size = Vector2(10, 10)
 layout_mode = 2
-texture = ExtResource("2_1f8a1")
-stretch_mode = 3
+texture = SubResource("AtlasTexture_csy1n")
+expand_mode = 1
 
 [node name="Label" type="Label" parent="screen/CenterContainer/crosshair"]
 custom_minimum_size = Vector2(51.67, 44.615)
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 23.0
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 1.0
+offset_right = 92.0
+offset_bottom = 63.0
+grow_horizontal = 0
+grow_vertical = 0
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 4
 text = "56"

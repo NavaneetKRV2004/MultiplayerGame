@@ -11,9 +11,9 @@ class Dsettings:
 	var server_list:Array=["1","","",""]
 	var player_name:String=""
 	var skin:Color=Color("FFFFFF")
-	
+	var cross_hair_size:=10
+	var cross_hair_type:=1
 	func loadFromDictionary(d:Dictionary)-> void:
-		
 		FOV=d.FOV
 		Rend_Method=d.Rend_Method
 		fps=d.fps
@@ -23,6 +23,8 @@ class Dsettings:
 		server_list=d.server_list
 		player_name=d.player_name
 		skin=d.skin
+		cross_hair_size=d.cross_hair_size
+		cross_hair_type=d.cross_hair_type
 	func saveToDictionary()->Dictionary:
 		var d={}
 		d.FOV=FOV
@@ -31,34 +33,33 @@ class Dsettings:
 		d.MS=MS
 		d.JS=JS
 		d.Resolution=Resolution
-		
 		d.server_list=server_list
 		d.player_name=player_name
-		d.skin=skin	
+		d.skin=skin
+		d.cross_hair_size=cross_hair_size
+		d.cross_hair_type=cross_hair_type
 		return d
-		
 		
 var arguments:Dictionary={}
 var settings:Dsettings=Dsettings.new()
 func load_():
 	var isfile:bool=FileAccess.file_exists(saveData)
 	var file=FileAccess.open(saveData, FileAccess.READ)
+	var js=null
 	if isfile:
-		var js=JSON.parse_string(file.get_as_text())
-		if not js or js and not js is Dictionary:
-			g.p("Settings file corrupted",self,g.DEBUG_MESSAGES_TYPE.GAME_DATA)
-		else:
-			settings.loadFromDictionary(js)
-			g.p("reading from file:\n"+JSON.stringify(js,"\t"),self,g.DEBUG_MESSAGES_TYPE.GAME_DATA)
-			g.p("Settings file valid",self,g.DEBUG_MESSAGES_TYPE.GAME_DATA)
-			
-	else:
+		js=JSON.parse_string(file.get_as_text())
 		
+	if (not js) or (js and not (js is Dictionary)) or (len(js)!=11):
+		g.p("Settings file corrupted/doesn't exist",self,g.DEBUG_MESSAGES_TYPE.GAME_DATA)
 		file=FileAccess.open(saveData,FileAccess.WRITE_READ)
 		file.store_string(JSON.stringify(settings.saveToDictionary()))
 		g.p("Writing data to settings file:\n "+JSON.stringify(  settings.saveToDictionary(), "\t"),self,g.DEBUG_MESSAGES_TYPE.GAME_DATA)
-		
-		
+	else:
+		settings.loadFromDictionary(js)
+		g.p("reading from file:\n"+JSON.stringify(js,"\t"),self,g.DEBUG_MESSAGES_TYPE.GAME_DATA)
+		g.p("Settings file valid",self,g.DEBUG_MESSAGES_TYPE.GAME_DATA)
+
+
 func _ready():
 	load_()
 	for argument in OS.get_cmdline_args():
@@ -74,7 +75,7 @@ func _ready():
 
 func save_():
 	var file = FileAccess.open(saveData, FileAccess.WRITE_READ)
-	file.store_string(JSON.stringify(settings.saveToDictionary()))
+	file.store_string(JSON.stringify(settings.saveToDictionary(),"\t"))
 	g.p("Writing data to settings file:\n "+JSON.stringify(  settings.saveToDictionary(), "\t"),self,g.DEBUG_MESSAGES_TYPE.GAME_DATA)
 		
 	return

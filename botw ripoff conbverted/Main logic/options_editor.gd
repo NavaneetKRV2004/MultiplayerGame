@@ -18,7 +18,11 @@ func _ready():
 	ms_label.text=str(s.settings.MS)
 	JS_slider.value=s.settings.JS
 	js_label.text=str(s.settings.JS)
-
+	$"Panel2/TabContainer/Video/Panel/VBoxContainer/crosshair size".value=s.settings.cross_hair_size
+	$"Panel2/TabContainer/Video/Panel/VBoxContainer/crosshair size/Label".text=str(s.settings.cross_hair_size)
+	$Panel2/TabContainer/Video/Panel/VBoxContainer/SpinBox.value=s.settings.cross_hair_type
+func open_settings_file():
+	OS.shell_open(ProjectSettings.globalize_path(s.saveData))
 
 
 func _on_rmethod_item_selected(index):
@@ -49,3 +53,12 @@ func _on_js_drag_ended(value_changed):
 func hide_self() -> void:
 	hide()
 	s.save_()
+
+
+func _on_crosshair_size_value_changed(value_changed) -> void:
+	s.settings.cross_hair_size=value_changed
+	$"Panel2/TabContainer/Video/Panel/VBoxContainer/crosshair size/Label".text=str(value_changed)
+
+
+func _on_spin_box_value_changed(value: float) -> void:
+	s.settings.cross_hair_type=int(value)
