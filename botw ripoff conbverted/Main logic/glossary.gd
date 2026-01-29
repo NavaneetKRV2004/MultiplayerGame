@@ -48,7 +48,7 @@ func _process(delta: float) -> void:
 
 func _input(event: InputEvent) -> void:	
 	if event is InputEventMouseMotion and Input.is_action_pressed("lmb"):
-			placement.rotate_y(event.get_relative().x*s.settings.MS/2250.0)
+			placement.rotate_y(event.get_relative().x*s.MS/2250.0)
 
 func _on_back_button_up() -> void:
 	get_tree().change_scene_to_file("res://Main logic/titlescreen.tscn")

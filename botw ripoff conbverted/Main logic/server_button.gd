@@ -32,7 +32,7 @@ func _get_tooltip(_at_position: Vector2) -> String:
 	elif ip == ip_enum.disabled:
 		return "IP not set"
 	else: 
-		return s.settings.server_list[ip]
+		return s.server_list[ip]
 func _onlineSet(isOnline:bool,server_name:String="",players_count:int=0,type:String=""):
 	if isOnline:
 		$TextureButton.disabled=false
@@ -61,9 +61,9 @@ func ask_server():
 	if ip == ip_enum.localhost:
 		address="127.0.0.1"
 	elif ip == ip_enum.lan:
-		address="192.168.1."+s.settings.server_list[0]
+		address="192.168.1."+s.server_list[0]
 	else:
-		address=s.settings.server_list[ip]
+		address=s.server_list[ip]
 	
 	#while http.get_http_client_status() != HTTPClient.Status.STATUS_DISCONNECTED:
 		#pass
@@ -97,6 +97,6 @@ func _http_request_completed(_result, _response_code, _headers, body:PackedByteA
 
 
 func _on_texture_button_button_down() -> void:
-	var ip = s.settings.server_list[ip]
+	var ip = s.server_list[ip]
 	world.join_world(address,type_int)
 	

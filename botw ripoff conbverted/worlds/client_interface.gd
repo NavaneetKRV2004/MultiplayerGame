@@ -21,10 +21,10 @@ extends CanvasLayer
 	
 func _ready() -> void:
 	
-	LANtextbox.value=int(s.settings.server_list[0])
-	MS1textbox.text=s.settings.server_list[1]
-	MS2textbox.text=s.settings.server_list[2]
-	MS3textbox.text=s.settings.server_list[3]
+	LANtextbox.value=int(s.server_list[0])
+	MS1textbox.text=s.server_list[1]
+	MS2textbox.text=s.server_list[2]
+	MS3textbox.text=s.server_list[3]
 
 	
 func check_servers():
@@ -35,10 +35,10 @@ func check_servers():
 	MS3button.ask_server()
 	
 func save_ip_addresses():
-	s.settings.server_list[0]=str(int(LANtextbox.value))
-	s.settings.server_list[1]=MS1textbox.text
-	s.settings.server_list[2]=MS2textbox.text
-	s.settings.server_list[3]=MS3textbox.text
+	s.server_list[0]=str(int(LANtextbox.value))
+	s.server_list[1]=MS1textbox.text
+	s.server_list[2]=MS2textbox.text
+	s.server_list[3]=MS3textbox.text
 	s.save_()
 	
 

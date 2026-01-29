@@ -56,7 +56,7 @@ func _ready():
 	
 	
 func _physics_process(_delta):
-	crosshair_size= s.settings.cross_hair_size
+	crosshair_size= s.cross_hair_size
 	var table:Array=[
 		Vector2(0,0),
 		Vector2(100,0),
@@ -64,7 +64,7 @@ func _physics_process(_delta):
 		Vector2(100,100),
 		Vector2(0,200)
 		]
-	var position_rect=table[s.settings.cross_hair_type-1]
+	var position_rect=table[s.cross_hair_type-1]
 	$screen/CenterContainer/crosshair.texture.region=Rect2(position_rect,Vector2(100,100))
 	$screen/topleft.visible=parent and parent.gamemode_survival
 	_health()

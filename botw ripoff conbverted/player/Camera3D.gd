@@ -27,7 +27,7 @@ enum perspective_modes{
 func _process(_delta):
 	if s:
 		
-		CUSTOM_FOV=float(s.settings.FOV)
+		CUSTOM_FOV=float(s.FOV)
 	if perspective==0:     #third person
 		fov=lerp(fov,CUSTOM_FOV,0.1)
 		
