@@ -664,7 +664,7 @@ replication_config = SubResource("SceneReplicationConfig_87i4w")
 
 [node name="DebugData" type="RichTextLabel" parent="."]
 offset_right = 648.0
-offset_bottom = 648.0
+offset_bottom = 950.0
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 3
 bbcode_enabled = true

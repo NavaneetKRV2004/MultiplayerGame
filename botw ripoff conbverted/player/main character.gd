@@ -443,6 +443,11 @@ func update_debug():
 		"colliding with: [%d]\n%s"%[c,l],
 		"Items on ground: "+str(d1),
 		"Pointed Object's Authority: "+str(ray.get_collider().get_multiplayer_authority()) if ray.get_collider() else "",
+		"UI:",
+		"	Inventory:	"+str(inventory.visible),
+		"	Chat:	"+str(player_world.chat.visible),
+		"	Item wheel:	"+str(my_selection_wheel.visible),
+		"	HUD:	"+str($ui.visible),
 		]
 	
 			
