@@ -31,10 +31,14 @@ func interactJustPressedLMB(my_player:player,col):
 		my_player.play("attack_v",false,swingDuration)
 		#my_player.rpc("play","attack_v")
 func reset(player_ref):
+	$Area3D.monitoring=false
 	swing(false,1.0)
 	clear()
 	
 func swing(is_swing_start:bool,multiplier:float):
+	if not weapon_owner or not weapon_owner.is_multiplayer_authority():
+		return
+		
 	g.p("swring: "+str(is_swing_start),self)
 	attack_multiplier= multiplier if (is_swing_start) else 1.0 
 	$Area3D.monitoring=is_swing_start
@@ -63,3 +67,5 @@ func clear():
 
 func add_body(body):
 	Enemies_damaged.append(body)
+func debug():
+	return ["Damage: "+str(Damage),"Knockback: "+str(kb),"Monitoring?: "+str($Area3D.monitoring)]

@@ -89,10 +89,9 @@ func idle(player_ref):
 		player_ref.camera.default()
 	global_transform=player_ref.bow_placement.global_transform
 	
-#func _physics_process(delta: float) -> void:
-	#super._physics_process(delta)
-	#if my_player:
-		#global_transform=my_player.bow_placement.global_transform
+func non_authority_idle(player_ref):
+	position=Vector3.ZERO
+	rotation=Vector3.ZERO
 func reset(player_ref):
 	if arrow and player_ref:
 		player_ref.inventory.add_item(arrow,1)

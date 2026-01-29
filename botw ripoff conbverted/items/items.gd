@@ -41,8 +41,6 @@ func _die():
 	queue_free()
 	
 func _ready():
-	#set_multiplayer_authority(1)
-	
 	tree_entered.connect(_setHeld)
 	_setHeld()
 	
@@ -69,7 +67,7 @@ func _physics_process(delta: float) -> void:
 		#ticks_spent=0
 	##if global_position.y<-500:
 		##_die()
-	if held and not self is Bow:
+	if held and not (self is Bow):
 		global_transform=get_parent().global_transform
 
 func interactJustPressedLMB(player_ref:player, item_looked_at):
@@ -84,7 +82,8 @@ func interactReleasedRMB(player_ref:player, item_looked_at):
 	
 func idle(player_ref:player):
 	pass
-	
+func non_authority_idle(player_ref:player):
+	pass
 func reset(player_ref:player):
 	pass
 func debug()->Array:
@@ -101,3 +100,7 @@ func delete_copies_rpc():
 	
 func setExtraPropertiesForReplication(extra:Array):
 	pass
+func delete_multiplayer_synchronizer():
+	for i in get_children():
+		if i is MultiplayerSynchronizer:
+			i.queue_free()

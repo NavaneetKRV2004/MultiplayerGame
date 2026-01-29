@@ -193,55 +193,25 @@ func _physics_process(_delta):
 	if not is_multiplayer_authority():
 		not_authority()
 		return
+		
 	held_item_for_sync=get_held_item().item_name if get_held_item() else ""
+	position2=position
+	if get_held_item():
+		get_held_item().idle(self)
+	
 	if position.y<g.void_level-50:
 		rpc("respawn")
 		
-	position2=position
 	
 	if health<=0:
 		rpc.call("respawn")
-	if Input.is_action_just_pressed("mouse escape"):
-		player_world.chat.visible=true
-		player_world.chat.open=not player_world.chat.open
-	if Input.is_action_just_pressed("commands") and not player_world.chat.edit.visible:
-		player_world.chat.visible=true
-		player_world.chat.open=true
-		player_world.chat.edit.text+="/"
-		player_world.chat.edit.caret_column=len(player_world.chat.edit.text)
-		
-	if inventory.visible or my_selection_wheel.visible or player_world.chat.open or player_world.options.visible:
-		Input.mouse_mode=Input.MOUSE_MODE_VISIBLE
-	else:
-		Input.mouse_mode=Input.MOUSE_MODE_CAPTURED
-		input_enabled=true
-		
 	
-	if not player_world.chat.open and not player_world.options.visible:
-		if not my_selection_wheel.visible:
-			if Input.is_action_just_pressed("inventory"):
-				if get_held_item():
-					get_held_item().reset(self)
-				inventory.visible=not inventory.visible
-				input_enabled=not inventory.visible
-				if not inventory.visible:
-					setHotbarIndex(hotbar_index)
-		if not inventory.visible:
-			if Input.is_action_just_pressed("select wheel"):
-				my_selection_wheel.show()
-				if get_held_item():
-					get_held_item().reset(self)
-			if Input.is_action_just_released("select wheel"):
-				my_selection_wheel.hide()
-	else:
-		input_enabled=false
+	checkPlayerUI()
 			
-	if get_held_item():
-		get_held_item().idle(self)
+		
 	if not inventory.getItemAt(hotbar_index):
 			setHotbarIndex(hotbar_index) #refresh held item if count is 0
 			
-	
 	$armjoint/MeshInstance3D.visible=not get_held_item() is Bow
 
 	if input_enabled:
@@ -482,9 +452,49 @@ func update_debug():
 ##run every physics frame if not authority
 func not_authority():
 	if get_held_item():
+		get_held_item().non_authority_idle(self)
 		if get_held_item().item_name != held_item_for_sync:
 			get_held_item().queue_free()
 	else:
 		if "" != held_item_for_sync:
-			var temp:items=load(g.list_of_items[held_item_for_sync].source).instantiate()
+			var temp:items=load(g.list_of_items[held_item_for_sync]["scene"]).instantiate()
 			$armjoint/hand.add_child(temp)
+			temp.delete_multiplayer_synchronizer()
+			temp.reset(self)
+
+##Check for input to open mini windows such as Inventory, chat or selection wheel
+func checkPlayerUI():
+	if Input.is_action_just_pressed("mouse escape"):
+		player_world.chat.visible=true
+		player_world.chat.open=not player_world.chat.open
+	if Input.is_action_just_pressed("commands") and not player_world.chat.edit.visible:
+		player_world.chat.visible=true
+		player_world.chat.open=true
+		player_world.chat.edit.text+="/"
+		player_world.chat.edit.caret_column=len(player_world.chat.edit.text)
+		
+	if inventory.visible or my_selection_wheel.visible or player_world.chat.open or player_world.options.visible:
+		Input.mouse_mode=Input.MOUSE_MODE_VISIBLE
+	else:
+		Input.mouse_mode=Input.MOUSE_MODE_CAPTURED
+		input_enabled=true
+		
+	
+	if not player_world.chat.open and not player_world.options.visible:
+		if not my_selection_wheel.visible:
+			if Input.is_action_just_pressed("inventory"):
+				if get_held_item():
+					get_held_item().reset(self)
+				inventory.visible=not inventory.visible
+				input_enabled=not inventory.visible
+				if not inventory.visible:
+					setHotbarIndex(hotbar_index)
+		if not inventory.visible:
+			if Input.is_action_just_pressed("select wheel"):
+				my_selection_wheel.show()
+				if get_held_item():
+					get_held_item().reset(self)
+			if Input.is_action_just_released("select wheel"):
+				my_selection_wheel.hide()
+	else:
+		input_enabled=false
