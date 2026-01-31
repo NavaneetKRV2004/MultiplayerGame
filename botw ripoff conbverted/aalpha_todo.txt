@@ -1,6 +1,3 @@
-castle scene
-
-held item replication
 enable all servers
 item shop
 loading world

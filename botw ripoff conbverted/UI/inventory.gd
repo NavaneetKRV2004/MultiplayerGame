@@ -34,7 +34,9 @@ func _resize():
 	size=$NinePatchRect.size
 	
 	position =get_viewport_rect().size/2-size / 2
-	
+	$"Creative menu".position.x=$NinePatchRect.position.x+size.x+2
+	$"Creative menu".position.y=0
+	$"Creative menu".size.y=$NinePatchRect.size.y
 	
 func _ready() -> void:
 	grid.columns=columns
@@ -50,7 +52,8 @@ func _ready() -> void:
 		
 	update_textures()
 	_resize()
-
+	
+	
 
 	
 	

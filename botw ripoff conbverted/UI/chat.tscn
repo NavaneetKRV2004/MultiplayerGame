@@ -16,7 +16,6 @@ offset_right = 366.0
 offset_bottom = -3.0
 grow_vertical = 0
 script = ExtResource("1_iqp8c")
-open = true
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
@@ -32,6 +31,7 @@ layout_mode = 2
 size_flags_vertical = 8
 focus_mode = 2
 mouse_default_cursor_shape = 1
+theme_override_constants/outline_size = 6
 theme_override_font_sizes/normal_font_size = 20
 theme_override_styles/normal = SubResource("StyleBoxFlat_isvah")
 bbcode_enabled = true

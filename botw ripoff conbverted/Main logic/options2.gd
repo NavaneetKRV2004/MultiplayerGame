@@ -38,23 +38,18 @@ func load_():
 		from_dict(js)
 		g.p("reading from file:\n"+JSON.stringify(js,"\t"),self,g.DEBUG_MESSAGES_TYPE.GAME_DATA)
 		g.p("Settings file valid",self,g.DEBUG_MESSAGES_TYPE.GAME_DATA)
-
+	Engine.max_fps=fps
 
 
 
 
 func save_():
+	Engine.max_fps=fps
 	var file = FileAccess.open(saveData, FileAccess.WRITE_READ)
 	file.store_string(JSON.stringify(to_dict(),"\t"))
 	g.p("Writing data to settings file:\n "+JSON.stringify( to_dict(), "\t"),self,g.DEBUG_MESSAGES_TYPE.GAME_DATA)
 		
-	return
-	
-	#var cf=ConfigFile.new()
-	#cf.set_value("rendering","renderer/rendering_method",$TabContainer/Video/Panel/VBoxContainer/Rmethod.get_item_text(settings["Rend Method"]))
-	#cf.save("res://override.cfg")
-	#Engine.set_max_fps(settings["fps"])
-	
+	return	
 
 var arguments:Dictionary={}
 func _ready():

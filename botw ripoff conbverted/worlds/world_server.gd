@@ -8,10 +8,6 @@ func _ready() -> void:
 	for i in range(len(g.world_types)):
 		%landtype.add_item(g.world_types[i][0],i)
 	if "server" in s.arguments:
-		world_name=s.arguments["name"] if "name" in s.arguments else "Debug Server"
-		world_type=int(s.arguments["type"]) if "type" in s.arguments else 0
-		pvp=not ("pvp" in s.arguments and (s.arguments["pvp"] in ["0","False","false","FALSE"])) 
-		default_gamemode=int(s.arguments["gm"]) if "gm" in s.arguments else 0
 		_on_host_button_down()
 
 func _on_host_button_down():
@@ -35,6 +31,12 @@ func _on_host_button_down():
 		world_type=%landtype.get_selected_id()
 		ischeatsEnabled=%cheats.button_pressed
 		sky=%sky.get_selected_id()
+	else:
+		world_name=s.arguments["name"] if "name" in s.arguments else "Debug Server"
+		world_type=int(s.arguments["type"]) if "type" in s.arguments else 0
+		pvp=not ("pvp" in s.arguments and (s.arguments["pvp"] in ["0","False","false","FALSE"])) 
+		default_gamemode=int(s.arguments["gm"]) if "gm" in s.arguments else 0
+		ischeatsEnabled=not ("cheats" in s.arguments and (s.arguments["pvp"] in ["0","False","false","FALSE"])) 
 	
 	var l=load(g.world_types[world_type][1]).instantiate()
 	add_child(l)

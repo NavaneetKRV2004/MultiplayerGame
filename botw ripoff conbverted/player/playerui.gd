@@ -79,4 +79,5 @@ func _physics_process(_delta):
 		arrow_count.show()
 	else:
 		arrow_count.hide()
-			
+	var temp=parent.ray.get_collider()
+	$screen/CenterContainer/crosshair/Label2.visible= temp is items and (temp.collectable or not parent.gamemode_survival)

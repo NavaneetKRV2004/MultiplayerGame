@@ -26,7 +26,7 @@ var players:Dictionary={}
 var my_player:player=null
 @export var isHealthShownInPlayerList:bool=true
 @export var ischeatsEnabled:bool=true
-
+@export var teams:bool=false
 
 var multi=null
 var id

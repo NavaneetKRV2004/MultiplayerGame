@@ -53,9 +53,12 @@ func _on_text_edit_text_submitted(new_text:String):
 				else:
 					add_error(args[1]+" is not a valid name")
 			"/team":
-				if new_text.get_slice(" ",1) !="":
-					get_parent().my_player.team=new_text.get_slice(" ",1)
-					add_text("Changed team to "+get_parent().my_player.team)
+				if args[1].to_lower() in g.teams:
+					world.my_player.team=args[1]
+					var temp=args[1].to_upper()
+					add_text("Changed team to [color=%s]%s[/color]"%[temp,temp])
+				else:
+					add_error("Invalid team.\nTeams: "+str(g.teams.keys()))
 			"/tp":
 				if args.size()==4:
 					if args[1].is_valid_int():
@@ -105,33 +108,37 @@ func _on_timer_timeout() -> void:
 func askServerToSave(): 
 	if world is WorldServer and is_multiplayer_authority():
 		world.save_world()
-	
+
+
 func gamerule(property:String,value:String):
 	property= property.to_lower()
 	value=value.to_lower()
 	match property:
 		"pvp":
 			if value in affirmative:
-				_change_gamerule("pvp",true)
+				_change_gamerule.rpc_id(1,"pvp",true)
 			elif value in negative:
-				_change_gamerule("pvp",false)
+				_change_gamerule.rpc_id(1,"pvp",false)
 			else:
 				add_error("Value should be Boolean")
 		"gm","gamemode":
 			if value in ["0","1"]:
-				_change_gamerule("gm",value.to_int())
+				_change_gamerule.rpc_id(1,"default_gamemode",value.to_int())
 			else:
 				add_error("Value should be valid Int")
+		"teams","t":
+			if value in affirmative:
+				_change_gamerule.rpc_id(1,"teams",true)
+			elif value in negative:
+				_change_gamerule.rpc_id(1,"teams",false)
+			else:
+				add_error("Value should be Boolean")
 		_:
 			add_error("No such gamerule")
-	rpc_id(1,"gamerule",property,value)
+
 	
 @rpc("any_peer","call_remote")
 func _change_gamerule(rule,value):
-	match rule:
-		"pvp":
-			world.pvp=value
-		"gm":
-			world.default_gamemode=value
+	world.set(rule,value)
 	rpc("add_text","Gamerule "+rule+" changed to "+str(value))
 		

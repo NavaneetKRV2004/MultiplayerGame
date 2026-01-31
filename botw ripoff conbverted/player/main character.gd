@@ -14,7 +14,7 @@ var bomb=preload("res://items/bomb.tscn")
 @export var maxHealth:float=80.0
 @export var state:String="melee"
 @export var gamemode_survival:bool=true
-@export var team:g.teams=g.teams.RED
+@export var team:String="white"
 @export var input_enabled:bool=true
 @export var deaths:int=0
 ##world------------------------------------------------------------
@@ -427,17 +427,16 @@ func update_debug():
 		
 		"FPS: %d/%d  Delta:%.2fms Ping: %dms"%[Engine.get_frames_per_second(),Engine.get_physics_ticks_per_second(),RenderingServer.viewport_get_measured_render_time_gpu(get_viewport().get_viewport_rid()),player_world.PING],
 		"RAM: %d MB"%[OS.get_static_memory_usage()/1000000,],
-		"Player: %s (%s)"%[Player_name,name],
+		"Player: [color=%s]%s[/color] (%s)"%[team.to_upper(),Player_name,name],
 		"Health: %d/%d Deaths: %d PvP: %s"%[health,maxHealth,deaths,"ON" if player_world.pvp else "OFF"],
 		"Coordinates: (%d,%d,%d)"%[position.x,position.y,position.z],
 		"Velocity: (%d,%d,%d)"%[velocity.x,velocity.y,velocity.z],
 		"\tgravity_component: (%d %d %d)\n\tknockback_force: (%d,%d,%d,)\n\tLerped_player_movement: (%d,%d,%d)"%[gravity_component.x,gravity_component.y,gravity_component.z,knockback_force.x,knockback_force.y,knockback_force.z,lerped_player_movement.x,lerped_player_movement.y,lerped_player_movement.z],
 		"Velocity Magnitude: "+str(round(velocity.length()*100.0)/100.0),
-		"Gamemode: "+("[color=GREEN]Survival[/color]" if gamemode_survival else "[color=YELLOW]Creative[/color]")+" default: "+str(player_world.default_gamemode),
+		"Gamemode: "+("[color=GREEN]Survival[/color]" if gamemode_survival else "[color=YELLOW]Creative[/color]"),
 		"Time: "+player_world.strtime,
 		"FOV: "+str(ceil(camera.fov)), 
-		"Perspective: "+str(camera.perspective),
-		"Default Perspective: "+str(camera.default_perspective),
+		"Perspective: "+str(camera.perspective)+"/"+str(camera.default_perspective),
 		"hotbar index: %d\tItem: %s"%[hotbar_index,held_item.item_name if held_item else "Nil"],
 		"\t"+"\n\t".join(held_item.debug()) if held_item else "",
 		"colliding with: [%d]\n%s"%[c,l],
@@ -445,9 +444,15 @@ func update_debug():
 		"Pointed Object's Authority: "+str(ray.get_collider().get_multiplayer_authority()) if ray.get_collider() else "",
 		"UI:",
 		"	Inventory:	"+str(inventory.visible),
-		"	Chat:	"+str(player_world.chat.visible),
+		"	Chat:	"+str(player_world.chat.visible)+" Open: "+str(player_world.chat.open),
 		"	Item wheel:	"+str(my_selection_wheel.visible),
 		"	HUD:	"+str($ui.visible),
+		"	Settings: "+str(player_world.options.visible),
+		"Server:",
+		"	World Name: "+player_world.world_name,
+		"	Default Gamemode: "+["[color=YELLOW]Creative[/color]","[color=GREEN]Survival[/color]",][player_world.default_gamemode],
+		"	Cheats enabled: "+str(player_world.ischeatsEnabled),
+		"	Teams enabled: "+str(player_world.teams),
 		]
 	
 			

@@ -28,7 +28,6 @@ size_flags_horizontal = 0
 size_flags_vertical = 4
 theme = SubResource("Theme_qtu10")
 script = ExtResource("1_62e2m")
-columns = 4
 
 [node name="NinePatchRect" type="NinePatchRect" parent="."]
 texture_filter = 3
@@ -73,10 +72,12 @@ mouse_filter = 2
 [node name="Creative menu" type="ItemList" parent="."]
 layout_mode = 1
 anchors_preset = -1
-offset_left = 679.0
-offset_top = 105.0
-offset_right = 1124.0
-offset_bottom = 437.0
+offset_left = 662.0
+offset_top = 3.0
+offset_right = 1009.0
+offset_bottom = 529.0
+grow_horizontal = 2
+grow_vertical = 2
 auto_width = true
 script = ExtResource("3_fxcd2")
 

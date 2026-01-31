@@ -17,12 +17,15 @@ const void_level:int=-200
 	["CTF"],
 	["spleef"],
 	]
-enum teams{
-	RED,
-	BLUE,
-	GREEN,
-	YELLOW
+
+var teams={
+	"white":Color.WHITE,
+	"red":Color.RED,
+	"blue":Color.BLUE,
+	"orange":Color.ORANGE,
+	"green":Color.GREEN
 }
+
 
 var particles:Dictionary={
 	"bomb":"res://particles/bomb_particles.tscn"
