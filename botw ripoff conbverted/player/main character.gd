@@ -115,11 +115,13 @@ func play(a,backwards=false,duration=1.0):
 
 @rpc("any_peer","call_local")
 func damage(n:float=0.0,   kb:float=0.0,   global_source_position:Vector3=Vector3(0,0,0)    ):
+	
 	if is_multiplayer_authority() and gamemode_survival:
-		health-=n
 		g.p(Player_name+" got damaged (-"+str(floor(n))+")",self,g.DEBUG_MESSAGES_TYPE.COMBAT)
 		camera.start_shake()
 		knockback_force= (global_position-global_source_position).normalized()*kb
+	elif multiplayer.is_server():
+		health-=n
 	else:
 		$GPUParticles3D.emitting=true
 
@@ -143,7 +145,7 @@ func _enter_tree():
 	set_multiplayer_authority(name.to_int())
 	
 func _ready():
-		
+	$server.set_multiplayer_authority(1)
 	player_world=get_parent()
 	player_world.players[name.to_int()]=self
 	
@@ -198,14 +200,7 @@ func _physics_process(_delta):
 	position2=position
 	if get_held_item():
 		get_held_item().idle(self)
-	
-	if position.y<g.void_level-50:
-		rpc("respawn")
-		
-	
-	if health<=0:
-		rpc.call("respawn")
-	
+
 	checkPlayerUI()
 			
 		
@@ -388,7 +383,6 @@ func _input(event):
 	elif Input.is_action_just_released('zoom'):
 		camera.default()
 	
-	
 	if event is InputEventMouseMotion and Input.get_mouse_mode()==2:
 		rotate_y(-event.get_relative().x*s.MS/22500.0)
 		$body/head.rotate_z(-event.get_relative().y*s.MS/22500.0)
@@ -471,7 +465,17 @@ func not_authority():
 			$armjoint/hand.add_child(temp)
 			temp.delete_multiplayer_synchronizer()
 			temp.reset(self)
+	if multiplayer.is_server():
+		server()
 
+func server():
+	if position.y<g.void_level-50:
+		rpc("respawn")
+	if health<=0:
+		rpc.call("respawn")
+	
+		
+		
 ##Check for input to open mini windows such as Inventory, chat or selection wheel
 func checkPlayerUI():
 	if Input.is_action_just_pressed("mouse escape"):
