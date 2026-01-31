@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://8xvqvm52qjs3"]
+[gd_scene load_steps=28 format=3 uid="uid://8xvqvm52qjs3"]
 
 [ext_resource type="Script" uid="uid://d3lr651m53nfc" path="res://player/main character.gd" id="1_ss7nu"]
 [ext_resource type="Material" uid="uid://ddxeiqueh33ll" path="res://player/main charactershader.tres" id="2_obcun"]
@@ -31,33 +31,35 @@ properties/1/replication_mode = 2
 properties/2/path = NodePath(".:position2")
 properties/2/spawn = true
 properties/2/replication_mode = 2
-properties/3/path = NodePath(".:health")
+properties/3/path = NodePath(".:skin")
 properties/3/spawn = true
 properties/3/replication_mode = 2
-properties/4/path = NodePath(".:maxHealth")
+properties/4/path = NodePath(".:Player_name")
 properties/4/spawn = true
 properties/4/replication_mode = 2
-properties/5/path = NodePath(".:skin")
+properties/5/path = NodePath("AnimationPlayer:current_animation")
 properties/5/spawn = true
 properties/5/replication_mode = 2
-properties/6/path = NodePath(".:Player_name")
+properties/6/path = NodePath("AnimationPlayer:speed_scale")
 properties/6/spawn = true
 properties/6/replication_mode = 2
-properties/7/path = NodePath("AnimationPlayer:current_animation")
+properties/7/path = NodePath(".:deaths")
 properties/7/spawn = true
 properties/7/replication_mode = 2
-properties/8/path = NodePath("AnimationPlayer:speed_scale")
+properties/8/path = NodePath(".:held_item_for_sync")
 properties/8/spawn = true
 properties/8/replication_mode = 2
-properties/9/path = NodePath(".:deaths")
+properties/9/path = NodePath(".:team")
 properties/9/spawn = true
 properties/9/replication_mode = 2
-properties/10/path = NodePath(".:held_item_for_sync")
-properties/10/spawn = true
-properties/10/replication_mode = 2
-properties/11/path = NodePath(".:team")
-properties/11/spawn = true
-properties/11/replication_mode = 2
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_j7ges"]
+properties/0/path = NodePath("..:health")
+properties/0/spawn = true
+properties/0/replication_mode = 2
+properties/1/path = NodePath("..:maxHealth")
+properties/1/spawn = true
+properties/1/replication_mode = 2
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_7ydae"]
 emission_shape = 2
@@ -661,9 +663,13 @@ transform = Transform3D(-3.14593e-06, -1.79107e-06, -1, -0.5, 0.866025, 2.18557e
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource("8_rr61b")
 
-[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+[node name="client" type="MultiplayerSynchronizer" parent="."]
 replication_interval = 0.02
 replication_config = SubResource("SceneReplicationConfig_87i4w")
+
+[node name="server" type="MultiplayerSynchronizer" parent="."]
+root_path = NodePath("../client")
+replication_config = SubResource("SceneReplicationConfig_j7ges")
 
 [node name="DebugData" type="RichTextLabel" parent="."]
 offset_right = 648.0
