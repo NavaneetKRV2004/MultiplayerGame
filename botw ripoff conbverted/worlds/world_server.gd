@@ -55,8 +55,8 @@ func _on_label_ready():
 			break
 			
 			
-func save_world():
-	var save=FileAccess.open("FirstWorldEver.world",FileAccess.WRITE)
+func save_world(save_as:String="new_world"):
+	var save=FileAccess.open(save_as+".world",FileAccess.WRITE)
 	var buffer:String=""
 	for i in get_children():
 		if i is items:

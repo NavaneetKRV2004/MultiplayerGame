@@ -4,7 +4,7 @@ class_name Construction extends items
 enum constr{
 	FLOOR_CEILING,
 	WALL,
-	TREE
+	UPRIGHT
 }
 @export var construction_type:constr=constr.WALL
 var ghost:Node=null
@@ -84,7 +84,7 @@ func idle(player_ref):
 				ghost.global_position.y+=0.2
 			constr.WALL:
 				ghost.global_position.y+=2.0
-			constr.TREE:
+			constr.UPRIGHT:
 				pass
 		if Input.is_action_pressed("shift"):
 			ghost.global_position=round(ghost.global_position)
