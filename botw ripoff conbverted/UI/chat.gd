@@ -71,7 +71,11 @@ func _on_text_edit_text_submitted(new_text:String):
 						world.my_player.position.z=int(args[3])
 			"/save":
 				rpc("add_text","Saving...","[color=FF0000]<Server>[/color]")
-				rpc_id(1,"askServerToSave")
+				if len(args)==1:
+					rpc_id(1,"askServerToSave")
+				else:
+					rpc_id(1,"askServerToSave",args[1] )
+					
 			"/gamerule","/gr":
 				if len(args)==3:
 					gamerule(args[1],args[2])
@@ -105,9 +109,9 @@ func _on_timer_timeout() -> void:
 	if not edit.visible:
 		visible=false
 @rpc("any_peer","reliable")
-func askServerToSave(): 
+func askServerToSave(save_as:String="new_world"): 
 	if world is WorldServer and is_multiplayer_authority():
-		world.save_world()
+		world.save_world(save_as)
 
 
 func gamerule(property:String,value:String):

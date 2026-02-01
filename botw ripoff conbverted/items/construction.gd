@@ -4,7 +4,7 @@ class_name Construction extends items
 enum constr{
 	FLOOR_CEILING,
 	WALL,
-	TREE
+	UPRIGHT
 }
 @export var construction_type:constr=constr.WALL
 var ghost:Node=null
@@ -59,7 +59,7 @@ func interactJustPressedLMB(player_ref:player, item_looked_at):
 		
 	
 func interactJustPressedRMB(player_ref:player, item_looked_at):
-	if not ghost.visible:
+	if not ghost.is_inside_tree() or not ghost.visible:
 		return
 	player_ref.player_world.item_spawner.create_item(item_name,ghost.global_position,ghost.global_rotation,Vector3.ZERO)
 	player_ref.inventory.subtract_item(player_ref.hotbar_index)
@@ -84,7 +84,7 @@ func idle(player_ref):
 				ghost.global_position.y+=0.2
 			constr.WALL:
 				ghost.global_position.y+=2.0
-			constr.TREE:
+			constr.UPRIGHT:
 				pass
 		if Input.is_action_pressed("shift"):
 			ghost.global_position=round(ghost.global_position)

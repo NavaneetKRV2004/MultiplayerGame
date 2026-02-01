@@ -145,6 +145,11 @@ func p(text,source:Node=null,type:DEBUG_MESSAGES_TYPE=DEBUG_MESSAGES_TYPE.MISC):
 		"scene":"res://items/glass.tscn",
 		"stackable":true,
 		"texture":"res://items/glass_glass.png"
+	},
+	"wood_door":{
+		"scene":"res://items/wooden_door.tscn",
+		"stackable":true,
+		"texture":"res://items/wood_door_tex1_64x128_A9D1055D669D31C4_12_mip0.png"
 	}
 	
 }
