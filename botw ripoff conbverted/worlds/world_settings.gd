@@ -11,6 +11,7 @@ const void_level:int=-200
 	["bedwars","res://worlds/bedwars.tscn",],
 	["pvp arena","res://worlds/pvpmap.tscn"],
 	["Castle snipers","res://worlds/castle_snipers.tscn"],
+	["Early dev land","res://worlds/land.tscn"],
 	["Hide and Seek"],
 	["Catch"],
 	["Bomb it"],
