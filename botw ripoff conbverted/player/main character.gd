@@ -453,6 +453,7 @@ func update_debug():
 		"	Default Gamemode: "+["[color=YELLOW]Creative[/color]","[color=GREEN]Survival[/color]",][player_world.default_gamemode],
 		"	Cheats enabled: "+str(player_world.ischeatsEnabled),
 		"	Teams enabled: "+str(player_world.teams),
+		player_world.land.debug()[0] if player_world.land is Procedural else "",
 		]
 	
 			

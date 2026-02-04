@@ -1,0 +1,19 @@
+[gd_resource type="ShaderMaterial" load_steps=4 format=3 uid="uid://7vjlfmxfcvgd"]
+
+[ext_resource type="Shader" uid="uid://bnamfjrkywaku" path="res://worlds/procedural.gdshader" id="1_s1fsc"]
+
+[sub_resource type="Gradient" id="Gradient_coui1"]
+interpolation_mode = 1
+offsets = PackedFloat32Array(0, 0.318707, 0.672209, 0.836028, 0.91224, 1)
+colors = PackedColorArray(0.906951, 0.724967, 0.655931, 1, 0.14349, 1, 0.127228, 1, 0.338301, 0.618778, 0.347496, 1, 0.542106, 0.542106, 0.542106, 1, 1, 1, 1, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_lccal"]
+gradient = SubResource("Gradient_coui1")
+use_hdr = true
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_s1fsc")
+shader_parameter/height = 200.0
+shader_parameter/offset = 1.15
+shader_parameter/gradient = SubResource("GradientTexture1D_lccal")

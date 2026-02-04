@@ -16,6 +16,7 @@ var Player = load(player_scene)
 @export var time:float=0.0
 var strtime:String
 @export var environment:WorldEnvironment=null
+var land:StaticBody3D=null
 @export var sky:int=0:
 	set(new):
 		if environment:

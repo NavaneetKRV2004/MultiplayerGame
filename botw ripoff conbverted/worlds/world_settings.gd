@@ -5,18 +5,19 @@ const void_level:int=-200
 
 
 @export var world_types:Array=[
-	["procedural","res://worlds/procedural.tscn",],
-	["flat","res://worlds/block.tscn",],
-	["parkour","res://worlds/parkour.tscn",],
-	["bedwars","res://worlds/bedwars.tscn",],
-	["pvp arena","res://worlds/pvpmap.tscn"],
+	["Island","res://worlds/island.tscn",],
+	["Flat","res://worlds/block.tscn",],
+	["Parkour","res://worlds/parkour.tscn",],
+	["Bedwars","res://worlds/bedwars.tscn",],
+	["Pvp arena","res://worlds/pvpmap.tscn"],
 	["Castle snipers","res://worlds/castle_snipers.tscn"],
 	["Early dev land","res://worlds/land.tscn"],
+	["Procedural","res://worlds/procedural.tscn"],
 	["Hide and Seek"],
 	["Catch"],
 	["Bomb it"],
 	["CTF"],
-	["spleef"],
+	["Spleef"],
 	]
 
 var teams={

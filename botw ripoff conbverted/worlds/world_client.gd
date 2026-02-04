@@ -21,6 +21,7 @@ func join_world(ip:String,type:int):
 	
 	var b=load(g.world_types[world_type][1]).instantiate()
 	add_child(b)
+	land=b
 	g.p("world loaded "+str(world_type),self,g.DEBUG_MESSAGES_TYPE.LOGIN)
 		
 	id=multi.get_unique_id()

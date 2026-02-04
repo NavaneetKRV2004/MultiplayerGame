@@ -1,9 +1,10 @@
 extends World
 class_name WorldServer
 
+@onready var server_camera:=$ServerSpectator
 func _ready() -> void:
 	super._ready()
-
+	
 	
 	for i in range(len(g.world_types)):
 		%landtype.add_item(g.world_types[i][0],i)
@@ -40,7 +41,7 @@ func _on_host_button_down():
 	
 	var l=load(g.world_types[world_type][1]).instantiate()
 	add_child(l)
-	
+	land=l
 	
 	
 

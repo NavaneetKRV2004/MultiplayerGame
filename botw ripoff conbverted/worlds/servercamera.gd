@@ -109,7 +109,8 @@ func update_debug():
 			"Rendering Radius: %s"%get_parent().ren,
 			"FOV: %d"%(camera.fov+1), 
 			"Perspective: %d"%camera.perspective,
-			"Items on world: "+str(d1)
+			"Items on world: "+str(d1),
+			player_world.land.debug()[0] if player_world.land is Procedural else "",
 		]
 
 		DebugData.text="\n".join(debug)
