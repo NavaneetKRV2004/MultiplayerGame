@@ -1,9 +1,8 @@
-[gd_scene load_steps=13 format=3 uid="uid://5a3ord0kx8ab"]
+[gd_scene load_steps=12 format=3 uid="uid://5a3ord0kx8ab"]
 
-[ext_resource type="Script" uid="uid://c1evdqn4npkhb" path="res://enemies.gd" id="1_q0dtv"]
-[ext_resource type="PackedScene" uid="uid://b5jum0m25eq1l" path="res://healthbar.tscn" id="2_26acj"]
-[ext_resource type="Texture2D" uid="uid://caf1xun7r26m1" path="res://IMG_20230418_161824.jpg" id="2_hyba3"]
-[ext_resource type="Texture2D" uid="uid://doy784ms3xxwn" path="res://IMG_20230418_161826.jpg" id="3_h2uwv"]
+[ext_resource type="Script" uid="uid://c1evdqn4npkhb" path="res://entities/enemies.gd" id="1_q0dtv"]
+[ext_resource type="Texture2D" uid="uid://caf1xun7r26m1" path="res://entities/IMG_20230418_161824.jpg" id="2_hyba3"]
+[ext_resource type="Texture2D" uid="uid://doy784ms3xxwn" path="res://entities/IMG_20230418_161826.jpg" id="3_h2uwv"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_5qf5y"]
 height = 3.00434
@@ -36,7 +35,13 @@ animations = [{
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_7xjyu"]
 properties/0/path = NodePath(".:position")
 properties/0/spawn = true
-properties/0/replication_mode = 1
+properties/0/replication_mode = 2
+properties/1/path = NodePath(".:rotation")
+properties/1/spawn = true
+properties/1/replication_mode = 2
+properties/2/path = NodePath("MeshInstance3D2/AnimatedSprite3D:frame")
+properties/2/spawn = true
+properties/2/replication_mode = 1
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_7e5p1"]
 emission_shape = 2
@@ -58,10 +63,11 @@ height = 0.2
 radial_segments = 7
 rings = 7
 
-[node name="Enemy" type="CharacterBody3D"]
+[node name="Enemy" type="RigidBody3D"]
+gravity_scale = 2.548
+linear_damp = 5.0
 script = ExtResource("1_q0dtv")
-healthbar = NodePath("Node3D")
-MAX_HEALTH = 50.0
+SPEED = 30.0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_5qf5y")
@@ -80,7 +86,6 @@ transform = Transform3D(-2.96034e-09, 0, 0.0699999, 0, 0.0562705, 0, -0.0677246,
 flip_h = true
 sprite_frames = SubResource("SpriteFrames_wtps5")
 animation = &"new_animation"
-frame = 1
 
 [node name="MeshInstance3D3" type="MeshInstance3D" parent="."]
 transform = Transform3D(-2.41186e-08, 0, 0.495419, 0, 1.58603, 0, -0.551769, 0, -2.16554e-08, 0.860209, 0.340691, -0.0494008)
@@ -89,9 +94,6 @@ mesh = SubResource("BoxMesh_wrf4d")
 [node name="MeshInstance3D4" type="MeshInstance3D" parent="."]
 transform = Transform3D(-2.41186e-08, 0, 0.495419, 0, 1.58603, 0, -0.551769, 0, -2.16554e-08, -0.858306, 0.340691, 0.0505609)
 mesh = SubResource("BoxMesh_wrf4d")
-
-[node name="Node3D" parent="." instance=ExtResource("2_26acj")]
-transform = Transform3D(-1.71527e-07, 0, 1, 0, 0.673712, 0, -3.92407, 0, -4.37114e-08, -0.000634337, 2.57274, 0.000672307)
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_7xjyu")

@@ -231,7 +231,7 @@ func _physics_process(_delta):
 			if get_held_item():
 				get_held_item().interactJustPressedLMB(self,col)
 			else:
-				if col is player and player_world.pvp:
+				if col is player and player_world.pvp or col is living_entities:
 					col.damage.rpc(2,pushforce,global_position)
 					play("hit",false)
 		if Input.is_action_just_released("lmb"):
@@ -243,7 +243,7 @@ func _physics_process(_delta):
 		if Input.is_action_just_pressed("rmb"):
 			var col=ray.get_collider()
 			state="melee"
-			if col.has_method("interact"):
+			if col and col.has_method("interact"):
 				col.interact(self)
 			elif get_held_item():
 				get_held_item().interactJustPressedRMB(self,col)

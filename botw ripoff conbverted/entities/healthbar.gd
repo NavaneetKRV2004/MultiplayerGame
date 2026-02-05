@@ -1,6 +1,6 @@
 extends Sprite3D
 
-var parent:player=null
+var parent=null
 
 
 func _ready() -> void:

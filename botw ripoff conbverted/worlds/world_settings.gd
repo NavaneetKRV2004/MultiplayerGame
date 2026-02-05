@@ -51,6 +51,12 @@ enum DEBUG_MESSAGES_TYPE{
 func p(text,source:Node=null,type:DEBUG_MESSAGES_TYPE=DEBUG_MESSAGES_TYPE.MISC):
 	var source_name=str(source.name) if source else "??".lpad(20)
 	print(source_name.lpad(20),":\t",text)
+	
+var list_of_entities:Dictionary={
+	"creeper":{
+		"scene":"res://entities/basic_enemy.tscn"
+	}
+}
 
 @export var list_of_items:Dictionary={
 	

@@ -24,7 +24,7 @@ var Enemies_damaged=[]
 
 func interactJustPressedLMB(my_player:player,col):
 	weapon_owner = my_player
-	if my_player.is_on_floor():
+	if my_player.is_on_floor() or my_player.get_node("GroundDetection").get_collider():
 		#my_player.rpc("play","attack_h")
 		my_player.play("attack_h",false,swingDuration)
 	else:

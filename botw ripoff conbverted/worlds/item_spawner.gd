@@ -8,7 +8,8 @@ func _ready() -> void:
 	add_spawnable_scene("res://player/main character.tscn")
 	for i in g.list_of_items:
 		add_spawnable_scene(g.list_of_items[i]["scene"])
-
+	for i in g.list_of_entities:
+		add_spawnable_scene(g.list_of_entities[i]["scene"])
 
 
 func make_copies(item:items,extra:Array=[]):
