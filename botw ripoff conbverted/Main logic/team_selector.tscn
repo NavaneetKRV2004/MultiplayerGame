@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://cal7mluxgais"]
+
+[ext_resource type="Script" uid="uid://ufoei6mnebha" path="res://Main logic/team_selector.gd" id="1_1v85q"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_t81av"]
+
+[node name="team selector" type="StaticBody3D"]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0)
+script = ExtResource("1_1v85q")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_t81av")
+
+[node name="Label3D" type="Label3D" parent="."]
+billboard = 2
+text = "Click to Select"

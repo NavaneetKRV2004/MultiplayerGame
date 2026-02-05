@@ -10,3 +10,6 @@ spleef
 aim practice board
 door
 spear
+pearl
+saphire,ruby swords
+wood->stone->iron->dragonskin->

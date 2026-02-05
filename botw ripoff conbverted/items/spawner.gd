@@ -11,7 +11,7 @@ func _ready():
 	
 	$Timer.start()
 	
-func interact():
+func interact(p):
 	spawn=not spawn
 	if spawn:
 		material.albedo_color="ff0f0f"

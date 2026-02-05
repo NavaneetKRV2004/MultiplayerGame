@@ -11,7 +11,7 @@ func _ready():
 	lid.rotation_degrees.z=closedpos
 
 @rpc("any_peer")
-func interact():
+func interact(p:player=null):
 	if not multiplayer.is_server():
 		interact.rpc_id(1)
 		return 

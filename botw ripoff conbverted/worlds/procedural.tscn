@@ -64,3 +64,21 @@ mesh = SubResource("ArrayMesh_dwcd6")
 [node name="m9" type="MeshInstance3D" parent="."]
 material_override = ExtResource("2_lccal")
 mesh = SubResource("ArrayMesh_7jyy3")
+
+[node name="c1" type="CollisionShape3D" parent="."]
+
+[node name="c2" type="CollisionShape3D" parent="."]
+
+[node name="c3" type="CollisionShape3D" parent="."]
+
+[node name="c4" type="CollisionShape3D" parent="."]
+
+[node name="c5" type="CollisionShape3D" parent="."]
+
+[node name="c6" type="CollisionShape3D" parent="."]
+
+[node name="c7" type="CollisionShape3D" parent="."]
+
+[node name="c8" type="CollisionShape3D" parent="."]
+
+[node name="c9" type="CollisionShape3D" parent="."]

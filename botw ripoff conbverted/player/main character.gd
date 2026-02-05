@@ -146,7 +146,9 @@ func _ready():
 		
 	player_world=get_parent()
 	player_world.players[name.to_int()]=self
-	
+	if player_world.land.has_node("spawn"):
+		position=player_world.land.get_node("spawn").position
+		respawn_point=position
 	if not is_multiplayer_authority():
 		$ui.queue_free()
 		$DebugData.queue_free()
@@ -230,7 +232,7 @@ func _physics_process(_delta):
 				get_held_item().interactJustPressedLMB(self,col)
 			else:
 				if col is player and player_world.pvp:
-					col.damage.rpc(2,100,global_position)
+					col.damage.rpc(2,pushforce,global_position)
 					play("hit",false)
 		if Input.is_action_just_released("lmb"):
 			var col=ray.get_collider()
@@ -241,8 +243,8 @@ func _physics_process(_delta):
 		if Input.is_action_just_pressed("rmb"):
 			var col=ray.get_collider()
 			state="melee"
-			if col is items and col.has_method("interact"):
-				col.interact()
+			if col.has_method("interact"):
+				col.interact(self)
 			elif get_held_item():
 				get_held_item().interactJustPressedRMB(self,col)
 				

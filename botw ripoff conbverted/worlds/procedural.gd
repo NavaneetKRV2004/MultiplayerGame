@@ -10,7 +10,8 @@ class_name Procedural
 @export var noise=FastNoiseLite.new()
 @export var mountains=FastNoiseLite.new()
 var Vmax:float=0.0
-var chunks:Array=[]
+var chunks:Array[MeshInstance3D]=[]
+var cols:Array[CollisionShape3D]=[]
 var chunkVector={}
 @onready var world:World=get_parent()
 
@@ -28,21 +29,30 @@ func setup_chunk(mesh: MeshInstance3D) -> void:
 	surface_tool.generate_normals()
 	mesh.mesh = surface_tool.commit()
 	mesh.rotation = Vector3.ZERO
-
+	
+	
+	
 func _ready():
+	cols.clear()
 	chunks.clear()
+	var index=0
 	for i in get_children():
 		if i is MeshInstance3D:
 			chunks.append(i)
 			setup_chunk(i)
+	for i in get_children():
+		if i is CollisionShape3D:
+			cols.append(i)
+			
 	
-	var index=0
 	for i in [-1,0,1]:
 		for j in [-1,0,1]:
 			chunks[index].position.x=i*chunkSize
 			chunks[index].position.z=j*chunkSize
 			chunkVector[Vector2(i,j)]=chunks[index]
 			generateChunk(chunks[index])
+			cols[index].shape=chunks[index].mesh.create_trimesh_shape()
+			cols[index].position=chunks[index].position
 			index+=1
 
 var centerChunk:=Vector2.ZERO
@@ -78,10 +88,13 @@ func _process(delta: float) -> void:
 			if removedChunks.is_empty():
 				return
 			if  not (centerChunk+Vector2(i,j)) in chunkVector:
-				var temp=removedChunks.pop_back()
+				var temp:MeshInstance3D=removedChunks.pop_back()
 				temp.position.x=(centerChunk.x+i)*chunkSize
 				temp.position.z=(centerChunk.y+j)*chunkSize
 				generateChunk(temp)
+				var corresponding_col=get_node("c"+str(temp.name)[-1])
+				corresponding_col.shape=temp.mesh.create_trimesh_shape()
+				corresponding_col.position=temp.position
 				chunkVector[Vector2(centerChunk.x+i,centerChunk.y+j)]=temp
 				
 	
@@ -138,7 +151,10 @@ func generateChunk(mesh: MeshInstance3D):
 	mesh.mesh = st.commit()
 
 	# Update collision
-	#mesh.get_node("CollisionShape").shape = mesh.mesh.create_trimesh_shape()
+	#mesh.get_child(0).shape = mesh.mesh.create_trimesh_shape()
+	#if not mesh.get_child(0):
+		#printerr("NO COLLISOIN")
+	#mesh.get_child(0).position.y+=20
 	chunkLoadTimes.append((Time.get_ticks_usec()-t0)/1000)
 	totalChunksLoaded+=1
 
